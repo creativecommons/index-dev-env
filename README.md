@@ -37,5 +37,5 @@ containers:
 | name | version |
 | --- | --- |
 | [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) | ^1.6 |
-| [Classic Editor](https://wordpress.org/plugins/classic-editor/) | ^6.1 |
 | [Advanced Custom Fields: Menu Chooser](https://github.com/reyhoun/acf-menu-chooser) | v1.1.0 |
+| [Classic Editor](https://wordpress.org/plugins/classic-editor/) | ^6.1 |

@@ -31,3 +31,10 @@ containers:
     ```
 4. Wait for build and initialization to complete
 5. Install WordPress initially through the GUI. (TODO: Script help here)
+
+
+## Plugins 
+| name | version |
+| --- | --- |
+| [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) | ^1.6 |
+| [Classic Editor](https://wordpress.org/plugins/classic-editor/) | ^6.1 |

@@ -31,5 +31,3 @@ containers:
     ```
 4. Wait for build and initialization to complete
 5. Install WordPress initially through the GUI. (TODO: Script help here)
-
-Plugin/Theme dev work should be done within the `/src` directory.

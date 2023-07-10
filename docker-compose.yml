@@ -31,7 +31,6 @@ services:
       - '8080:80'
     restart: always
     volumes:
-      - ./src:/var/www/html/wp-content/${WP_MOD_TYPE:?err}s/${WP_MOD_NAME:?err}
       - wp_data:/var/www/html
 
   database:

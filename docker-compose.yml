@@ -1,0 +1,103 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v2/
+
+version: '2.4'
+
+services:
+
+  wordpress:
+    container_name: cc-wordpress-web
+    depends_on:
+      - database
+    environment:
+      WORDPRESS_CONFIG_EXTRA: |
+        # Use dispatch port by default
+        if ('${CODESPACE_NAME:-}') {
+          define('WP_HOME', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
+          define('WP_SITEURL', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
+        } else {
+          define('WP_HOME', 'http://localhost:8080');
+          define('WP_SITEURL', 'http://localhost:8080');
+        }
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_name: wordpress
+      WORDPRESS_USER: root
+    # https://hub.docker.com/_/wordpress
+    image: wordpress:${WP_VERSION:?err}
+    networks:
+      - backend
+    ports:
+      - '8080:80'
+    restart: always
+    volumes:
+      - ./src:/var/www/html/wp-content/${WP_MOD_TYPE:?err}s/${WP_MOD_NAME:?err}
+      - wp_data:/var/www/html
+
+  database:
+    container_name: cc-wordpress-db
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+    # https://hub.docker.com/_/mariadb
+    image: mariadb
+    networks:
+      - backend
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: cc-phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: database
+      PMA_PORT: 3306
+    # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - backend
+    ports:
+      - '8003:80'
+
+  composer:
+    command: 'true'
+    container_name: cc-composer
+    depends_on:
+      - database
+      - wordpress
+    # https://hub.docker.com/_/composer
+    image: composer
+    user: xfs
+    volumes:
+      - ./docker/configs/composer.json:/var/www/html/composer.json
+      - ./docker/configs/composer.lock:/var/www/html/composer.lock
+      - wp_data:/var/www/html
+    working_dir: /var/www/html/
+
+  wordpress-cli:
+    container_name: cc-wpcli
+    depends_on:
+      - database
+      - wordpress
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_USER: root
+      WORDPRESS_USER: root
+    # https://hub.docker.com/_/wordpress
+    image: wordpress:cli
+    networks:
+      - backend
+    user: xfs
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:
+
+networks:
+  backend:

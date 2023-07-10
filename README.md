@@ -1,6 +1,6 @@
 # creativecommons.org-environment
 
-WordPress Theme implementation of creativecommons.org
+WordPress implementation of creativecommons.org
 
 (May expand into sibling apps, likely not)
 

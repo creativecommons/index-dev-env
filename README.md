@@ -30,19 +30,40 @@ containers:
    - [creativecommons/chooser][gh-chooser]
    - [creativecommons/faq][gh-faq]
    - [creativecommons/mp][gh-mp]
-1. Create the `.env` file:
+2. Create the `.env` file:
     ```shell
     cp .env.example .env
     ```
-2. Update `.env` to set desired values for variables (`WP_VERSION`,
+3. Update `.env` to set desired values for variables (`WP_VERSION`,
    `WP_MOD_TYPE`, `WP_MOD_NAME`, etc.)
-3. Build/start Docker:
+4. Build/start Docker:
     ```shell
     docker compose up
     ```
-4. Wait for build and initialization to complete
-5. Install WordPress initially through the GUI.
-   - **TODO:** Script help here
+5. Wait for build and initialization to complete
+6. Install WordPress initially through the GUI. 
+    - **TODO:** Script help here
+7. Install WordPress plugins/themes managed through Composer:
+    ```shell
+    composer install
+    ```
+8. Install remaining plugins/themes manually through WPCLI
+    ```shell
+    wp plugin install https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip
+
+    wp theme install https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip
+    ```
+    - **TODO:** migrate as vcs repositories in Composer
+9. Activate all installed plugins
+    ```shell
+    wp plugin activate --all --exclude=wordfence
+    ```
+10. Activate installed theme
+    ```shell
+    wp theme activate vocabulary-theme
+    ```
+11. Manually activate/configure `wordfence` in the GUI for now.
+    - **TODO:** Script help here
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
 [gh-chooser]: https://github.com/creativecommons/chooser

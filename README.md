@@ -1,8 +1,6 @@
 # creativecommons.org-environment
 
-WordPress implementation of creativecommons.org
-
-(May expand into sibling apps, likely not)
+Local development environment for creativecommons.org
 
 
 ## Docker containers
@@ -10,7 +8,7 @@ WordPress implementation of creativecommons.org
 The [`docker-compose.yml`](docker-comose.yml) file defines the following
 containers:
 
-1. cc-wordpress-web ([localhost:8080](http://localhost:8080/))
+1. cc-web ([localhost:8080](http://localhost:8080/))
 2. cc-wordpress-db
 3. cc-composer
 4. cc-phpmyadmin ([localhost:8003](http://localhost:8003/))
@@ -19,6 +17,19 @@ containers:
 
 ## Setup
 
+1. Ensure the following repositories are cloned adjancent to this repository:
+    ```
+    PARENT_DIR
+    ├── cc-legal-tools-data
+    ├── creativecommons.org-environment
+    ├── chooser
+    ├── faq
+    └── mp
+    ```
+   - [creativecommons/cc-legal-tools-data][gh-cc-legal-tools-data]
+   - [creativecommons/chooser][gh-chooser]
+   - [creativecommons/faq][gh-faq]
+   - [creativecommons/mp][gh-mp]
 1. Create the `.env` file:
     ```shell
     cp .env.example .env
@@ -30,12 +41,42 @@ containers:
     docker compose up
     ```
 4. Wait for build and initialization to complete
-5. Install WordPress initially through the GUI. (TODO: Script help here)
+5. Install WordPress initially through the GUI.
+   - **TODO:** Script help here
+
+[gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
+[gh-chooser]: https://github.com/creativecommons/chooser
+[gh-faq]: https://github.com/creativecommons/faq
+[gh-mp]: https://github.com/creativecommons/mp
 
 
-## Plugins 
-| name | version |
-| --- | --- |
-| [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) | ^1.6 |
-| [Advanced Custom Fields: Menu Chooser](https://github.com/reyhoun/acf-menu-chooser) | v1.1.0 |
-| [Classic Editor](https://wordpress.org/plugins/classic-editor/) | ^6.1 |
+## Dev component URLs
+
+| Component        | URL                           |
+| ---------------- | ----------------------------- |
+| Chooser          | [`/choose`][dev-choose]       |
+| FAQ              | [`/faq`][dev-faq]             |
+| Licenses         | [`/licenses`][dev-licenses]   |
+| Platform Toolkit | [`/platform/toolkit`][dev-mp] |
+| Public Domain    | [`/publicdomain`][dev-public] |
+| WordPress        | [`/` (default)][dev-wp]       |
+
+[dev-choose]: http://localhost:8080/choose
+[dev-faq]: http://localhost:8080/faq
+[dev-licenses]: http://localhost:8080/licenses
+[dev-mp]: http://localhost:8080/platform/toolkit
+[dev-public]: http://localhost:8080/publicdomain
+[dev-wp]: http://localhost:8080/
+
+
+## Plugins
+
+| Name                                                     | Version  |
+| -------------------------------------------------------- | -------- |
+| [Advanced Custom Fields][adv-custom-fields]              | `^1.6`   |
+| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `v1.1.0` |
+| [Classic Editor][classic-editor]                         | `^6.1`   |
+
+[adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
+[acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
+[classic-editor]: https://wordpress.org/plugins/classic-editor/

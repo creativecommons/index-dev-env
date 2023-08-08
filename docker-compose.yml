@@ -4,8 +4,16 @@ version: '2.4'
 
 services:
 
-  wordpress:
-    container_name: cc-wordpress-web
+  web:
+    command: >
+      bash -c '
+        while !</dev/tcp/database/3306
+        do
+          echo -n "Waiting on database..."
+          sleep 1
+        done 2>/dev/null
+        apache2-foreground'
+    container_name: cc-web
     depends_on:
       - database
     environment:
@@ -24,13 +32,34 @@ services:
       WORDPRESS_DB_name: wordpress
       WORDPRESS_USER: root
     # https://hub.docker.com/_/wordpress
+    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/remote/latest.md
+    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/local/latest.md
     image: wordpress:${WP_VERSION:?err}
     networks:
       - backend
     ports:
       - '8080:80'
-    restart: always
+    restart: on-failure
     volumes:
+      # Apache2 web server configuration
+      - ./config/web-sites-available:/etc/apache2/sites-available:ro
+      # CC Legal Tools
+      # - (assumes the cc-legal-tools-data repository has been cloned next to
+      #   this repository)
+      - ../cc-legal-tools-data:/var/www/git/cc-legal-tools-data:ro
+      # Chooser
+      # - (assumes the chooser repository has been cloned next to this
+      #   repository) this repository)
+      - ../chooser:/var/www/git/chooser:ro
+      # FAQ
+      # - (assumes the faq repository has been cloned next to this repository)
+      #   this repository)
+      - ../faq:/var/www/git/faq:ro
+      # Platform Toolkit
+      # - (assumes the mp repository has been cloned next to this repository)
+      #   this repository)
+      - ../mp:/var/www/git/mp:ro
+      # WordPress
       - wp_data:/var/www/html
 
   database:
@@ -43,7 +72,7 @@ services:
     image: mariadb
     networks:
       - backend
-    restart: always
+    restart: on-failure
     volumes:
       - db_data:/var/lib/mysql
 
@@ -59,19 +88,22 @@ services:
       - backend
     ports:
       - '8003:80'
+    volumes:
+      # Apache2 web server configuration
+      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
   composer:
     command: 'true'
     container_name: cc-composer
     depends_on:
       - database
-      - wordpress
+      - web
     # https://hub.docker.com/_/composer
     image: composer
     user: xfs
     volumes:
-      - ./docker/configs/composer.json:/var/www/html/composer.json
-      - ./docker/configs/composer.lock:/var/www/html/composer.lock
+      - ./config/composer/composer.json:/var/www/html/composer.json
+      - ./config/composer/composer.lock:/var/www/html/composer.lock
       - wp_data:/var/www/html
     working_dir: /var/www/html/
 
@@ -79,7 +111,7 @@ services:
     container_name: cc-wpcli
     depends_on:
       - database
-      - wordpress
+      - web
     environment:
       WORDPRESS_DB_HOST: database:3306
       WORDPRESS_DB_NAME: wordpress

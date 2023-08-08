@@ -27,9 +27,9 @@ containers:
     └── mp
     ```
    - [creativecommons/cc-legal-tools-data][gh-cc-legal-tools-data]
-   - [creativecommons/chooser][chooser]
-   - [creativecommons/faq][faq]
-   - [creativecommons/mp][mp]
+   - [creativecommons/chooser][gh-chooser]
+   - [creativecommons/faq][gh-faq]
+   - [creativecommons/mp][gh-mp]
 1. Create the `.env` file:
     ```shell
     cp .env.example .env
@@ -45,15 +45,38 @@ containers:
    - **TODO:** Script help here
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
-[chooser]: https://github.com/creativecommons/chooser
-[faq]: https://github.com/creativecommons/faq
-[mp]: https://github.com/creativecommons/mp
+[gh-chooser]: https://github.com/creativecommons/chooser
+[gh-faq]: https://github.com/creativecommons/faq
+[gh-mp]: https://github.com/creativecommons/mp
+
+
+## Dev component URLs
+
+| Component        | URL                           |
+| ---------------- | ----------------------------- |
+| Chooser          | [`/choose`][dev-choose]       |
+| FAQ              | [`/faq`][dev-faq]             |
+| Licenses         | [`/licenses`][dev-licenses]   |
+| Platform Toolkit | [`/platform/toolkit`][dev-mp] |
+| Public Domain    | [`/publicdomain`][dev-public] |
+| WordPress        | [`/` (default)][dev-wp]       |
+
+[dev-choose]: https://localhost:8080/choose
+[dev-faq]: https://localhost:8080/faq
+[dev-licenses]: https://localhost:8080/licenses
+[dev-mp]: https://localhost:8080/platform/toolkit
+[dev-public]: https://localhost:8080/publicdomain
+[dev-wp]: https://localhost:8080/
 
 
 ## Plugins
 
-| name | version |
-| --- | --- |
-| [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) | ^1.6 |
-| [Advanced Custom Fields: Menu Chooser](https://github.com/reyhoun/acf-menu-chooser) | v1.1.0 |
-| [Classic Editor](https://wordpress.org/plugins/classic-editor/) | ^6.1 |
+| Name                                                     | Version  |
+| -------------------------------------------------------- | -------- |
+| [Advanced Custom Fields][adv-custom-fields]              | `^1.6`   |
+| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `v1.1.0` |
+| [Classic Editor][classic-editor]                         | `^6.1`   |
+
+[adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
+[acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
+[classic-editor]: https://wordpress.org/plugins/classic-editor/

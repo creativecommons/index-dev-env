@@ -6,8 +6,11 @@
         }
     ],
     "require": {
-        "wpackagist-plugin/classic-editor": "^1.6",
-        "wpackagist-plugin/advanced-custom-fields": "^6.1"
+        "wpackagist-plugin/classic-editor": "1.6",
+        "wpackagist-plugin/advanced-custom-fields": "6.1",
+        "wpackagist-plugin/redirection": "4.8",
+        "wpackagist-plugin/tablepress": "1.12",
+        "wpackagist-plugin/wordfence": "7.10.3"
     },
     "config": {
         "allow-plugins": {

@@ -61,12 +61,12 @@ containers:
 | Public Domain    | [`/publicdomain`][dev-public] |
 | WordPress        | [`/` (default)][dev-wp]       |
 
-[dev-choose]: https://localhost:8080/choose
-[dev-faq]: https://localhost:8080/faq
-[dev-licenses]: https://localhost:8080/licenses
-[dev-mp]: https://localhost:8080/platform/toolkit
-[dev-public]: https://localhost:8080/publicdomain
-[dev-wp]: https://localhost:8080/
+[dev-choose]: http://localhost:8080/choose
+[dev-faq]: http://localhost:8080/faq
+[dev-licenses]: http://localhost:8080/licenses
+[dev-mp]: http://localhost:8080/platform/toolkit
+[dev-public]: http://localhost:8080/publicdomain
+[dev-wp]: http://localhost:8080/
 
 
 ## Plugins

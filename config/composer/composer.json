@@ -1,17 +1,21 @@
 {
-    "repositories":[
-        {
-            "type":"composer",
-            "url":"https://wpackagist.org"
-        }
-    ],
-    "require": {
-        "wpackagist-plugin/classic-editor": "^1.6",
-        "wpackagist-plugin/advanced-custom-fields": "^6.1"
-    },
-    "config": {
-        "allow-plugins": {
-            "composer/installers": true
-        }
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
     }
+  },
+  "description": "CreativeCommons.org Local Dev WordPress site via Composer",
+  "license": "GPL-2.0-or-later",
+  "name": "creativecommons/creativecommons-org-local-dev",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "wpackagist-plugin/advanced-custom-fields": "^6.1",
+    "wpackagist-plugin/classic-editor": "^1.6",
+    "wpackagist-plugin/wordpress-importer": "^0.8"
+  }
 }

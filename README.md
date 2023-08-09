@@ -47,22 +47,15 @@ containers:
     ```shell
     composer install
     ```
-8. Install remaining plugins/themes manually through WPCLI
-    ```shell
-    wp plugin install https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip
-
-    wp theme install https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip
-    ```
-    - **TODO:** migrate as vcs repositories in Composer
-9. Activate all installed plugins
+8. Activate all installed plugins, excluding `wordfence`
     ```shell
     wp plugin activate --all --exclude=wordfence
     ```
-10. Activate installed theme
+9. Activate `vocabulary-theme`
     ```shell
     wp theme activate vocabulary-theme
     ```
-11. Manually activate/configure `wordfence` in the GUI for now.
+10. Optionally: manually activate/configure `wordfence` in the GUI for now.
     - **TODO:** Script help here
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data

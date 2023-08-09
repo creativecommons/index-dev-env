@@ -83,7 +83,7 @@ containers:
 | [Redirection][redirection]                               | `4.9.2`  |
 | [Tablepress][tablepress]                                 | `1.14`   |
 | [Wordfence][wordfence]                                   | `7.10.3` |
-
+| [WordPress Imorter][wp-importer]                         | `0.8.1`  |
 
 [adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
 [acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
@@ -91,6 +91,7 @@ containers:
 [redirection]: https://wordpress.org/plugins/redirection/
 [tablepress]: https://wordpress.org/plugins/tablepress/
 [wordfence]: https://wordpress.org/plugins/wordfence/
+[wp-importer]: https://wordpress.org/plugins/wordpress-importer/
 
 
 ## Themes

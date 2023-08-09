@@ -45,6 +45,7 @@
     "wpackagist-plugin/redirection": "4.9.2",
     "wpackagist-plugin/tablepress": "1.14",
     "wpackagist-plugin/wordfence": "7.10.3",
+    "wpackagist-plugin/wordpress-importer": "0.8.1",
     "wpackagist-theme/twentytwentythree": "1.2"
   }
 }

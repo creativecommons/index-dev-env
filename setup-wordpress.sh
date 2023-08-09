@@ -16,6 +16,7 @@ akismet
 classic-editor
 redirection
 tablepress
+wordpress-importer
 '
 ACTIVATE_THEMES='
 vocabulary-theme

@@ -7,6 +7,18 @@
         {
             "type": "package",
             "package": {
+              "name": "creativecommons/vocabulary-theme",
+              "version": "0.1",
+              "type": "wordpress-theme",
+              "dist": {
+                "type": "zip",
+                "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
+              }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
               "name": "reyhoun/acf-menu-chooser",
               "version": "1.1",
               "type": "wordpress-plugin",
@@ -18,6 +30,7 @@
         }
     ],
     "require": {
+        "creativecommons/vocabulary-theme": "0.1",
         "reyhoun/acf-menu-chooser": "1.1",
         "wpackagist-plugin/classic-editor": "1.6",
         "wpackagist-plugin/advanced-custom-fields": "6.1",

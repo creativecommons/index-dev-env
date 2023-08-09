@@ -10,7 +10,7 @@ trap '_es=${?};
 
 source .env
 WEB_WP_DIR=/var/www/html
-WEB_WP_URL=http://127.0.0.1:8000
+WEB_WP_URL=http://127.0.0.1:8080
 
 
 #### FUNCTIONS ################################################################

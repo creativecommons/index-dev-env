@@ -127,10 +127,24 @@ utils_info() {
     echo
 }
 
+wordpress_update_db() {
+    header 'Update WordPress database'
+    wpcli core update-db
+    echo
+}
+
+
+wordpress_db_check() {
+    header 'Check WordPress database'
+    wpcli db check
+    echo
+}
+
 
 wordpress_status() {
     header 'Show maintenance mode status to expose any PHP Warnings'
     wpcli maintenance-mode status
+    echo
 }
 
 
@@ -152,4 +166,6 @@ install_wordpress
 activate_plugins
 activate_themes
 enable_permalinks
+wordpress_update_db
+wordpress_db_check
 wordpress_status

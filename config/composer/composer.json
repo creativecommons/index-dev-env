@@ -11,11 +11,41 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "package": {
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
+        },
+        "name": "creativecommons/vocabulary-theme",
+        "type": "wordpress-theme",
+        "version": "0.1"
+      },
+      "type": "package"
+    },
+    {
+      "package": {
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+        },
+        "name": "reyhoun/acf-menu-chooser",
+        "type": "wordpress-plugin",
+        "version": "1.1"
+      },
+      "type": "package"
     }
   ],
   "require": {
-    "wpackagist-plugin/advanced-custom-fields": "^6.1",
-    "wpackagist-plugin/classic-editor": "^1.6",
-    "wpackagist-plugin/wordpress-importer": "^0.8"
+    "creativecommons/vocabulary-theme": "0.1",
+    "reyhoun/acf-menu-chooser": "1.1",
+    "wpackagist-plugin/advanced-custom-fields": "6.1.8",
+    "wpackagist-plugin/classic-editor": "1.6.3",
+    "wpackagist-plugin/redirection": "4.9.2",
+    "wpackagist-plugin/tablepress": "1.14",
+    "wpackagist-plugin/wordfence": "7.10.3",
+    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-theme/twentytwentythree": "1.2"
   }
 }

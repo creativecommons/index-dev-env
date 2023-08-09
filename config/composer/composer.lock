@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0f8f3572da4c9abdc4cf198dea97a3a",
+    "content-hash": "2bba7340b585d15664b2fa118978f211",
     "packages": [
         {
             "name": "composer/installers",
@@ -152,6 +152,24 @@
             "time": "2022-08-20T06:45:11+00:00"
         },
         {
+            "name": "creativecommons/vocabulary-theme",
+            "version": "0.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
+            },
+            "type": "wordpress-theme"
+        },
+        {
+            "name": "reyhoun/acf-menu-chooser",
+            "version": "1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "wpackagist-plugin/advanced-custom-fields",
             "version": "6.1.8",
             "source": {
@@ -188,6 +206,60 @@
             "homepage": "https://wordpress.org/plugins/classic-editor/"
         },
         {
+            "name": "wpackagist-plugin/redirection",
+            "version": "4.9.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redirection/",
+                "reference": "tags/4.9.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.4.9.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/redirection/"
+        },
+        {
+            "name": "wpackagist-plugin/tablepress",
+            "version": "1.14",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/tablepress/",
+                "reference": "tags/1.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/tablepress.1.14.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/tablepress/"
+        },
+        {
+            "name": "wpackagist-plugin/wordfence",
+            "version": "7.10.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordfence/",
+                "reference": "tags/7.10.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordfence.7.10.3.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordfence/"
+        },
+        {
             "name": "wpackagist-plugin/wordpress-importer",
             "version": "0.8.1",
             "source": {
@@ -204,6 +276,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
+            "name": "wpackagist-theme/twentytwentythree",
+            "version": "1.2",
+            "source": {
+                "type": "svn",
+                "url": "https://themes.svn.wordpress.org/twentytwentythree/",
+                "reference": "1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/theme/twentytwentythree.1.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-theme",
+            "homepage": "https://wordpress.org/themes/twentytwentythree/"
         }
     ],
     "packages-dev": [],

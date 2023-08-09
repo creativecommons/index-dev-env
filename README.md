@@ -87,11 +87,11 @@ containers:
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
-| [Advanced Custom Fields][adv-custom-fields]              | `6.1`   |
-| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0` |
-| [Classic Editor][classic-editor]                         | `1.6`   |
-| [Redirection][redirection]                               | `4.8` |
-| [Tablepress][tablepress]                                 | `1.12` |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.1.8`  |
+| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
+| [Classic Editor][classic-editor]                         | `1.6.3`  |
+| [Redirection][redirection]                               | `4.9.2`  |
+| [Tablepress][tablepress]                                 | `1.14`   |
 | [Wordfence][wordfence]                                   | `7.10.3` |
 
 

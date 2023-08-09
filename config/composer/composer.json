@@ -20,7 +20,7 @@
         },
         "name": "creativecommons/vocabulary-theme",
         "type": "wordpress-theme",
-        "version": "0.1"
+        "version": "0.1.0"
       },
       "type": "package"
     },
@@ -38,14 +38,13 @@
     }
   ],
   "require": {
-    "creativecommons/vocabulary-theme": "0.1",
+    "creativecommons/vocabulary-theme": "0.1.0",
     "reyhoun/acf-menu-chooser": "1.1",
     "wpackagist-plugin/advanced-custom-fields": "6.1.8",
     "wpackagist-plugin/classic-editor": "1.6.3",
     "wpackagist-plugin/redirection": "4.9.2",
     "wpackagist-plugin/tablepress": "1.14",
     "wpackagist-plugin/wordfence": "7.10.3",
-    "wpackagist-plugin/wordpress-importer": "0.8.1",
     "wpackagist-theme/twentytwentythree": "1.2"
   }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bba7340b585d15664b2fa118978f211",
+    "content-hash": "d5d2ac7e23095d14ea162d607e3d149e",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,7 +153,7 @@
         },
         {
             "name": "creativecommons/vocabulary-theme",
-            "version": "0.1",
+            "version": "0.1.0",
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
@@ -258,24 +258,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordfence/"
-        },
-        {
-            "name": "wpackagist-plugin/wordpress-importer",
-            "version": "0.8.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.8.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.8.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordpress-importer/"
         },
         {
             "name": "wpackagist-theme/twentytwentythree",

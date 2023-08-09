@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a90f569fe6eaf59e44613970ac551746",
+    "content-hash": "17d9de6a3f7ce1f1de6f7303773c774e",
     "packages": [
         {
             "name": "composer/installers",
@@ -152,6 +152,15 @@
             "time": "2022-08-20T06:45:11+00:00"
         },
         {
+            "name": "reyhoun/acf-menu-chooser",
+            "version": "1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "wpackagist-plugin/advanced-custom-fields",
             "version": "6.1.0",
             "source": {
@@ -240,6 +249,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordfence/"
+        },
+        {
+            "name": "wpackagist-theme/twentytwentythree",
+            "version": "1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://themes.svn.wordpress.org/twentytwentythree/",
+                "reference": "1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/theme/twentytwentythree.1.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-theme",
+            "homepage": "https://wordpress.org/themes/twentytwentythree/"
         }
     ],
     "packages-dev": [],

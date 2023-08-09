@@ -3,14 +3,28 @@
         {
             "type":"composer",
             "url":"https://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+              "name": "reyhoun/acf-menu-chooser",
+              "version": "1.1",
+              "type": "wordpress-plugin",
+              "dist": {
+                "type": "zip",
+                "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+              }
+            }
         }
     ],
     "require": {
+        "reyhoun/acf-menu-chooser": "1.1",
         "wpackagist-plugin/classic-editor": "1.6",
         "wpackagist-plugin/advanced-custom-fields": "6.1",
         "wpackagist-plugin/redirection": "4.8",
         "wpackagist-plugin/tablepress": "1.12",
-        "wpackagist-plugin/wordfence": "7.10.3"
+        "wpackagist-plugin/wordfence": "7.10.3",
+        "wpackagist-theme/twentytwentythree": "1.1"
     },
     "config": {
         "allow-plugins": {

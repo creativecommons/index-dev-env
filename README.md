@@ -30,19 +30,33 @@ containers:
    - [creativecommons/chooser][gh-chooser]
    - [creativecommons/faq][gh-faq]
    - [creativecommons/mp][gh-mp]
-1. Create the `.env` file:
+2. Create the `.env` file:
     ```shell
     cp .env.example .env
     ```
-2. Update `.env` to set desired values for variables (`WP_VERSION`,
+3. Update `.env` to set desired values for variables (`WP_VERSION`,
    `WP_MOD_TYPE`, `WP_MOD_NAME`, etc.)
-3. Build/start Docker:
+4. Build/start Docker:
     ```shell
     docker compose up
     ```
-4. Wait for build and initialization to complete
-5. Install WordPress initially through the GUI.
-   - **TODO:** Script help here
+5. Wait for build and initialization to complete
+6. Install WordPress initially through the GUI. 
+    - **TODO:** Script help here
+7. Install WordPress plugins/themes managed through Composer:
+    ```shell
+    composer install
+    ```
+8. Activate all installed plugins, excluding `wordfence`
+    ```shell
+    wp plugin activate --all --exclude=wordfence
+    ```
+9. Activate `vocabulary-theme`
+    ```shell
+    wp theme activate vocabulary-theme
+    ```
+10. Optionally: manually activate/configure `wordfence` in the GUI for now.
+    - **TODO:** Script help here
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
 [gh-chooser]: https://github.com/creativecommons/chooser
@@ -73,10 +87,27 @@ containers:
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
-| [Advanced Custom Fields][adv-custom-fields]              | `^1.6`   |
-| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `v1.1.0` |
-| [Classic Editor][classic-editor]                         | `^6.1`   |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.1`   |
+| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0` |
+| [Classic Editor][classic-editor]                         | `1.6`   |
+| [Redirection][redirection]                               | `4.8` |
+| [Tablepress][tablepress]                                 | `1.12` |
+| [Wordfence][wordfence]                                   | `7.10.3` |
+
 
 [adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
 [acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
 [classic-editor]: https://wordpress.org/plugins/classic-editor/
+[redirection]: https://wordpress.org/plugins/redirection/
+[tablepress]: https://wordpress.org/plugins/tablepress/
+[wordfence]: https://wordpress.org/plugins/wordfence/
+
+
+## Themes
+
+| Name                                                     | Version  |
+| -------------------------------------------------------- | -------- |
+| [Vocabulary Theme][vocabulary-theme]                     | `0.1.0`  |
+
+
+[vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme

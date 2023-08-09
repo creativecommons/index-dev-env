@@ -41,21 +41,11 @@ containers:
     docker compose up
     ```
 5. Wait for build and initialization to complete
-6. Install WordPress initially through the GUI. 
-    - **TODO:** Script help here
-7. Install WordPress plugins/themes managed through Composer:
+6. Setup WordPress:
     ```shell
-    composer install
+    ./setup-wordpress.sh
     ```
-8. Activate all installed plugins, excluding `wordfence`
-    ```shell
-    wp plugin activate --all --exclude=wordfence
-    ```
-9. Activate `vocabulary-theme`
-    ```shell
-    wp theme activate vocabulary-theme
-    ```
-10. Optionally: manually activate/configure `wordfence` in the GUI for now.
+7. Optionally: manually activate/configure `wordfence` in the GUI for now.
     - **TODO:** Script help here
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data

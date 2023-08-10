@@ -16,7 +16,7 @@
       "package": {
         "dist": {
           "type": "zip",
-          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.2.0.zip"
+          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v0.2.0.zip"
         },
         "name": "creativecommons/vocabulary-theme",
         "type": "wordpress-theme",

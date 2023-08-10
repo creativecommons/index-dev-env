@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fd64e6320b030496e3bcb220631a006",
+    "content-hash": "1251a07af4837b820d044e39321787d9",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,10 +153,10 @@
         },
         {
             "name": "creativecommons/vocabulary-theme",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
+                "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v0.2.0.zip"
             },
             "type": "wordpress-theme"
         },

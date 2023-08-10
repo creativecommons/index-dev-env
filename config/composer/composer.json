@@ -16,11 +16,11 @@
       "package": {
         "dist": {
           "type": "zip",
-          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v.0.1.0.zip"
+          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v0.2.0.zip"
         },
         "name": "creativecommons/vocabulary-theme",
         "type": "wordpress-theme",
-        "version": "0.1.0"
+        "version": "0.2.0"
       },
       "type": "package"
     },
@@ -38,7 +38,7 @@
     }
   ],
   "require": {
-    "creativecommons/vocabulary-theme": "0.1.0",
+    "creativecommons/vocabulary-theme": "0.2.0",
     "reyhoun/acf-menu-chooser": "1.1",
     "wpackagist-plugin/advanced-custom-fields": "6.1.8",
     "wpackagist-plugin/classic-editor": "1.6.3",

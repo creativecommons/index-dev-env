@@ -5,14 +5,6 @@ version: '2.4'
 services:
 
   web:
-    command: >
-      bash -c '
-        while !</dev/tcp/database/3306
-        do
-          echo -n "Waiting on database..."
-          sleep 1
-        done 2>/dev/null
-        apache2-foreground'
     container_name: cc-web
     depends_on:
       - database

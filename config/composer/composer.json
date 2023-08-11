@@ -13,16 +13,9 @@
       "url": "https://wpackagist.org"
     },
     {
-      "package": {
-        "dist": {
-          "type": "zip",
-          "url": "https://github.com/creativecommons/vocabulary-theme/archive/refs/tags/v0.3.0.zip"
-        },
-        "name": "creativecommons/vocabulary-theme",
-        "type": "wordpress-theme",
-        "version": "0.3.0"
-      },
-      "type": "package"
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/vocabulary-theme"
     },
     {
       "package": {

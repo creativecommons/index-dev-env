@@ -15,5 +15,6 @@ Thumbs.db
 # Local configuration
 .env
 
-# Migration cache
+# Migration
 cache/
+import.log

@@ -78,12 +78,14 @@ services:
 
   phpmyadmin:
     container_name: cc-phpmyadmin
+    depends_on:
+      - database
     environment:
       MYSQL_ROOT_PASSWORD: root
       PMA_HOST: database
       PMA_PORT: 3306
     # https://hub.docker.com/_/phpmyadmin
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     networks:
       - backend
     ports:

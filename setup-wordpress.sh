@@ -36,6 +36,10 @@ wordpress-importer
 ACTIVATE_THEMES='
 vocabulary-theme
 '
+REMOVE_THEMES='
+twentytwentyone
+twentytwentytwo
+'
 WEB_WP_DIR=/var/www/html
 WEB_WP_URL=http://localhost:8080
 
@@ -136,6 +140,23 @@ install_wordpress() {
 }
 
 
+remove_themes() {
+    local _theme
+    header 'Remove extraneous WordPress themes'
+    for _theme in ${REMOVE_THEMES}
+    do
+        if ! wpcli --no-color --quiet theme is-installed "${_theme}" \
+            > /dev/null
+        then
+            echo "no-op: ${_theme} is not installed"
+        else
+            wpcli theme delete "${_theme}"
+        fi
+    done
+    echo
+}
+
+
 utils_info() {
     header 'Utilities info'
     docker compose run --rm composer --version 2>/dev/null
@@ -181,6 +202,7 @@ wpcli() {
 utils_info
 composer_install
 install_wordpress
+remove_themes
 activate_plugins
 activate_themes
 enable_permalinks

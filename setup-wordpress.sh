@@ -24,7 +24,10 @@ trap '_es=${?};
 
 # shellcheck disable=SC1091
 source .env
-ACTIVATE_PLUGINS='
+OPT_DATE_FORMAT=Y-m-d
+OPT_TIME_FORMAT='H:i'
+OPT_DEFAULT_COMMENT_STATUS=''
+PLUGINS_ACTIVATE='
 acf-menu-chooser
 advanced-custom-fields
 akismet
@@ -33,10 +36,10 @@ redirection
 tablepress
 wordpress-importer
 '
-ACTIVATE_THEMES='
+THEMES_ACTIVATE='
 vocabulary-theme
 '
-REMOVE_THEMES='
+THEMES_REMOVE='
 twentytwentyone
 twentytwentytwo
 '
@@ -50,11 +53,11 @@ WEB_WP_URL=http://localhost:8080
 activate_plugins() {
     local _plugin
     header 'Activate WordPress plugins'
-    for _plugin in ${ACTIVATE_PLUGINS}
+    for _plugin in ${PLUGINS_ACTIVATE}
     do
         if wpcli --no-color --quiet plugin is-active "${_plugin}" &> /dev/null
         then
-            echo "no-op: ${_plugin} is already active"
+            no_op "${_plugin} is already active"
         else
             wpcli plugin activate "${_plugin}"
         fi
@@ -66,11 +69,11 @@ activate_plugins() {
 activate_themes() {
     local _theme
     header 'Activate WordPress themes'
-    for _theme in ${ACTIVATE_THEMES}
+    for _theme in ${THEMES_ACTIVATE}
     do
         if wpcli --no-color --quiet theme is-active "${_theme}" &> /dev/null
         then
-            echo "no-op: ${_theme} is already active"
+            no_op "${_theme} is already active"
         else
             wpcli theme activate "${_theme}"
         fi
@@ -89,7 +92,7 @@ enable_permalinks() {
     if wpcli --no-color --quiet rewrite list 2> /dev/null \
         | grep -qF 'page/?([0-9]{1,})/?$'
     then
-        echo 'no-op: rewrite rules exist'
+        no_op 'rewrite rules exist'
     else
         wpcli rewrite structure --hard '/%postname%'
     fi
@@ -127,7 +130,7 @@ install_wordpress() {
     echo
     if wpcli --no-color --quiet core is-installed &> /dev/null
     then
-        echo 'no-op: already installed'
+        no_op 'already installed'
     else
         wpcli core install \
             --title='CreativeCommons.org Local Dev' \
@@ -140,19 +143,64 @@ install_wordpress() {
 }
 
 
+no_op() {
+    # Print no-op message"
+    printf "\033[1m\033[30mno-op: %s\033[0m\n" "${@}"
+}
+
+
 remove_themes() {
     local _theme
     header 'Remove extraneous WordPress themes'
-    for _theme in ${REMOVE_THEMES}
+    for _theme in ${THEMES_REMOVE}
     do
         if ! wpcli --no-color --quiet theme is-installed "${_theme}" \
             > /dev/null
         then
-            echo "no-op: ${_theme} is not installed"
+            no_op "${_theme} is not installed"
         else
             wpcli theme delete "${_theme}"
         fi
     done
+    echo
+}
+
+
+update_wordpress_options() {
+    local _date_format _default_comment_status _noop _time_format
+    header 'Update WordPress options'
+
+    _date_format=$(wpcli option get date_format)
+    if [[ "${OPT_DATE_FORMAT}" != "${_date_format}" ]]
+    then
+        echo "Update date_format: '${OPT_DATE_FORMAT}'"
+        wpcli option update date_format "${OPT_DATE_FORMAT}"
+    else
+        no_op "date_format is already: '${OPT_DATE_FORMAT}'"
+    fi
+
+    _default_comment_status=$(wpcli option get default_comment_status)
+    if [[ "${OPT_DEFAULT_COMMENT_STATUS}" != "${_default_comment_status}" ]]
+    then
+        echo -n "Update default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
+        echo ' (disabled)'
+        wpcli option update default_comment_status \
+            "${OPT_DEFAULT_COMMENT_STATUS}"
+    else
+        _noop='default_comment_status is already:'
+        _noop="${_noop} '${OPT_DEFAULT_COMMENT_STATUS}' (disabled)"
+        no_op "${_noop}"
+    fi
+
+    _time_format=$(wpcli option get time_format)
+    if [[ "${OPT_TIME_FORMAT}" != "${_time_format}" ]]
+    then
+        echo "Update time_format: '${OPT_TIME_FORMAT}'"
+        wpcli option update time_format "${OPT_TIME_FORMAT}"
+    else
+        no_op "time_format is already: '${OPT_TIME_FORMAT}'"
+    fi
+
     echo
 }
 
@@ -202,6 +250,7 @@ wpcli() {
 utils_info
 composer_install
 install_wordpress
+update_wordpress_options
 remove_themes
 activate_plugins
 activate_themes

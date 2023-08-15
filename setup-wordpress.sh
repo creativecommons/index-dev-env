@@ -121,9 +121,9 @@ install_wordpress() {
     if [[ -n "${WP_ADMIN_EMAIL}" ]] && [[ -n "${WP_ADMIN_EMAIL}" ]] \
         && [[ -n "${WP_ADMIN_EMAIL}" ]]
     then
-        echo "WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}"
-        echo "WP_ADMIN_USER:  ${WP_ADMIN_USER}"
-        echo "WP_ADMIN_PASS:  ${WP_ADMIN_PASS}"
+        print_var WP_ADMIN_EMAIL
+        print_var WP_ADMIN_USER
+        print_var WP_ADMIN_PASS
     else
         _err='The following variables must be set in .env (see .env.example):'
         _err="${_err} WP_ADMIN_EMAIL, WP_ADMIN_USER, WP_ADMIN_PASS"
@@ -156,6 +156,11 @@ optimize_tables() {
     wpcli db optimize --color \
         | sed -e'/Table does not support optimize/d' -e'/^status   : OK/d'
     echo
+}
+
+
+print_var() {
+    printf "\033[36m%19s\033[0m %s\n" "${1}:" "${!1}"
 }
 
 
@@ -216,9 +221,23 @@ update_wordpress_options() {
 
 
 utils_info() {
+    local _key _val IFS
     header 'Utilities info'
     docker compose run --rm composer --version 2>/dev/null
-    wpcli --info
+    echo
+    echo 'WP-CLI - The command-line interface for WordPress'
+    IFS=$'\n'
+    for _line in $(wpcli --info)
+    do
+        _key="${_line%%:*}"
+        # '| xargs' is used to trim whitespace
+        _val="$( echo "${_line#*:}" | xargs)"
+        [[ -n "${_val}" ]] || continue
+        [[ "${_key}" =~ ^WP-CLI ]] || continue
+        printf "\033[36m%19s\033[0m %s\n" "${_key}:" "${_val}"
+    done
+    print_var WEB_WP_URL
+    print_var WEB_WP_DIR
     echo
 }
 

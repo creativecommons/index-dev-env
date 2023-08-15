@@ -118,7 +118,7 @@ composer_install() {
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
-            -e'/Use the `composer fund` command/d'
+            -e'/Use the .composer fund. command/d'
     echo
 }
 

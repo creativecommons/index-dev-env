@@ -28,7 +28,6 @@ source .env
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 E0="$(printf "\033[0m")"        # reset
 E1="$(printf "\033[1m")"        # bold
-E7="$(printf "\033[7m")"        # invert
 E30="$(printf "\033[30m")"      # black foreground
 E31="$(printf "\033[31m")"      # red foreground
 E33="$(printf "\033[33m")"      # yellow foreground

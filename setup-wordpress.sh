@@ -89,6 +89,46 @@ composer_install() {
 }
 
 
+container_info() {
+    local _key _val IFS
+    header 'Container info'
+
+    # composer
+    printf "\033[1m%s\033[0m container - %s\n" \
+        'composer' 'A Dependency Manager for PHP'
+    container_print 'Composer version' "$(docker compose run --rm composer \
+        --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
+    echo
+
+    # web
+    printf "\033[1m%s\033[0m container - %s\n" 'web' 'WordPress'
+    print_var WEB_WP_URL
+    print_var WEB_WP_DIR
+    container_print 'WordPress version:' "$(wpcli core version)"
+    echo
+
+    # wordpress-cli
+    printf "\033[1m%s\033[0m container - %s\n" \
+        'wordpress-cli' 'The command line interface for WordPress'
+    IFS=$'\n'
+    for _line in $(wpcli --info | sort)
+    do
+        _key="${_line%%:*}"
+        # '| xargs' is used to trim whitespace
+        _val="$( echo "${_line#*:}" | xargs)"
+        [[ -n "${_val}" ]] || continue
+        [[ "${_key}" =~ ^WP-CLI ]] || continue
+        container_print "${_key}:" "${_val}"
+    done
+    echo
+}
+
+
+container_print() {
+    printf "\033[36m%19s\033[0m %s\n" "${1}" "${2}"
+}
+
+
 enable_permalinks() {
     header 'Enable post name permalinks'
     if wpcli --no-color --quiet rewrite list 2> /dev/null \
@@ -218,27 +258,6 @@ update_wordpress_options() {
 }
 
 
-utils_info() {
-    local _key _val IFS
-    header 'Utilities info'
-    docker compose run --rm composer --version 2>/dev/null
-    echo
-    echo 'WP-CLI - The command-line interface for WordPress'
-    IFS=$'\n'
-    for _line in $(wpcli --info)
-    do
-        _key="${_line%%:*}"
-        # '| xargs' is used to trim whitespace
-        _val="$( echo "${_line#*:}" | xargs)"
-        [[ -n "${_val}" ]] || continue
-        [[ "${_key}" =~ ^WP-CLI ]] || continue
-        printf "\033[36m%19s\033[0m %s\n" "${_key}:" "${_val}"
-    done
-    print_var WEB_WP_URL
-    print_var WEB_WP_DIR
-    echo
-}
-
 wordpress_update_db() {
     header 'Update WordPress database'
     wpcli core update-db
@@ -274,7 +293,7 @@ wpcli() {
 
 #### MAIN #####################################################################
 
-utils_info
+container_info
 composer_install
 install_wordpress
 update_wordpress_options

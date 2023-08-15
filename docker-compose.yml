@@ -53,6 +53,8 @@ services:
       - ../mp:/var/www/git/mp:ro
       # WordPress
       - wp_data:/var/www/html
+      # Migration cache
+      - ./cache:/var/www/html/cache:ro
 
   database:
     container_name: cc-wordpress-db
@@ -118,7 +120,10 @@ services:
       - backend
     user: xfs
     volumes:
+      # WordPress
       - wp_data:/var/www/html
+      # Migration cache
+      - ./cache:/var/www/html/cache:ro
 
 volumes:
   db_data:

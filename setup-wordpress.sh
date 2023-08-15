@@ -26,7 +26,7 @@ trap '_es=${?};
 source .env
 OPT_DATE_FORMAT=Y-m-d
 OPT_TIME_FORMAT='H:i'
-OPT_DEFAULT_COMMENT_STATUS=''
+OPT_DEFAULT_COMMENT_STATUS=closed
 PLUGINS_ACTIVATE='
 acf-menu-chooser
 advanced-custom-fields
@@ -81,11 +81,53 @@ activate_themes() {
     echo
 }
 
+
 composer_install() {
     header 'Composer install'
     docker compose run --rm composer install 2>/dev/null
     echo
 }
+
+
+container_info() {
+    local _key _val IFS
+    header 'Container info'
+
+    # composer
+    printf "\033[1m%s\033[0m container - %s\n" \
+        'composer' 'A Dependency Manager for PHP'
+    container_print 'Composer version' "$(docker compose run --rm composer \
+        --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
+    echo
+
+    # web
+    printf "\033[1m%s\033[0m container - %s\n" 'web' 'WordPress'
+    print_var WEB_WP_URL
+    print_var WEB_WP_DIR
+    container_print 'WordPress version:' "$(wpcli core version)"
+    echo
+
+    # wordpress-cli
+    printf "\033[1m%s\033[0m container - %s\n" \
+        'wordpress-cli' 'The command line interface for WordPress'
+    IFS=$'\n'
+    for _line in $(wpcli --info | sort)
+    do
+        _key="${_line%%:*}"
+        # '| xargs' is used to trim whitespace
+        _val="$( echo "${_line#*:}" | xargs)"
+        [[ -n "${_val}" ]] || continue
+        [[ "${_key}" =~ ^WP-CLI ]] || continue
+        container_print "${_key}:" "${_val}"
+    done
+    echo
+}
+
+
+container_print() {
+    printf "\033[36m%19s\033[0m %s\n" "${1}" "${2}"
+}
+
 
 enable_permalinks() {
     header 'Enable post name permalinks'
@@ -108,8 +150,8 @@ error_exit() {
 
 
 header() {
-    # Print 80 character wide black on white heading
-    printf "\033[1m\033[7m %-80s\033[0m\n" "${@}"
+    # Print 80 character wide black on white heading with time
+    printf "\033[1m\033[7m %-71s$(date '+%T') \033[0m\n" "${@}"
 }
 
 
@@ -119,9 +161,9 @@ install_wordpress() {
     if [[ -n "${WP_ADMIN_EMAIL}" ]] && [[ -n "${WP_ADMIN_EMAIL}" ]] \
         && [[ -n "${WP_ADMIN_EMAIL}" ]]
     then
-        echo "WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}"
-        echo "WP_ADMIN_USER:  ${WP_ADMIN_USER}"
-        echo "WP_ADMIN_PASS:  ${WP_ADMIN_PASS}"
+        print_var WP_ADMIN_EMAIL
+        print_var WP_ADMIN_USER
+        print_var WP_ADMIN_PASS
     else
         _err='The following variables must be set in .env (see .env.example):'
         _err="${_err} WP_ADMIN_EMAIL, WP_ADMIN_USER, WP_ADMIN_PASS"
@@ -149,6 +191,19 @@ no_op() {
 }
 
 
+optimize_tables() {
+    header 'Optimize WordPress database tables'
+    wpcli db optimize --color \
+        | sed -e'/Table does not support optimize/d' -e'/^status   : OK/d'
+    echo
+}
+
+
+print_var() {
+    printf "\033[36m%19s\033[0m %s\n" "${1}:" "${!1}"
+}
+
+
 remove_themes() {
     local _theme
     header 'Remove extraneous WordPress themes'
@@ -173,44 +228,35 @@ update_wordpress_options() {
     _date_format=$(wpcli option get date_format)
     if [[ "${OPT_DATE_FORMAT}" != "${_date_format}" ]]
     then
-        echo "Update date_format: '${OPT_DATE_FORMAT}'"
+        echo "Update date_format: ${OPT_DATE_FORMAT}"
         wpcli option update date_format "${OPT_DATE_FORMAT}"
     else
-        no_op "date_format is already: '${OPT_DATE_FORMAT}'"
+        no_op "date_format: ${OPT_DATE_FORMAT}"
     fi
 
     _default_comment_status=$(wpcli option get default_comment_status)
     if [[ "${OPT_DEFAULT_COMMENT_STATUS}" != "${_default_comment_status}" ]]
     then
-        echo -n "Update default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
-        echo ' (disabled)'
+        echo "Update default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
         wpcli option update default_comment_status \
             "${OPT_DEFAULT_COMMENT_STATUS}"
     else
-        _noop='default_comment_status is already:'
-        _noop="${_noop} '${OPT_DEFAULT_COMMENT_STATUS}' (disabled)"
+        _noop="default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
         no_op "${_noop}"
     fi
 
     _time_format=$(wpcli option get time_format)
     if [[ "${OPT_TIME_FORMAT}" != "${_time_format}" ]]
     then
-        echo "Update time_format: '${OPT_TIME_FORMAT}'"
+        echo "Update time_format: ${OPT_TIME_FORMAT}"
         wpcli option update time_format "${OPT_TIME_FORMAT}"
     else
-        no_op "time_format is already: '${OPT_TIME_FORMAT}'"
+        no_op "time_format: ${OPT_TIME_FORMAT}"
     fi
 
     echo
 }
 
-
-utils_info() {
-    header 'Utilities info'
-    docker compose run --rm composer --version 2>/dev/null
-    wpcli --info
-    echo
-}
 
 wordpress_update_db() {
     header 'Update WordPress database'
@@ -247,7 +293,7 @@ wpcli() {
 
 #### MAIN #####################################################################
 
-utils_info
+container_info
 composer_install
 install_wordpress
 update_wordpress_options
@@ -256,5 +302,6 @@ activate_plugins
 activate_themes
 enable_permalinks
 wordpress_update_db
+optimize_tables
 wordpress_db_check
 wordpress_status

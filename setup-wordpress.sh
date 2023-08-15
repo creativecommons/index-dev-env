@@ -150,8 +150,8 @@ error_exit() {
 
 
 header() {
-    # Print 80 character wide black on white heading
-    printf "\033[1m\033[7m %-80s\033[0m\n" "${@}"
+    # Priant 80 character wide black on white heading with time
+    printf "\033[1m\033[7m %-71s$(date '+%T') \033[0m\n" "${@}"
 }
 
 

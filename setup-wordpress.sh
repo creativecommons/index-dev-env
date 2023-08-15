@@ -81,11 +81,13 @@ activate_themes() {
     echo
 }
 
+
 composer_install() {
     header 'Composer install'
     docker compose run --rm composer install 2>/dev/null
     echo
 }
+
 
 enable_permalinks() {
     header 'Enable post name permalinks'
@@ -146,6 +148,14 @@ install_wordpress() {
 no_op() {
     # Print no-op message"
     printf "\033[1m\033[30mno-op: %s\033[0m\n" "${@}"
+}
+
+
+optimize_tables() {
+    header 'Optimize WordPress database tables'
+    wpcli db optimize --color \
+        | sed -e'/Table does not support optimize/d' -e'/^status   : OK/d'
+    echo
 }
 
 
@@ -256,5 +266,6 @@ activate_plugins
 activate_themes
 enable_permalinks
 wordpress_update_db
+optimize_tables
 wordpress_db_check
 wordpress_status

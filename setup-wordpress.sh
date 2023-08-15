@@ -26,7 +26,7 @@ trap '_es=${?};
 source .env
 OPT_DATE_FORMAT=Y-m-d
 OPT_TIME_FORMAT='H:i'
-OPT_DEFAULT_COMMENT_STATUS=''
+OPT_DEFAULT_COMMENT_STATUS=closed
 PLUGINS_ACTIVATE='
 acf-menu-chooser
 advanced-custom-fields
@@ -188,32 +188,30 @@ update_wordpress_options() {
     _date_format=$(wpcli option get date_format)
     if [[ "${OPT_DATE_FORMAT}" != "${_date_format}" ]]
     then
-        echo "Update date_format: '${OPT_DATE_FORMAT}'"
+        echo "Update date_format: ${OPT_DATE_FORMAT}"
         wpcli option update date_format "${OPT_DATE_FORMAT}"
     else
-        no_op "date_format is already: '${OPT_DATE_FORMAT}'"
+        no_op "date_format: ${OPT_DATE_FORMAT}"
     fi
 
     _default_comment_status=$(wpcli option get default_comment_status)
     if [[ "${OPT_DEFAULT_COMMENT_STATUS}" != "${_default_comment_status}" ]]
     then
-        echo -n "Update default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
-        echo ' (disabled)'
+        echo "Update default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
         wpcli option update default_comment_status \
             "${OPT_DEFAULT_COMMENT_STATUS}"
     else
-        _noop='default_comment_status is already:'
-        _noop="${_noop} '${OPT_DEFAULT_COMMENT_STATUS}' (disabled)"
+        _noop="default_comment_status: ${OPT_DEFAULT_COMMENT_STATUS}"
         no_op "${_noop}"
     fi
 
     _time_format=$(wpcli option get time_format)
     if [[ "${OPT_TIME_FORMAT}" != "${_time_format}" ]]
     then
-        echo "Update time_format: '${OPT_TIME_FORMAT}'"
+        echo "Update time_format: ${OPT_TIME_FORMAT}"
         wpcli option update time_format "${OPT_TIME_FORMAT}"
     else
-        no_op "time_format is already: '${OPT_TIME_FORMAT}'"
+        no_op "time_format: ${OPT_TIME_FORMAT}"
     fi
 
     echo

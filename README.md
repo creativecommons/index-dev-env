@@ -98,7 +98,7 @@ containers:
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
-| [Vocabulary Theme][vocabulary-theme]                     | `0.3.0`  |
+| [Vocabulary Theme][vocabulary-theme]                     | `0.4.0`  |
 
 
 [vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme

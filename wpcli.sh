@@ -35,7 +35,7 @@ wpcli() {
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-        wordpress-cli \
+        ccsite-wpcli \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
             "${@}" 2>/dev/null
 }

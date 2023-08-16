@@ -1,13 +1,18 @@
+# https://github.com/docker/compose/issues/4513#issuecomment-281478365
+# >> Are we just expected to stay on [Docker Compose file format version 2] if
+# >> we want to use docker-compose and not swarm mode?
+# >
+# > Yes.
+#
 # https://docs.docker.com/compose/compose-file/compose-file-v2/
-
 version: '2.4'
 
 services:
 
-  web:
-    container_name: cc-web
+  ccsite-web:
+    container_name: ccsite-web
     depends_on:
-      - database
+      - ccsite-wpdb
     environment:
       WORDPRESS_CONFIG_EXTRA: |
         # Use dispatch port by default
@@ -18,7 +23,7 @@ services:
           define('WP_HOME', 'http://localhost:8080');
           define('WP_SITEURL', 'http://localhost:8080');
         }
-      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_HOST: ccsite-wpdb:3306
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_name: wordpress
@@ -56,8 +61,8 @@ services:
       # Migration cache
       - ./cache:/var/www/html/cache:ro
 
-  database:
-    container_name: cc-wordpress-db
+  ccsite-wpdb:
+    container_name: ccsite-wpdb
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: root
@@ -70,13 +75,13 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  phpmyadmin:
-    container_name: cc-phpmyadmin
+  ccsite-phpmyadmin:
+    container_name: ccsite-phpmyadmin
     depends_on:
-      - database
+      - ccsite-wpdb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: database
+      PMA_HOST: ccsite-wpdb
       PMA_PORT: 3306
     # https://hub.docker.com/_/phpmyadmin
     image: phpmyadmin
@@ -88,12 +93,12 @@ services:
       # Apache2 web server configuration
       - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
-  composer:
+  ccsite-composer:
     command: 'true'
-    container_name: cc-composer
+    container_name: ccsite-composer
     depends_on:
-      - database
-      - web
+      - ccsite-wpdb
+      - ccsite-web
     # https://hub.docker.com/_/composer
     image: composer
     user: xfs
@@ -103,13 +108,13 @@ services:
       - wp_data:/var/www/html
     working_dir: /var/www/html/
 
-  wordpress-cli:
-    container_name: cc-wpcli
+  ccsite-wpcli:
+    container_name: ccsite-wpcli
     depends_on:
-      - database
-      - web
+      - ccsite-wpdb
+      - ccsite-web
     environment:
-      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_HOST: ccsite-wpdb:3306
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root

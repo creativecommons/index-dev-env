@@ -1,6 +1,6 @@
-# creativecommons.org-environment
+# index-dev-env
 
-Local development environment for CreativeCommons.org
+Local development environment for CreativeCommons.org.
 
 `index` is the product name for the CreativeCommons.org website.
 

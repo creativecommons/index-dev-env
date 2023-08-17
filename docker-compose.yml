@@ -1,13 +1,18 @@
+# https://github.com/docker/compose/issues/4513#issuecomment-281478365
+# >> Are we just expected to stay on [Docker Compose file format version 2] if
+# >> we want to use docker-compose and not swarm mode?
+# >
+# > Yes.
+#
 # https://docs.docker.com/compose/compose-file/compose-file-v2/
-
 version: '2.4'
 
 services:
 
-  web:
-    container_name: cc-web
+  index-web:
+    container_name: index-web
     depends_on:
-      - database
+      - index-wpdb
     environment:
       WORDPRESS_CONFIG_EXTRA: |
         # Use dispatch port by default
@@ -18,7 +23,7 @@ services:
           define('WP_HOME', 'http://localhost:8080');
           define('WP_SITEURL', 'http://localhost:8080');
         }
-      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_HOST: index-wpdb:3306
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_name: wordpress
@@ -56,8 +61,8 @@ services:
       # Migration cache
       - ./cache:/var/www/html/cache:ro
 
-  database:
-    container_name: cc-wordpress-db
+  index-wpdb:
+    container_name: index-wpdb
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: root
@@ -70,13 +75,13 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  phpmyadmin:
-    container_name: cc-phpmyadmin
+  index-phpmyadmin:
+    container_name: index-phpmyadmin
     depends_on:
-      - database
+      - index-wpdb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: database
+      PMA_HOST: index-wpdb
       PMA_PORT: 3306
     # https://hub.docker.com/_/phpmyadmin
     image: phpmyadmin
@@ -88,12 +93,12 @@ services:
       # Apache2 web server configuration
       - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
-  composer:
+  index-composer:
     command: 'true'
-    container_name: cc-composer
+    container_name: index-composer
     depends_on:
-      - database
-      - web
+      - index-wpdb
+      - index-web
     # https://hub.docker.com/_/composer
     image: composer
     user: xfs
@@ -103,13 +108,13 @@ services:
       - wp_data:/var/www/html
     working_dir: /var/www/html/
 
-  wordpress-cli:
-    container_name: cc-wpcli
+  index-wpcli:
+    container_name: index-wpcli
     depends_on:
-      - database
-      - web
+      - index-wpdb
+      - index-web
     environment:
-      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_HOST: index-wpdb:3306
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
@@ -127,7 +132,10 @@ services:
 
 volumes:
   db_data:
+    name: index-db-data
   wp_data:
+    name: index-wp-data
 
 networks:
   backend:
+    name: index-backend

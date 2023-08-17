@@ -114,46 +114,11 @@ activate_themes() {
 
 composer_install() {
     header 'Composer install'
-    docker compose run --rm composer install --ansi 2>&1 \
+    docker compose run --rm index-composer install --ansi 2>&1 \
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
             -e'/Use the .composer fund. command/d'
-    echo
-}
-
-
-container_info() {
-    local _key _val IFS
-    header 'Container info'
-
-    # composer
-    printf "${E1}%s${E0} container - %s\n" \
-        'composer' 'A Dependency Manager for PHP'
-    container_print 'Composer version' "$(docker compose run --rm composer \
-        --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
-    echo
-
-    # web
-    printf "${E1}%s${E0} container - %s\n" 'web' 'WordPress'
-    print_var WEB_WP_URL
-    print_var WEB_WP_DIR
-    container_print 'WordPress version:' "$(wpcli core version)"
-    echo
-
-    # wordpress-cli
-    printf "${E1}%s${E0} container - %s\n" \
-        'wordpress-cli' 'The command line interface for WordPress'
-    IFS=$'\n'
-    for _line in $(wpcli --info | sort)
-    do
-        _key="${_line%%:*}"
-        # '| xargs' is used to trim whitespace
-        _val="$( echo "${_line#*:}" | xargs)"
-        [[ -n "${_val}" ]] || continue
-        [[ "${_key}" =~ ^WP-CLI ]] || continue
-        container_print "${_key}:" "${_val}"
-    done
     echo
 }
 
@@ -199,6 +164,43 @@ enable_permalinks() {
     else
         wpcli rewrite structure --hard '/%postname%'
     fi
+    echo
+}
+
+
+environment_info() {
+    local _key _val IFS
+    header 'Container information'
+
+    # index-composer
+    printf "${E1}%s${E0} - %s\n" \
+        'index-composer' 'A Dependency Manager for PHP'
+    container_print 'Composer version' \
+        "$(docker compose run --rm index-composer \
+            --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
+    echo
+
+    # index-web
+    printf "${E1}%s${E0} - %s\n" 'index-web' \
+        'Web server (WordPress and static HTML components)'
+    print_var WEB_WP_URL
+    print_var WEB_WP_DIR
+    container_print 'WordPress version:' "$(wpcli core version)"
+    echo
+
+    # index-wpcli
+    printf "${E1}%s${E0} - %s\n" \
+        'index-wpcli' 'The command line interface for WordPress'
+    IFS=$'\n'
+    for _line in $(wpcli --info | sort)
+    do
+        _key="${_line%%:*}"
+        # '| xargs' is used to trim whitespace
+        _val="$( echo "${_line#*:}" | xargs)"
+        [[ -n "${_val}" ]] || continue
+        [[ "${_key}" =~ ^WP-CLI ]] || continue
+        container_print "${_key}:" "${_val}"
+    done
     echo
 }
 
@@ -324,7 +326,7 @@ wpcli() {
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-        wordpress-cli \
+        index-wpcli \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
             "${@}" 2>/dev/null
 }
@@ -332,7 +334,7 @@ wpcli() {
 
 #### MAIN #####################################################################
 
-container_info
+environment_info
 composer_install
 install_wordpress
 update_options

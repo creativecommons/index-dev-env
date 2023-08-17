@@ -9,6 +9,39 @@ version: '2.4'
 
 services:
 
+  index-composer:
+    command: 'true'
+    container_name: index-composer
+    depends_on:
+      - index-wpdb
+      - index-web
+    # https://hub.docker.com/_/composer
+    image: composer
+    user: xfs
+    volumes:
+      - ./config/composer/composer.json:/var/www/html/composer.json
+      - ./config/composer/composer.lock:/var/www/html/composer.lock
+      - index-wp-data:/var/www/html
+    working_dir: /var/www/html/
+
+  index-phpmyadmin:
+    container_name: index-phpmyadmin
+    depends_on:
+      - index-wpdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: index-wpdb
+      PMA_PORT: 3306
+    # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin
+    networks:
+      - index-backend
+    ports:
+      - '8003:80'
+    volumes:
+      # Apache2 web server configuration
+      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
+
   index-web:
     container_name: index-web
     depends_on:
@@ -33,7 +66,7 @@ services:
     # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/local/latest.md
     image: wordpress:${WP_VERSION:?err}
     networks:
-      - backend
+      - index-backend
     ports:
       - '8080:80'
     restart: on-failure
@@ -57,56 +90,9 @@ services:
       #   this repository)
       - ../mp:/var/www/git/mp:ro
       # WordPress
-      - wp_data:/var/www/html
+      - index-wp-data:/var/www/html
       # Migration cache
       - ./cache:/var/www/html/cache:ro
-
-  index-wpdb:
-    container_name: index-wpdb
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-    # https://hub.docker.com/_/mariadb
-    image: mariadb
-    networks:
-      - backend
-    restart: on-failure
-    volumes:
-      - db_data:/var/lib/mysql
-
-  index-phpmyadmin:
-    container_name: index-phpmyadmin
-    depends_on:
-      - index-wpdb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: index-wpdb
-      PMA_PORT: 3306
-    # https://hub.docker.com/_/phpmyadmin
-    image: phpmyadmin
-    networks:
-      - backend
-    ports:
-      - '8003:80'
-    volumes:
-      # Apache2 web server configuration
-      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
-
-  index-composer:
-    command: 'true'
-    container_name: index-composer
-    depends_on:
-      - index-wpdb
-      - index-web
-    # https://hub.docker.com/_/composer
-    image: composer
-    user: xfs
-    volumes:
-      - ./config/composer/composer.json:/var/www/html/composer.json
-      - ./config/composer/composer.lock:/var/www/html/composer.lock
-      - wp_data:/var/www/html
-    working_dir: /var/www/html/
 
   index-wpcli:
     container_name: index-wpcli
@@ -122,20 +108,34 @@ services:
     # https://hub.docker.com/_/wordpress
     image: wordpress:cli
     networks:
-      - backend
+      - index-backend
     user: xfs
     volumes:
       # WordPress
-      - wp_data:/var/www/html
+      - index-wp-data:/var/www/html
       # Migration cache
       - ./cache:/var/www/html/cache:ro
 
+  index-wpdb:
+    container_name: index-wpdb
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+    # https://hub.docker.com/_/mariadb
+    image: mariadb
+    networks:
+      - index-backend
+    restart: on-failure
+    volumes:
+      - index-db-data:/var/lib/mysql
+
 volumes:
-  db_data:
+  index-db-data:
     name: index-db-data
-  wp_data:
+  index-wp-data:
     name: index-wp-data
 
 networks:
-  backend:
+  index-backend:
     name: index-backend

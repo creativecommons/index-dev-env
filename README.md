@@ -2,6 +2,8 @@
 
 Local development environment for CreativeCommons.org
 
+`index` is the product name for the CreativeCommons.org website.
+
 
 ## Overview
 
@@ -17,8 +19,6 @@ into two categories:
   - FAQ
   - Legal Tools (licenses and public domain dedications)
   - Platform Toolkit
-
-The product name for the CreativeCommons.org website is: `ccsite`.
 
 
 ## Code of Conduct
@@ -43,17 +43,17 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 The [`docker-compose.yml`](docker-comose.yml) file defines the following
 containers:
-1. **ccsite-composer** - A Dependency Manager for PHP
+1. **index-composer** - A Dependency Manager for PHP
    - This container does not have a persistent service. Expect the following
-     message when you start the services: `ccsite-composer exited with code 0`
-2. **ccsite-phpmyadmin** - Database administration
+     message when you start the services: `index-composer exited with code 0`
+2. **index-phpmyadmin** - Database administration
    - [localhost:8003](http://localhost:8003/)
-3. **ccsite-wpcli** - The command line interface for WordPress
+3. **index-wpcli** - The command line interface for WordPress
    - This container does not have a persistent service. Expect the following
-     message when you start the services: `ccsite-wpcli exited with code 0`
-4. **ccsite-web** - Web server (WordPress and static HTML components)
+     message when you start the services: `index-wpcli exited with code 0`
+4. **index-web** - Web server (WordPress and static HTML components)
    - **[localhost:8080](http://localhost:8080/)**
-5. **ccsite-wpdb** - Database server for WordPress
+5. **index-wpdb** - Database server for WordPress
 
 
 ## Setup

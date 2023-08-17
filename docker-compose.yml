@@ -9,10 +9,10 @@ version: '2.4'
 
 services:
 
-  ccsite-web:
-    container_name: ccsite-web
+  index-web:
+    container_name: index-web
     depends_on:
-      - ccsite-wpdb
+      - index-wpdb
     environment:
       WORDPRESS_CONFIG_EXTRA: |
         # Use dispatch port by default
@@ -23,7 +23,7 @@ services:
           define('WP_HOME', 'http://localhost:8080');
           define('WP_SITEURL', 'http://localhost:8080');
         }
-      WORDPRESS_DB_HOST: ccsite-wpdb:3306
+      WORDPRESS_DB_HOST: index-wpdb:3306
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_name: wordpress
@@ -61,8 +61,8 @@ services:
       # Migration cache
       - ./cache:/var/www/html/cache:ro
 
-  ccsite-wpdb:
-    container_name: ccsite-wpdb
+  index-wpdb:
+    container_name: index-wpdb
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: root
@@ -75,13 +75,13 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  ccsite-phpmyadmin:
-    container_name: ccsite-phpmyadmin
+  index-phpmyadmin:
+    container_name: index-phpmyadmin
     depends_on:
-      - ccsite-wpdb
+      - index-wpdb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: ccsite-wpdb
+      PMA_HOST: index-wpdb
       PMA_PORT: 3306
     # https://hub.docker.com/_/phpmyadmin
     image: phpmyadmin
@@ -93,12 +93,12 @@ services:
       # Apache2 web server configuration
       - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
-  ccsite-composer:
+  index-composer:
     command: 'true'
-    container_name: ccsite-composer
+    container_name: index-composer
     depends_on:
-      - ccsite-wpdb
-      - ccsite-web
+      - index-wpdb
+      - index-web
     # https://hub.docker.com/_/composer
     image: composer
     user: xfs
@@ -108,13 +108,13 @@ services:
       - wp_data:/var/www/html
     working_dir: /var/www/html/
 
-  ccsite-wpcli:
-    container_name: ccsite-wpcli
+  index-wpcli:
+    container_name: index-wpcli
     depends_on:
-      - ccsite-wpdb
-      - ccsite-web
+      - index-wpdb
+      - index-web
     environment:
-      WORDPRESS_DB_HOST: ccsite-wpdb:3306
+      WORDPRESS_DB_HOST: index-wpdb:3306
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
@@ -132,7 +132,10 @@ services:
 
 volumes:
   db_data:
+    name: index-db-data
   wp_data:
+    name: index-wp-data
 
 networks:
   backend:
+    name: index-backend

@@ -114,7 +114,7 @@ activate_themes() {
 
 composer_install() {
     header 'Composer install'
-    docker compose run --rm ccsite-composer install --ansi 2>&1 \
+    docker compose run --rm index-composer install --ansi 2>&1 \
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
@@ -172,25 +172,25 @@ environment_info() {
     local _key _val IFS
     header 'Container information'
 
-    # ccsite-composer
+    # index-composer
     printf "${E1}%s${E0} - %s\n" \
-        'ccsite-composer' 'A Dependency Manager for PHP'
+        'index-composer' 'A Dependency Manager for PHP'
     container_print 'Composer version' \
-        "$(docker compose run --rm ccsite-composer \
+        "$(docker compose run --rm index-composer \
             --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
     echo
 
-    # ccsite-web
-    printf "${E1}%s${E0} - %s\n" 'ccsite-web' \
+    # index-web
+    printf "${E1}%s${E0} - %s\n" 'index-web' \
         'Web server (WordPress and static HTML components)'
     print_var WEB_WP_URL
     print_var WEB_WP_DIR
     container_print 'WordPress version:' "$(wpcli core version)"
     echo
 
-    # ccsite-wpcli
+    # index-wpcli
     printf "${E1}%s${E0} - %s\n" \
-        'ccsite-wpcli' 'The command line interface for WordPress'
+        'index-wpcli' 'The command line interface for WordPress'
     IFS=$'\n'
     for _line in $(wpcli --info | sort)
     do
@@ -326,7 +326,7 @@ wpcli() {
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-        ccsite-wpcli \
+        index-wpcli \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
             "${@}" 2>/dev/null
 }

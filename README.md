@@ -62,8 +62,8 @@ containers:
     ```
     PARENT_DIR
     ├── cc-legal-tools-data
-    ├── creativecommons.org-environment
     ├── chooser
+    ├── dev-index-env
     ├── faq
     └── mp
     ```

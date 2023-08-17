@@ -1,6 +1,6 @@
-# creativecommons.org-environment
+# index-dev-env
 
-Local development environment for CreativeCommons.org
+Local development environment for CreativeCommons.org.
 
 `index` is the product name for the CreativeCommons.org website.
 
@@ -62,8 +62,8 @@ containers:
     ```
     PARENT_DIR
     ├── cc-legal-tools-data
-    ├── creativecommons.org-environment
     ├── chooser
+    ├── dev-index-env
     ├── faq
     └── mp
     ```

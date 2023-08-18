@@ -26,16 +26,16 @@ trap '_es=${?};
 source .env
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code
-E0="$(printf "\033[0m")"        # reset
-E1="$(printf "\033[1m")"        # bold
-E30="$(printf "\033[30m")"      # black foreground
-E31="$(printf "\033[31m")"      # red foreground
-E33="$(printf "\033[33m")"      # yellow foreground
-E36="$(printf "\033[36m")"      # cyan foreground
-E90="$(printf "\033[90m")"      # bright black (gray) foreground
-E97="$(printf "\033[97m")"      # bright white foreground
-E100="$(printf "\033[100m")"    # bright black (gray) background
-E107="$(printf "\033[107m")"    # bright white background
+E0="$(printf "\e[0m")"        # reset
+E1="$(printf "\e[1m")"        # bold
+E30="$(printf "\e[30m")"      # black foreground
+E31="$(printf "\e[31m")"      # red foreground
+E33="$(printf "\e[33m")"      # yellow foreground
+E46="$(printf "\e[46m")"      # cyan background
+E90="$(printf "\e[90m")"      # bright black (gray) foreground
+E97="$(printf "\e[97m")"      # bright white foreground
+E100="$(printf "\e[100m")"    # bright black (gray) background
+E107="$(printf "\e[107m")"    # bright white background
 OPT_DATE_FORMAT=Y-m-d
 OPT_TIME_FORMAT='H:i'
 OPT_DEFAULT_COMMENT_STATUS=closed
@@ -123,11 +123,6 @@ composer_install() {
 }
 
 
-container_print() {
-    printf "${E36}%19s${E0} %s\n" "${1}" "${2}"
-}
-
-
 database_check() {
     header 'Check database'
     wpcli db check --color \
@@ -175,7 +170,7 @@ environment_info() {
     # index-composer
     printf "${E1}%s${E0} - %s\n" \
         'index-composer' 'A Dependency Manager for PHP'
-    container_print 'Composer version' \
+    print_key_val 'Composer version' \
         "$(docker compose run --rm index-composer \
             --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
     echo
@@ -185,7 +180,7 @@ environment_info() {
         'Web server (WordPress and static HTML components)'
     print_var WEB_WP_URL
     print_var WEB_WP_DIR
-    container_print 'WordPress version:' "$(wpcli core version)"
+    print_key_val 'WordPress version' "$(wpcli core version)"
     echo
 
     # index-wpcli
@@ -199,7 +194,7 @@ environment_info() {
         _val="$( echo "${_line#*:}" | xargs)"
         [[ -n "${_val}" ]] || continue
         [[ "${_key}" =~ ^WP-CLI ]] || continue
-        container_print "${_key}:" "${_val}"
+        print_key_val "${_key}" "${_val}"
     done
     echo
 }
@@ -254,8 +249,13 @@ no_op() {
 }
 
 
+print_key_val() {
+    printf "${E97}${E100}%22s${E0} %s\n" "${1}:" "${2}"
+}
+
+
 print_var() {
-    printf "${E36}%19s${E0} %s\n" "${1}:" "${!1}"
+    print_key_val "${1}" "${!1}"
 }
 
 

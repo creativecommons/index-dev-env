@@ -155,7 +155,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 | Name                                 | Version |
 | ------------------------------------ | ------- |
-| [Vocabulary Theme][vocabulary-theme] | `0.6.0` |
+| [Vocabulary Theme][vocabulary-theme] | `0.7.0` |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 

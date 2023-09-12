@@ -31,14 +31,14 @@ E1="$(printf "\e[1m")"        # bold
 E30="$(printf "\e[30m")"      # black foreground
 E31="$(printf "\e[31m")"      # red foreground
 E33="$(printf "\e[33m")"      # yellow foreground
-E46="$(printf "\e[46m")"      # cyan background
 E90="$(printf "\e[90m")"      # bright black (gray) foreground
 E97="$(printf "\e[97m")"      # bright white foreground
 E100="$(printf "\e[100m")"    # bright black (gray) background
 E107="$(printf "\e[107m")"    # bright white background
 OPT_DATE_FORMAT=Y-m-d
-OPT_TIME_FORMAT='H:i'
 OPT_DEFAULT_COMMENT_STATUS=closed
+OPT_PERMALINK_STRUCTURE='/%year%/%monthnum%/%day%/%postname%/'
+OPT_TIME_FORMAT='H:i'
 PLUGINS_ACTIVATE='
 acf-menu-chooser
 advanced-custom-fields
@@ -146,19 +146,6 @@ database_optimize() {
 database_update() {
     header 'Update database'
     wpcli core update-db
-    echo
-}
-
-
-enable_permalinks() {
-    header 'Enable post name permalinks'
-    if wpcli --no-color --quiet rewrite list 2> /dev/null \
-        | grep -qF 'page/?([0-9]{1,})/?$'
-    then
-        no_op 'rewrite rules exist'
-    else
-        wpcli rewrite structure --hard '/%postname%'
-    fi
     echo
 }
 
@@ -277,7 +264,8 @@ remove_themes() {
 
 
 update_options() {
-    local _date_format _default_comment_status _noop _time_format
+    local _date_format _default_comment_status _noop _permalink_structure \
+        _time_format
     header 'Update options'
 
     _date_format=$(wpcli option get date_format)
@@ -300,11 +288,21 @@ update_options() {
         no_op "${_noop}"
     fi
 
+    _permalink_structure=$(wpcli option get permalink_structure)
+    if [[ "${OPT_PERMALINK_STRUCTURE}" != "${_permalink_structure}" ]]
+    then
+        echo "Update permalink_structure: ${OPT_PERMALINK_STRUCTURE}"
+        wpcli option update permalink_structure "${OPT_PERMALINK_STRUCTURE}"
+    else
+        no_op "permalink_structure: ${OPT_PERMALINK_STRUCTURE}"
+    fi
+
     _time_format=$(wpcli option get time_format)
     if [[ "${OPT_TIME_FORMAT}" != "${_time_format}" ]]
     then
         echo "Update time_format: ${OPT_TIME_FORMAT}"
         wpcli option update time_format "${OPT_TIME_FORMAT}"
+        wpcli rewrite flush --hard
     else
         no_op "time_format: ${OPT_TIME_FORMAT}"
     fi
@@ -341,7 +339,6 @@ update_options
 remove_themes
 activate_plugins
 activate_themes
-enable_permalinks
 database_update
 database_optimize
 database_check

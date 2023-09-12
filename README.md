@@ -105,6 +105,7 @@ containers:
 | Platform Toolkit | [`/platform/toolkit`][dev-mp] |
 | Public Domain    | [`/publicdomain`][dev-public] |
 | WordPress        | [`/` (default)][dev-wp]       |
+| WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
 
 Also see [`config/web-sites-available/000-default.conf`][webconfig].
 
@@ -114,6 +115,7 @@ Also see [`config/web-sites-available/000-default.conf`][webconfig].
 [dev-mp]: http://localhost:8080/platform/toolkit
 [dev-public]: http://localhost:8080/publicdomain
 [dev-wp]: http://localhost:8080/
+[dev-wp]: http://localhost:8080/wp-admin/
 [webconfig]: config/web-sites-available/000-default.conf
 
 

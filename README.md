@@ -104,7 +104,7 @@ containers:
 | Licenses         | [`/licenses`][dev-licenses]   |
 | Platform Toolkit | [`/platform/toolkit`][dev-mp] |
 | Public Domain    | [`/publicdomain`][dev-public] |
-| WordPress        | [`/` (default)][dev-wp]       |
+| **WordPress**    | **[`/` (default)][dev-wp]**   |
 | WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
 
 Also see [`config/web-sites-available/000-default.conf`][webconfig].

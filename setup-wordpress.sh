@@ -168,6 +168,9 @@ environment_info() {
     print_var WEB_WP_URL
     print_var WEB_WP_DIR
     print_key_val 'WordPress version' "$(wpcli core version)"
+    print_key_val 'PHP version' \
+        "$(docker compose exec index-web php --version \
+            | awk '/^PHP/ {print $2}')"
     echo
 
     # index-wpcli
@@ -183,6 +186,8 @@ environment_info() {
         [[ "${_key}" =~ ^WP-CLI ]] || continue
         print_key_val "${_key}" "${_val}"
     done
+    print_key_val 'PHP version' \
+        "$(wpcli cli info | awk '/^PHP version/ {print $3}')"
     echo
 }
 
@@ -320,13 +325,13 @@ wordpress_status() {
 
 wpcli() {
     # Call WP-CLI with appropriate site arguments via Docker
-    docker compose run --rm \
+    docker compose exec \
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
         index-wpcli \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
-            "${@}" 2>/dev/null
+            "${@}"
 }
 
 

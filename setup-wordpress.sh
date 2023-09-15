@@ -9,8 +9,8 @@
 #   The "2>/dev/null" below silences the messages from docker compose run.
 #   For example, the output like the following will not be visible:
 #       [+] Creating 2/0
-#        ✔ Container cc-wordpress-db  Running                             0.0s
-#        ✔ Container cc-web           Running                             0.0s
+#        ✔ Container index-wpdb  Running                                  0.0s
+#        ✔ Container index-web   Running                                  0.0s
 #
 set -o errexit
 set -o errtrace

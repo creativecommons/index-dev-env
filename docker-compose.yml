@@ -95,6 +95,10 @@ services:
       - ./cache:/var/www/html/cache:ro
 
   index-wpcli:
+    # continue running until shutdown (this allows docker compoes exec which is
+    # much faster than docker compoes run)
+    # Thank you: https://serverfault.com/a/1084975
+    command: sh -c 'trap "exit" TERM; while true; do sleep 1; done'
     container_name: index-wpcli
     depends_on:
       - index-wpdb

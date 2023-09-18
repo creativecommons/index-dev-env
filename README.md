@@ -95,31 +95,15 @@ containers:
 
 ## Component URLs
 
-Component|Prod Link             |Stage link             |Dev Link
----------|----------------------|-----------------------|---------------------
-Chooser  |[Prod `/choose`][p1]  |[Stage `/choose`][s1]  |[Dev `/choose`][d1]
-FAQ      |[Prod `/faq`][p2]     |[Stage `/faq`][s2]     |[Dev `/faq`][d2]
-Licenses |[Prod `/licenses`][p3]|[Stage `/licenses`][s3]|[Dev `/licenses`][d3]
-Platform Toolkit|[Prod `/platform/toolkit`][p4]|[Stage `/platform/toolkit`][s4]|[Dev `/platform/toolkit`][d4]
-Public Domain|[Prod `/publicdomain`][p5]|[Stage `/publicdomain`][s5]|[Dev `/publicdomain`][d5]
-WordPress|[Prod `/` (default)][p6]|[Stage `/` (default)][s6]|[Dev `/` (default)][d6]
-WordPress Admin|[Prod `/wp-admin`][p7]|[Stage `/wp-admin`][s7]|[Dev `/wp-admin`][d7]
-
-[p1]: https://creativecommons.org/choose "Prod Chooser /choose"
-[p2]: https://creativecommons.org/faq "Prod FAQ /faq"
-[p3]: https://creativecommons.org/licenses "Prod Licenses /licenses"
-[p4]: https://creativecommons.org/platform/toolkit "Prod Platform Toolkit /platform/toolkit"
-[p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
-[p6]: https://creativecommons.org/ "Prod WordPress / (default)"
-[p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
-
-[s1]: https://stage.creativecommons.org/choose "Stage Chooser /choose"
-[s2]: https://stage.creativecommons.org/faq "Stage FAQ /faq"
-[s3]: https://stage.creativecommons.org/licenses "Stage Licenses /licenses"
-[s4]: https://stage.creativecommons.org/platform/toolkit "Stage Platform Toolkit /platform/toolkit"
-[s5]: https://stage.creativecommons.org/publicdomain "Stage Public Domain /publicdomain"
-[s6]: https://stage.creativecommons.org/ "Stage WordPress / (default)"
-[s7]: https://stage.creativecommons.org/wp-admin/ "Stage WordPress Admin /wp-admin"
+Component|Dev Link|Stage link|Prod Link
+---------|--------|----- ----|---------
+Chooser|[Dev `/choose`][d1]|[Stage `/choose`][s1]|[Prod `/choose`][p1]
+FAQ|[Dev `/faq`][d2]|[Stage `/faq`][s2]|[Prod `/faq`][p2]
+Licenses|[Dev `/licenses`][d3]|[Stage `/licenses`][s3]|[Prod `/licenses`][p3]
+Platform Toolkit|[Dev `/platform/toolkit`][d4]|[Stage `/platform/toolkit`][s4]|[Prod `/platform/toolkit`][p4]
+Public Domain|[Dev `/publicdomain`][d5]|[Stage `/publicdomain`][s5]|[Prod `/publicdomain`][p5]
+WordPress|[Dev `/` (default)][d6]|[Stage `/` (default)][s6]|[Prod `/` (default)][p6]
+WordPress Admin|[Dev `/wp-admin`][d7]|[Stage `/wp-admin`][s7]|[Prod `/wp-admin`][p7]
 
 [d1]: http://localhost:8080/choose "Dev Chooser /choose"
 [d2]: http://localhost:8080/faq "Dev FAQ /faq"
@@ -129,34 +113,24 @@ WordPress Admin|[Prod `/wp-admin`][p7]|[Stage `/wp-admin`][s7]|[Dev `/wp-admin`]
 [d6]: http://localhost:8080/ "Dev WordPress / (default)"
 [d7]: http://localhost:8080/wp-admin/ "Dev WordPress Admin /wp-admin"
 
+[s1]: https://stage.creativecommons.org/choose "Stage Chooser /choose"
+[s2]: https://stage.creativecommons.org/faq "Stage FAQ /faq"
+[s3]: https://stage.creativecommons.org/licenses "Stage Licenses /licenses"
+[s4]: https://stage.creativecommons.org/platform/toolkit "Stage Platform Toolkit /platform/toolkit"
+[s5]: https://stage.creativecommons.org/publicdomain "Stage Public Domain /publicdomain"
+[s6]: https://stage.creativecommons.org/ "Stage WordPress / (default)"
+[s7]: https://stage.creativecommons.org/wp-admin/ "Stage WordPress Admin /wp-admin"
+
+[p1]: https://creativecommons.org/choose "Prod Chooser /choose"
+[p2]: https://creativecommons.org/faq "Prod FAQ /faq"
+[p3]: https://creativecommons.org/licenses "Prod Licenses /licenses"
+[p4]: https://creativecommons.org/platform/toolkit "Prod Platform Toolkit /platform/toolkit"
+[p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
+[p6]: https://creativecommons.org/ "Prod WordPress / (default)"
+[p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
+
 
 ## Configuration
-
-
-### Prod
-
-TODO
-
-
-### Stage
-
-The staging server is configured via Salt managed in the in
-[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
-include the specifics (is non-exhaustive):
-- `pillars/`
-  - [`3_HST/index/`][salt-hst-index]
-  - [`5_HST__POD/index__stage`][salt-hst-pod-index]
-- `states/`
-  - [`apache2/files/creativecommons_org.conf`][salt-index-conf]
-  - [`wordpress/files/index-composer.json`][salt-index-composer]
-  - [`wordpress/index.sls`][salt-wordpress-index]
-
-[sre-salt-prime]: https://github.com/creativecommons/sre-salt-prime
-[salt-hst-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/3_HST/index
-[salt-hst-pod-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/5_HST__POD/index__stage
-[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
-[salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
-[salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
 
 
 ### Dev
@@ -210,6 +184,31 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 [vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
+
+
+### Stage
+
+The staging server is configured via Salt managed in the in
+[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
+include the specifics (is non-exhaustive):
+- `pillars/`
+  - [`3_HST/index/`][salt-hst-index]
+  - [`5_HST__POD/index__stage`][salt-hst-pod-index]
+- `states/`
+  - [`apache2/files/creativecommons_org.conf`][salt-index-conf]
+  - [`wordpress/files/index-composer.json`][salt-index-composer]
+  - [`wordpress/index.sls`][salt-wordpress-index]
+
+[sre-salt-prime]: https://github.com/creativecommons/sre-salt-prime
+[salt-hst-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/3_HST/index
+[salt-hst-pod-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/5_HST__POD/index__stage
+[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
+[salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
+[salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
+
+### Prod
+
+TODO
 
 
 ## Copying

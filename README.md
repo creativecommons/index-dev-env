@@ -97,17 +97,17 @@ containers:
 
 ## Dev component URLs
 
-| Component        | URL                           |
-| ---------------- | ----------------------------- |
-| Chooser          | [`/choose`][dev-choose]       |
-| FAQ              | [`/faq`][dev-faq]             |
-| Licenses         | [`/licenses`][dev-licenses]   |
-| Platform Toolkit | [`/platform/toolkit`][dev-mp] |
-| Public Domain    | [`/publicdomain`][dev-public] |
-| **WordPress**    | **[`/` (default)][dev-wp]**   |
-| WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
+| Dev Component        | Dev path routing              |
+| -------------------- | ----------------------------- |
+| Dev Chooser          | [`/choose`][dev-choose]       |
+| Dev FAQ              | [`/faq`][dev-faq]             |
+| Dev Licenses         | [`/licenses`][dev-licenses]   |
+| Dev Platform Toolkit | [`/platform/toolkit`][dev-mp] |
+| Dev Public Domain    | [`/publicdomain`][dev-public] |
+| **Dev WordPress**    | **[`/` (default)][dev-wp]**   |
+| Dev WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
 
-Also see [`config/web-sites-available/000-default.conf`][webconfig].
+Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 [dev-choose]: http://localhost:8080/choose
 [dev-faq]: http://localhost:8080/faq
@@ -116,13 +116,38 @@ Also see [`config/web-sites-available/000-default.conf`][webconfig].
 [dev-public]: http://localhost:8080/publicdomain
 [dev-wp]: http://localhost:8080/
 [dev-wp-admin]: http://localhost:8080/wp-admin/
-[webconfig]: config/web-sites-available/000-default.conf
+[dev-webconfig]: config/web-sites-available/000-default.conf
 
 
-## WordPress versions
+## Stage component URLs (password protected)
+
+| Stage Component        | Stage path routing              |
+| ---------------------- | ------------------------------- |
+| Stage Chooser          | [`/choose`][stage-choose]       |
+| Stage FAQ              | [`/faq`][stage-faq]             |
+| Stage Licenses         | [`/licenses`][stage-licenses]   |
+| Stage Platform Toolkit | [`/platform/toolkit`][stage-mp] |
+| Stage Public Domain    | [`/publicdomain`][stage-public] |
+| **Stage WordPress**    | **[`/` (default)][stage-wp]**   |
+| Stage WordPress Admin  | [`/wp-admin/`][stage-wp-admin]  |
+
+Also see Stage Salt configurations, below.
+
+[stage-choose]: http://stage.creativecommons.org/choose
+[stage-faq]: http://stage.creativecommons.org/faq
+[stage-licenses]: http://stage.creativecommons.org/licenses
+[stage-mp]: http://stage.creativecommons.org/platform/toolkit
+[stage-public]: http://stage.creativecommons.org/publicdomain
+[stage-wp]: http://stage.creativecommons.org/
+[stage-wp-admin]: http://stage.creativecommons.org/wp-admin/
+[stage-webconfig]: config/web-sites-available/000-default.conf
+
+
+## Dev WordPress versions
 
 
 ### Core
+
 | Name      | Version |
 | --------- | ------- |
 | WordPress | `6.3`   |
@@ -162,6 +187,27 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 [vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
+
+
+## Stage Salt configurations
+
+The staging server is configured via Salt managed in the in
+[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
+include the specifics, but is non-exhaustive:
+- `pillars/`
+  - [`3_HST/index/`][salt-hst-index]
+  - [`5_HST__POD/index__stage`][salt-hst-pod-index]
+- `states/`
+  - [`apache2/files/creativecommons_org.conf`][salt-index-conf]
+  - [`wordpress/files/index-composer.json`][salt-index-composer]
+  - [`wordpress/index.sls`][salt-wordpress-index]
+
+[sre-salt-prime]: https://github.com/creativecommons/sre-salt-prime
+[salt-hst-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/3_HST/index
+[salt-hst-pod-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/5_HST__POD/index__stage
+[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
+[salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
+[salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
 
 
 ## Copying

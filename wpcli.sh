@@ -15,18 +15,7 @@ WEB_WP_DIR=/var/www/html
 WEB_WP_URL=http://localhost:8080
 
 # Call WP-CLI with appropriate site arguments via Docker
-#
-# docker compose run redirects the stderr of any invoked executables to
-# stdout. The only messages that will appear on stderr are issued by
-# docker compose run itself. This appears to be an undocumented "feature":
-# https://docs.docker.com/engine/reference/commandline/compose_run/
-#
-# The "2>/dev/null" below silences the messages from docker compose run.
-# For example, the output like the following will not be visible:
-#     [+] Creating 2/0
-#      ✔ Container cc-wordpress-db  Running                             0.0s
-#      ✔ Container cc-web           Running                             0.0s
-docker compose run --rm \
+docker compose exec \
     --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
     --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
     --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
@@ -34,5 +23,4 @@ docker compose run --rm \
         /usr/local/bin/wp \
             --path="${WEB_WP_DIR}" \
             --url="${WEB_WP_URL}" \
-            "${@}" \
-    2>/dev/null
+            "${@}"

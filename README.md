@@ -169,7 +169,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 [dev-webconfig]: config/web-sites-available/000-default.conf
 
 
-### WordPress Core
+#### WordPress Core
 
 | Name      | Version |
 | --------- | ------- |
@@ -178,7 +178,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 Also see [`.env.example`](.env.example).
 
 
-### WordPress Plugins
+#### WordPress Plugins
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
@@ -201,7 +201,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 [wp-importer]: https://wordpress.org/plugins/wordpress-importer/
 
 
-### WordPress Themes
+#### WordPress Themes
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |

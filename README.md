@@ -100,7 +100,7 @@ Component|Prod Link             |Stage link             |Dev Link
 Chooser  |[Prod `/choose`][p1]  |[Stage `/choose`][s1]  |[Dev `/choose`][d1]
 FAQ      |[Prod `/faq`][p2]     |[Stage `/faq`][s2]     |[Dev `/faq`][d2]
 Licenses |[Prod `/licenses`][p3]|[Stage `/licenses`][s3]|[Dev `/licenses`][d3]
-Platform Toolkit|[Prod `/platform/toolkit`][p4]|[Stage `/platform/toolkit`]][s4]|[Dev `/platform/toolkit`]][d4]
+Platform Toolkit|[Prod `/platform/toolkit`][p4]|[Stage `/platform/toolkit`][s4]|[Dev `/platform/toolkit`][d4]
 Public Domain|[Prod `/publicdomain`][p5]|[Stage `/publicdomain`][s5]|[Dev `/publicdomain`][d5]
 WordPress|[Prod `/` (default)][p6]|[Stage `/` (default)][s6]|[Dev `/` (default)][d6]
 WordPress Admin|[Prod `/wp-admin`][p7]|[Stage `/wp-admin`][s7]|[Dev `/wp-admin`][d7]

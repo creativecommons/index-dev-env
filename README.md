@@ -93,10 +93,10 @@ containers:
 [gh-mp]: https://github.com/creativecommons/mp
 
 
-## Component URLs
+## Path URLs
 
-Component|Dev Link|Stage link|Prod Link
----------|--------|----------|---------
+Path Label|Dev Link|Stage link|Prod Link
+----------|--------|----------|---------
 Chooser|[Dev `/choose`][d1]|[Stage `/choose`][s1]|[Prod `/choose`][p1]
 FAQ|[Dev `/faq`][d2]|[Stage `/faq`][s2]|[Prod `/faq`][p2]
 Licenses|[Dev `/licenses`][d3]|[Stage `/licenses`][s3]|[Prod `/licenses`][p3]
@@ -128,6 +128,25 @@ WordPress Admin|[Dev `/wp-admin`][d7]|[Stage `/wp-admin`][s7]|[Prod `/wp-admin`]
 [p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
 [p6]: https://creativecommons.org/ "Prod WordPress / (default)"
 [p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
+
+
+## Component repositories
+
+Path Label|Path|Component Name|Component Repositories
+----------|----|--------------|----------------------
+Chooser|`/choose`|Chooser|[chooser][gh-chooser]
+FAQ|`/faq`|FAQ|[faq][gh-faq]
+Licenses| `/licenses`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+Platform Toolkit|`/platform/toolkit`|Platform Toolkit|[mp][gh-mp]
+Public Domain|`/publicdomain`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+WordPress|`/` (default)|Vocabulary Theme|[vocabulary-theme][gh-vocab-theme]
+
+[gh-chooser]: https://github.com/creativecommons/chooser
+[gh-faq]: https://github.com/creativecommons/faq
+[gh-app]: https://github.com/creativecommons/cc-legal-tools-app
+[gh-data]: https://github.com/creativecommons/cc-legal-tools-data
+[gh-mp]: https://github.com/creativecommons/mp
+[gh-vocab-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
 ## Configuration
@@ -179,11 +198,9 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |
-| [Vocabulary Theme][vocabulary-theme] | `0.11.0` |
+| [Vocabulary Theme][gh-vocab-theme] | `0.11.0` |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
-
-[vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
 ### Stage

@@ -96,7 +96,7 @@ containers:
 ## Component URLs
 
 Component|Dev Link|Stage link|Prod Link
----------|--------|----- ----|---------
+---------|--------|----------|---------
 Chooser|[Dev `/choose`][d1]|[Stage `/choose`][s1]|[Prod `/choose`][p1]
 FAQ|[Dev `/faq`][d2]|[Stage `/faq`][s2]|[Prod `/faq`][p2]
 Licenses|[Dev `/licenses`][d3]|[Stage `/licenses`][s3]|[Prod `/licenses`][p3]

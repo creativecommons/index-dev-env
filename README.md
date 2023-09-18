@@ -193,7 +193,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 The staging server is configured via Salt managed in the in
 [creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
-include the specifics, but is non-exhaustive:
+include the specifics (is non-exhaustive):
 - `pillars/`
   - [`3_HST/index/`][salt-hst-index]
   - [`5_HST__POD/index__stage`][salt-hst-pod-index]

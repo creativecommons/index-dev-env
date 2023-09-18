@@ -19,7 +19,7 @@ into two categories:
   - Platform Toolkit
 
 
-## Code of Conduct
+## Code of conduct
 
 [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md):
 > The Creative Commons team is committed to fostering a welcoming community.
@@ -95,7 +95,7 @@ containers:
 
 ## Path URLs
 
-Path Label|Dev Link|Stage link|Prod Link
+Path label|Dev link|Stage link|Prod link
 ----------|--------|----------|---------
 Chooser|[Dev `/choose`][d1]|[Stage `/choose`][s1]|[Prod `/choose`][p1]
 FAQ|[Dev `/faq`][d2]|[Stage `/faq`][s2]|[Prod `/faq`][p2]
@@ -132,7 +132,7 @@ WordPress Admin|[Dev `/wp-admin`][d7]|[Stage `/wp-admin`][s7]|[Prod `/wp-admin`]
 
 ## Component repositories
 
-Path Label|Path|Component Name|Component Repositories
+Path label|Path|Component name|Component repositories
 ----------|----|--------------|----------------------
 Chooser|`/choose`|Chooser|[chooser][gh-chooser]
 FAQ|`/faq`|FAQ|[faq][gh-faq]
@@ -162,7 +162,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 [dev-webconfig]: config/web-sites-available/000-default.conf
 
 
-#### WordPress Core
+#### WordPress core
 
 | Name      | Version |
 | --------- | ------- |
@@ -171,7 +171,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 Also see [`.env.example`](.env.example).
 
 
-#### WordPress Plugins
+#### WordPress plugins
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
@@ -194,7 +194,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 [wp-importer]: https://wordpress.org/plugins/wordpress-importer/
 
 
-#### WordPress Themes
+#### WordPress themes
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |

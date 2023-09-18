@@ -1,8 +1,6 @@
 # index-dev-env
 
-Local development environment for CreativeCommons.org.
-
-`index` is the product name for the CreativeCommons.org website.
+Local development environment for CreativeCommons.org (product name: `index`).
 
 
 ## Overview
@@ -95,103 +93,53 @@ containers:
 [gh-mp]: https://github.com/creativecommons/mp
 
 
-## Dev component URLs
+## Component URLs
 
-| Component        | Env | Path routing                  |
-| ---------------- | --- | ----------------------------- |
-| Chooser          | Dev | [`/choose`][dev-choose]       |
-| FAQ              | Dev | [`/faq`][dev-faq]             |
-| Licenses         | Dev | [`/licenses`][dev-licenses]   |
-| Platform Toolkit | Dev | [`/platform/toolkit`][dev-mp] |
-| Public Domain    | Dev | [`/publicdomain`][dev-public] |
-| **WordPress**    | Dev | **[`/` (default)][dev-wp]**   |
-| WordPress Admin  | Dev | [`/wp-admin/`][dev-wp-admin]  |
-
-Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
-
-[dev-choose]: http://localhost:8080/choose
-[dev-faq]: http://localhost:8080/faq
-[dev-licenses]: http://localhost:8080/licenses
-[dev-mp]: http://localhost:8080/platform/toolkit
-[dev-public]: http://localhost:8080/publicdomain
-[dev-wp]: http://localhost:8080/
-[dev-wp-admin]: http://localhost:8080/wp-admin/
-[dev-webconfig]: config/web-sites-available/000-default.conf
+| Component        | Path routing      | Link       | Link        | Link      |
+| ---------------- | ----------------- | ---------- | ----------- | --------- |
+| Chooser          | `/choose`         | [Prod][p1] | [Stage][s1] | [Dev][d1] |
+| FAQ              | `/faq`            | [Prod][p2] | [Stage][s2] | [Dev][d2] |
+| Licenses         | `/licenses`       | [Prod][p3] | [Stage][s3] | [Dev][d3] |
+| Platform Toolkit |`/platform/toolkit`| [Prod][p4] | [Stage][s4] | [Dev][d4] |
+| Public Domain    | `/publicdomain`   | [Prod][p5] | [Stage][s5] | [Dev][d5] |
+| **WordPress**    | **`/` (default)** | [Prod][p6] | [Stage][s6] | [Dev][d6] |
+| WordPress Admin  | `/wp-admin`       | [Prod][p7] | [Stage][s7] | [Dev][d7] |
 
 
-## Stage component URLs
+[p1]: https://creativecommons.org/choose "Prod Chooser /choose"
+[p2]: https://creativecommons.org/faq "Prod FAQ /faq"
+[p3]: https://creativecommons.org/licenses "Prod Licenses /licenses"
+[p4]: https://creativecommons.org/platform/toolkit "Prod Platform Toolkit /platform/toolkit"
+[p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
+[p6]: https://creativecommons.org/ "Prod WordPress / (default)"
+[p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
 
-Please note that the staging environment is password protected.
+[p1]: https://stage.creativecommons.org/choose "Stage Chooser /choose"
+[p2]: https://stage.creativecommons.org/faq "Stage FAQ /faq"
+[p3]: https://stage.creativecommons.org/licenses "Stage Licenses /licenses"
+[p4]: https://stage.creativecommons.org/platform/toolkit "Stage Platform Toolkit /platform/toolkit"
+[p5]: https://stage.creativecommons.org/publicdomain "Stage Public Domain /publicdomain"
+[p6]: https://stage.creativecommons.org/ "Stage WordPress / (default)"
+[p7]: https://stage.creativecommons.org/wp-admin/ "Stage WordPress Admin /wp-admin"
 
-| Component        | Env   | Path routing                    |
-| ---------------- | ----- | ------------------------------- |
-| Chooser          | Stage | [`/choose`][stage-choose]       |
-| FAQ              | Stage | [`/faq`][stage-faq]             |
-| Licenses         | Stage | [`/licenses`][stage-licenses]   |
-| Platform Toolkit | Stage | [`/platform/toolkit`][stage-mp] |
-| Public Domain    | Stage | [`/publicdomain`][stage-public] |
-| **WordPress**    | Stage | **[`/` (default)][stage-wp]**   |
-| WordPress Admin  | Stage | [`/wp-admin/`][stage-wp-admin]  |
-
-Also see [Stage Salt configurations](#stage-salt-configurations), below.
-
-[stage-choose]: http://stage.creativecommons.org/choose
-[stage-faq]: http://stage.creativecommons.org/faq
-[stage-licenses]: http://stage.creativecommons.org/licenses
-[stage-mp]: http://stage.creativecommons.org/platform/toolkit
-[stage-public]: http://stage.creativecommons.org/publicdomain
-[stage-wp]: http://stage.creativecommons.org/
-[stage-wp-admin]: http://stage.creativecommons.org/wp-admin/
-[stage-webconfig]: config/web-sites-available/000-default.conf
-
-
-## Dev WordPress versions
+[p1]: http://localhost:8080/choose "Dev Chooser /choose"
+[p2]: http://localhost:8080/faq "Dev FAQ /faq"
+[p3]: http://localhost:8080/licenses "Dev Licenses /licenses"
+[p4]: http://localhost:8080/platform/toolkit "Dev Platform Toolkit /platform/toolkit"
+[p5]: http://localhost:8080/publicdomain "Dev Public Domain /publicdomain"
+[p6]: http://localhost:8080/ "Dev WordPress / (default)"
+[p7]: http://localhost:8080/wp-admin/ "Dev WordPress Admin /wp-admin"
 
 
-### Core
-
-| Name      | Version |
-| --------- | ------- |
-| WordPress | `6.3`   |
-
-Also see [`.env.example`](.env.example).
+## Configuration
 
 
-### Plugins
+### Prod
 
-| Name                                                     | Version  |
-| -------------------------------------------------------- | -------- |
-| [Advanced Custom Fields][adv-custom-fields]              | `6.1.8`  |
-| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
-| [Classic Editor][classic-editor]                         | `1.6.3`  |
-| [Redirection][redirection]                               | `4.9.2`  |
-| [Tablepress][tablepress]                                 | `1.14`   |
-| [Wordfence][wordfence]                                   | `7.10.3` |
-| [WordPress Imorter][wp-importer]                         | `0.8.1`  |
-
-Also see [`config/composer/composer.json`](config/composer/composer.json).
-
-[adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
-[acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
-[classic-editor]: https://wordpress.org/plugins/classic-editor/
-[redirection]: https://wordpress.org/plugins/redirection/
-[tablepress]: https://wordpress.org/plugins/tablepress/
-[wordfence]: https://wordpress.org/plugins/wordfence/
-[wp-importer]: https://wordpress.org/plugins/wordpress-importer/
+TODO
 
 
-### Themes
-
-| Name                                 | Version |
-| ------------------------------------ | ------- |
-| [Vocabulary Theme][vocabulary-theme] | `0.11.0` |
-
-Also see [`config/composer/composer.json`](config/composer/composer.json).
-
-[vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
-
-
-## Stage Salt configurations
+### Stage
 
 The staging server is configured via Salt managed in the in
 [creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
@@ -210,6 +158,59 @@ include the specifics (is non-exhaustive):
 [salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
 [salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
 [salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
+
+
+### Dev
+
+
+#### Apache2
+
+See [`config/web-sites-available/000-default.conf`][dev-webconfig].
+
+[dev-webconfig]: config/web-sites-available/000-default.conf
+
+
+### WordPress Core
+
+| Name      | Version |
+| --------- | ------- |
+| WordPress | `6.3`   |
+
+Also see [`.env.example`](.env.example).
+
+
+### WordPress Plugins
+
+| Name                                                     | Version  |
+| -------------------------------------------------------- | -------- |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.1.8`  |
+| [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
+| [Classic Editor][classic-editor]                         | `1.6.3`  |
+| [Redirection][redirection]                               | `4.9.2`  |
+| [Tablepress][tablepress]                                 | `1.14`   |
+| [Wordfence][wordfence]                                   | `7.10.3` |
+| [WordPress Importer][wp-importer]                        | `0.8.1`  |
+
+Also see [`config/composer/composer.json`](config/composer/composer.json).
+
+[adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
+[acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
+[classic-editor]: https://wordpress.org/plugins/classic-editor/
+[redirection]: https://wordpress.org/plugins/redirection/
+[tablepress]: https://wordpress.org/plugins/tablepress/
+[wordfence]: https://wordpress.org/plugins/wordfence/
+[wp-importer]: https://wordpress.org/plugins/wordpress-importer/
+
+
+### WordPress Themes
+
+| Name                                 | Version  |
+| ------------------------------------ | -------- |
+| [Vocabulary Theme][vocabulary-theme] | `0.11.0` |
+
+Also see [`config/composer/composer.json`](config/composer/composer.json).
+
+[vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
 ## Copying

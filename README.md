@@ -97,15 +97,15 @@ containers:
 
 ## Dev component URLs
 
-| Dev Component        | Dev path routing              |
-| -------------------- | ----------------------------- |
-| Dev Chooser          | [`/choose`][dev-choose]       |
-| Dev FAQ              | [`/faq`][dev-faq]             |
-| Dev Licenses         | [`/licenses`][dev-licenses]   |
-| Dev Platform Toolkit | [`/platform/toolkit`][dev-mp] |
-| Dev Public Domain    | [`/publicdomain`][dev-public] |
-| **Dev WordPress**    | **[`/` (default)][dev-wp]**   |
-| Dev WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
+| Dev Component          | Dev path routing              |
+| ---------------------- | ----------------------------- |
+| _dev_ Chooser          | [`/choose`][dev-choose]       |
+| _dev_ FAQ              | [`/faq`][dev-faq]             |
+| _dev_ Licenses         | [`/licenses`][dev-licenses]   |
+| _dev_ Platform Toolkit | [`/platform/toolkit`][dev-mp] |
+| _dev_ Public Domain    | [`/publicdomain`][dev-public] |
+| **_dev_ WordPress**    | **[`/` (default)][dev-wp]**   |
+| _dev_ WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
 
 Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
@@ -123,13 +123,13 @@ Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Stage Component        | Stage path routing              |
 | ---------------------- | ------------------------------- |
-| Stage Chooser          | [`/choose`][stage-choose]       |
-| Stage FAQ              | [`/faq`][stage-faq]             |
-| Stage Licenses         | [`/licenses`][stage-licenses]   |
-| Stage Platform Toolkit | [`/platform/toolkit`][stage-mp] |
-| Stage Public Domain    | [`/publicdomain`][stage-public] |
-| **Stage WordPress**    | **[`/` (default)][stage-wp]**   |
-| Stage WordPress Admin  | [`/wp-admin/`][stage-wp-admin]  |
+| _stage_ Chooser          | [`/choose`][stage-choose]       |
+| _stage_ FAQ              | [`/faq`][stage-faq]             |
+| _stage_ Licenses         | [`/licenses`][stage-licenses]   |
+| _stage_ Platform Toolkit | [`/platform/toolkit`][stage-mp] |
+| _stage_ Public Domain    | [`/publicdomain`][stage-public] |
+| **_stage_ WordPress**    | **[`/` (default)][stage-wp]**   |
+| _stage_ WordPress Admin  | [`/wp-admin/`][stage-wp-admin]  |
 
 Also see Stage Salt configurations, below.
 

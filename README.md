@@ -131,7 +131,7 @@ Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
 | **_stage_ WordPress**    | **[`/` (default)][stage-wp]**   |
 | _stage_ WordPress Admin  | [`/wp-admin/`][stage-wp-admin]  |
 
-Also see Stage Salt configurations, below.
+Also see [Stage Salt configurations](#stage-salt-configurations), below.
 
 [stage-choose]: http://stage.creativecommons.org/choose
 [stage-faq]: http://stage.creativecommons.org/faq

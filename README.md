@@ -85,7 +85,7 @@ containers:
     ./setup-wordpress.sh
     ```
 7. Optionally: manually activate/configure `wordfence` in the GUI for now.
-    - **TODO:** Script help here
+    - **TODO:** automate in script
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
 [gh-chooser]: https://github.com/creativecommons/chooser
@@ -95,16 +95,15 @@ containers:
 
 ## Component URLs
 
-| Component        | Path routing      | Link       | Link        | Link      |
-| ---------------- | ----------------- | ---------- | ----------- | --------- |
-| Chooser          | `/choose`         | [Prod][p1] | [Stage][s1] | [Dev][d1] |
-| FAQ              | `/faq`            | [Prod][p2] | [Stage][s2] | [Dev][d2] |
-| Licenses         | `/licenses`       | [Prod][p3] | [Stage][s3] | [Dev][d3] |
-| Platform Toolkit |`/platform/toolkit`| [Prod][p4] | [Stage][s4] | [Dev][d4] |
-| Public Domain    | `/publicdomain`   | [Prod][p5] | [Stage][s5] | [Dev][d5] |
-| **WordPress**    | **`/` (default)** | [Prod][p6] | [Stage][s6] | [Dev][d6] |
-| WordPress Admin  | `/wp-admin`       | [Prod][p7] | [Stage][s7] | [Dev][d7] |
-
+Component|Prod Link             |Stage link             |Dev Link
+---------|----------------------|-----------------------|---------------------
+Chooser  |[Prod `/choose`][p1]  |[Stage `/choose`][s1]  |[Dev `/choose`][d1]
+FAQ      |[Prod `/faq`][p2]     |[Stage `/faq`][s2]     |[Dev `/faq`][d2]
+Licenses |[Prod `/licenses`][p3]|[Stage `/licenses`][s3]|[Dev `/licenses`][d3]
+Platform Toolkit|[Prod `/platform/toolkit`][p4]|[Stage `/platform/toolkit`]][s4]|[Dev `/platform/toolkit`]][d4]
+Public Domain|[Prod `/publicdomain`][p5]|[Stage `/publicdomain`][s5]|[Dev `/publicdomain`][d5]
+WordPress|[Prod `/` (default)][p6]|[Stage `/` (default)][s6]|[Dev `/` (default)][d6]
+WordPress Admin|[Prod `/wp-admin`][p7]|[Stage `/wp-admin`][s7]|[Dev `/wp-admin`][d7]
 
 [p1]: https://creativecommons.org/choose "Prod Chooser /choose"
 [p2]: https://creativecommons.org/faq "Prod FAQ /faq"

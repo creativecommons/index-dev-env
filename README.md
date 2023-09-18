@@ -119,7 +119,9 @@ Also see [`config/web-sites-available/000-default.conf`][dev-webconfig].
 [dev-webconfig]: config/web-sites-available/000-default.conf
 
 
-## Stage component URLs (password protected)
+## Stage component URLs
+
+Please note that the staging environment is password protected.
 
 | Stage Component        | Stage path routing              |
 | ---------------------- | ------------------------------- |

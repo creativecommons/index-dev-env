@@ -149,20 +149,17 @@ WordPress|`/` (default)|Vocabulary Theme|[vocabulary-theme][gh-vocab-theme]
 [gh-vocab-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
-## Configuration
+## Dev configuration
 
 
-### Dev
-
-
-#### Apache2
+### Apache2
 
 See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 [dev-webconfig]: config/web-sites-available/000-default.conf
 
 
-#### WordPress core
+### WordPress core
 
 | Name      | Version |
 | --------- | ------- |
@@ -171,7 +168,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 Also see [`.env.example`](.env.example).
 
 
-#### WordPress plugins
+### WordPress plugins
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
@@ -194,7 +191,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 [wp-importer]: https://wordpress.org/plugins/wordpress-importer/
 
 
-#### WordPress themes
+### WordPress themes
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |
@@ -203,7 +200,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 
-### Stage
+## Stage configuration
 
 The staging server is configured via Salt managed in the in
 [creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
@@ -212,20 +209,20 @@ include the specifics (is non-exhaustive):
   - [`3_HST/index/`][salt-hst-index]
   - [`5_HST__POD/index__stage`][salt-hst-pod-index]
 - `states/`
-  - [`apache2/files/creativecommons_org.conf`][salt-index-conf]
+  - [`apache2/files/index.conf`][salt-index-conf]
   - [`wordpress/files/index-composer.json`][salt-index-composer]
   - [`wordpress/index.sls`][salt-wordpress-index]
 
 [sre-salt-prime]: https://github.com/creativecommons/sre-salt-prime
 [salt-hst-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/3_HST/index
 [salt-hst-pod-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/5_HST__POD/index__stage
-[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
+[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/index.conf
 [salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
 [salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
 
-### Prod
+## Prod configuration
 
-TODO
+_TODO_
 
 
 ## Copying

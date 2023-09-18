@@ -1,8 +1,6 @@
 # index-dev-env
 
-Local development environment for CreativeCommons.org.
-
-`index` is the product name for the CreativeCommons.org website.
+Local development environment for CreativeCommons.org (product name: `index`).
 
 
 ## Overview
@@ -21,7 +19,7 @@ into two categories:
   - Platform Toolkit
 
 
-## Code of Conduct
+## Code of conduct
 
 [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md):
 > The Creative Commons team is committed to fostering a welcoming community.
@@ -87,7 +85,7 @@ containers:
     ./setup-wordpress.sh
     ```
 7. Optionally: manually activate/configure `wordfence` in the GUI for now.
-    - **TODO:** Script help here
+    - **TODO:** automate in script
 
 [gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
 [gh-chooser]: https://github.com/creativecommons/chooser
@@ -95,34 +93,77 @@ containers:
 [gh-mp]: https://github.com/creativecommons/mp
 
 
-## Dev component URLs
+## Path URLs
 
-| Component        | URL                           |
-| ---------------- | ----------------------------- |
-| Chooser          | [`/choose`][dev-choose]       |
-| FAQ              | [`/faq`][dev-faq]             |
-| Licenses         | [`/licenses`][dev-licenses]   |
-| Platform Toolkit | [`/platform/toolkit`][dev-mp] |
-| Public Domain    | [`/publicdomain`][dev-public] |
-| **WordPress**    | **[`/` (default)][dev-wp]**   |
-| WordPress Admin  | [`/wp-admin/`][dev-wp-admin]  |
+Path label|Dev link|Stage link|Prod link
+----------|--------|----------|---------
+Chooser|[Dev `/choose`][d1]|[Stage `/choose`][s1]|[Prod `/choose`][p1]
+FAQ|[Dev `/faq`][d2]|[Stage `/faq`][s2]|[Prod `/faq`][p2]
+Licenses|[Dev `/licenses`][d3]|[Stage `/licenses`][s3]|[Prod `/licenses`][p3]
+Platform Toolkit|[Dev `/platform/toolkit`][d4]|[Stage `/platform/toolkit`][s4]|[Prod `/platform/toolkit`][p4]
+Public Domain|[Dev `/publicdomain`][d5]|[Stage `/publicdomain`][s5]|[Prod `/publicdomain`][p5]
+WordPress|[Dev `/` (default)][d6]|[Stage `/` (default)][s6]|[Prod `/` (default)][p6]
+WordPress Admin|[Dev `/wp-admin`][d7]|[Stage `/wp-admin`][s7]|[Prod `/wp-admin`][p7]
 
-Also see [`config/web-sites-available/000-default.conf`][webconfig].
+[d1]: http://localhost:8080/choose "Dev Chooser /choose"
+[d2]: http://localhost:8080/faq "Dev FAQ /faq"
+[d3]: http://localhost:8080/licenses "Dev Licenses /licenses"
+[d4]: http://localhost:8080/platform/toolkit "Dev Platform Toolkit /platform/toolkit"
+[d5]: http://localhost:8080/publicdomain "Dev Public Domain /publicdomain"
+[d6]: http://localhost:8080/ "Dev WordPress / (default)"
+[d7]: http://localhost:8080/wp-admin/ "Dev WordPress Admin /wp-admin"
 
-[dev-choose]: http://localhost:8080/choose
-[dev-faq]: http://localhost:8080/faq
-[dev-licenses]: http://localhost:8080/licenses
-[dev-mp]: http://localhost:8080/platform/toolkit
-[dev-public]: http://localhost:8080/publicdomain
-[dev-wp]: http://localhost:8080/
-[dev-wp-admin]: http://localhost:8080/wp-admin/
-[webconfig]: config/web-sites-available/000-default.conf
+[s1]: https://stage.creativecommons.org/choose "Stage Chooser /choose"
+[s2]: https://stage.creativecommons.org/faq "Stage FAQ /faq"
+[s3]: https://stage.creativecommons.org/licenses "Stage Licenses /licenses"
+[s4]: https://stage.creativecommons.org/platform/toolkit "Stage Platform Toolkit /platform/toolkit"
+[s5]: https://stage.creativecommons.org/publicdomain "Stage Public Domain /publicdomain"
+[s6]: https://stage.creativecommons.org/ "Stage WordPress / (default)"
+[s7]: https://stage.creativecommons.org/wp-admin/ "Stage WordPress Admin /wp-admin"
+
+[p1]: https://creativecommons.org/choose "Prod Chooser /choose"
+[p2]: https://creativecommons.org/faq "Prod FAQ /faq"
+[p3]: https://creativecommons.org/licenses "Prod Licenses /licenses"
+[p4]: https://creativecommons.org/platform/toolkit "Prod Platform Toolkit /platform/toolkit"
+[p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
+[p6]: https://creativecommons.org/ "Prod WordPress / (default)"
+[p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
 
 
-## WordPress versions
+## Component repositories
+
+Path label|Path|Component name|Component repositories
+----------|----|--------------|----------------------
+Chooser|`/choose`|Chooser|[chooser][gh-chooser]
+FAQ|`/faq`|FAQ|[faq][gh-faq]
+Licenses| `/licenses`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+Platform Toolkit|`/platform/toolkit`|Platform Toolkit|[mp][gh-mp]
+Public Domain|`/publicdomain`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+WordPress|`/` (default)|Vocabulary Theme|[vocabulary-theme][gh-vocab-theme]
+
+[gh-chooser]: https://github.com/creativecommons/chooser
+[gh-faq]: https://github.com/creativecommons/faq
+[gh-app]: https://github.com/creativecommons/cc-legal-tools-app
+[gh-data]: https://github.com/creativecommons/cc-legal-tools-data
+[gh-mp]: https://github.com/creativecommons/mp
+[gh-vocab-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
-### Core
+## Configuration
+
+
+### Dev
+
+
+#### Apache2
+
+See [`config/web-sites-available/000-default.conf`][dev-webconfig].
+
+[dev-webconfig]: config/web-sites-available/000-default.conf
+
+
+#### WordPress core
+
 | Name      | Version |
 | --------- | ------- |
 | WordPress | `6.3`   |
@@ -130,7 +171,7 @@ Also see [`config/web-sites-available/000-default.conf`][webconfig].
 Also see [`.env.example`](.env.example).
 
 
-### Plugins
+#### WordPress plugins
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
@@ -140,7 +181,7 @@ Also see [`.env.example`](.env.example).
 | [Redirection][redirection]                               | `4.9.2`  |
 | [Tablepress][tablepress]                                 | `1.14`   |
 | [Wordfence][wordfence]                                   | `7.10.3` |
-| [WordPress Imorter][wp-importer]                         | `0.8.1`  |
+| [WordPress Importer][wp-importer]                        | `0.8.1`  |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
@@ -153,15 +194,38 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 [wp-importer]: https://wordpress.org/plugins/wordpress-importer/
 
 
-### Themes
+#### WordPress themes
 
-| Name                                 | Version |
-| ------------------------------------ | ------- |
-| [Vocabulary Theme][vocabulary-theme] | `0.11.0` |
+| Name                                 | Version  |
+| ------------------------------------ | -------- |
+| [Vocabulary Theme][gh-vocab-theme] | `0.11.0` |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
-[vocabulary-theme]: https://github.com/creativecommons/vocabulary-theme
+
+### Stage
+
+The staging server is configured via Salt managed in the in
+[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
+include the specifics (is non-exhaustive):
+- `pillars/`
+  - [`3_HST/index/`][salt-hst-index]
+  - [`5_HST__POD/index__stage`][salt-hst-pod-index]
+- `states/`
+  - [`apache2/files/creativecommons_org.conf`][salt-index-conf]
+  - [`wordpress/files/index-composer.json`][salt-index-composer]
+  - [`wordpress/index.sls`][salt-wordpress-index]
+
+[sre-salt-prime]: https://github.com/creativecommons/sre-salt-prime
+[salt-hst-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/3_HST/index
+[salt-hst-pod-index]: https://github.com/creativecommons/sre-salt-prime/tree/main/pillars/5_HST__POD/index__stage
+[salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/creativecommons_org.conf
+[salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
+[salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
+
+### Prod
+
+TODO
 
 
 ## Copying

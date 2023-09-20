@@ -175,7 +175,7 @@ Also see [`.env.example`](.env.example).
 | [Advanced Custom Fields][adv-custom-fields]              | `6.1.8`  |
 | [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
 | [Classic Editor][classic-editor]                         | `1.6.3`  |
-| [Redirection][redirection]                               | `4.9.2`  |
+| [Redirection][redirection]                               | `5.3.10` |
 | [Tablepress][tablepress]                                 | `1.14`   |
 | [Wordfence][wordfence]                                   | `7.10.3` |
 | [WordPress Importer][wp-importer]                        | `0.8.1`  |

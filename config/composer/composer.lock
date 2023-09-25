@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "770e35aad850ce2231f47a3dc795c6c8",
+    "content-hash": "05229251e48f85781f05df6a16aabc97",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,20 +153,20 @@
         },
         {
             "name": "creativecommons/vocabulary-theme",
-            "version": "v0.16.0",
+            "version": "v0.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativecommons/vocabulary-theme",
-                "reference": "64b2ebbc0dd51cacaa3bd6a816e69262867c03c0"
+                "reference": "8aefd7d92d172983f86ebf0127a07de3cbb559e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/64b2ebbc0dd51cacaa3bd6a816e69262867c03c0",
-                "reference": "64b2ebbc0dd51cacaa3bd6a816e69262867c03c0",
+                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/8aefd7d92d172983f86ebf0127a07de3cbb559e9",
+                "reference": "8aefd7d92d172983f86ebf0127a07de3cbb559e9",
                 "shasum": ""
             },
             "type": "wordpress-theme",
-            "time": "2023-09-22T22:10:04+00:00"
+            "time": "2023-09-25T14:26:24+00:00"
         },
         {
             "name": "reyhoun/acf-menu-chooser",

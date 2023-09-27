@@ -11,12 +11,31 @@ website in a local Docker development environment.
 The CreativeCommons.org website is comprised of five components that are split
 into two categories:
 - dynamic component:
-  - WordPress
+  - WordPress (Vocabulary Theme)
 - static components:
   - Chooser
   - FAQ
-  - Legal Tools (licenses and public domain dedications)
+  - Legal Tools (licenses and public domain)
   - Platform Toolkit
+
+
+### Component repositories
+
+Path label|Path|Component name|Component repositories
+----------|----|--------------|----------------------
+Chooser|`/choose`|Chooser|[chooser][gh-chooser]
+FAQ|`/faq`|FAQ|[faq][gh-faq]
+Licenses| `/licenses`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+Platform Toolkit|`/platform/toolkit`|Platform Toolkit|[mp][gh-mp]
+Public Domain|`/publicdomain`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
+WordPress|`/` (default)|Vocabulary Theme|[vocabulary-theme][gh-vocab-theme]
+
+[gh-chooser]: https://github.com/creativecommons/chooser
+[gh-faq]: https://github.com/creativecommons/faq
+[gh-app]: https://github.com/creativecommons/cc-legal-tools-app
+[gh-data]: https://github.com/creativecommons/cc-legal-tools-data
+[gh-mp]: https://github.com/creativecommons/mp
+[gh-vocab-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
 ## Code of conduct
@@ -47,8 +66,6 @@ containers:
 2. **index-phpmyadmin** - Database administration
    - [localhost:8003](http://localhost:8003/)
 3. **index-wpcli** - The command line interface for WordPress
-   - This container does not have a persistent service. Expect the following
-     message when you start the services: `index-wpcli exited with code 0`
 4. **index-web** - Web server (WordPress and static HTML components)
    - **[localhost:8080](http://localhost:8080/)**
 5. **index-wpdb** - Database server for WordPress
@@ -65,7 +82,7 @@ containers:
     ├── faq
     └── mp
     ```
-   - [creativecommons/cc-legal-tools-data][gh-cc-legal-tools-data]
+   - [creativecommons/cc-legal-tools-data][gh-data]
    - [creativecommons/chooser][gh-chooser]
    - [creativecommons/faq][gh-faq]
    - [creativecommons/mp][gh-mp]
@@ -86,11 +103,6 @@ containers:
     ```
 7. Optionally: manually activate/configure `wordfence` in the GUI for now.
     - **TODO:** automate in script
-
-[gh-cc-legal-tools-data]: https://github.com/creativecommons/cc-legal-tools-data
-[gh-chooser]: https://github.com/creativecommons/chooser
-[gh-faq]: https://github.com/creativecommons/faq
-[gh-mp]: https://github.com/creativecommons/mp
 
 
 ## Path URLs
@@ -128,25 +140,6 @@ WordPress Admin|[Dev `/wp-admin`][d7]|[Stage `/wp-admin`][s7]|[Prod `/wp-admin`]
 [p5]: https://creativecommons.org/publicdomain "Prod Public Domain /publicdomain"
 [p6]: https://creativecommons.org/ "Prod WordPress / (default)"
 [p7]: https://creativecommons.org/wp-admin/ "Prod WordPress Admin /wp-admin"
-
-
-## Component repositories
-
-Path label|Path|Component name|Component repositories
-----------|----|--------------|----------------------
-Chooser|`/choose`|Chooser|[chooser][gh-chooser]
-FAQ|`/faq`|FAQ|[faq][gh-faq]
-Licenses| `/licenses`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
-Platform Toolkit|`/platform/toolkit`|Platform Toolkit|[mp][gh-mp]
-Public Domain|`/publicdomain`|CC Legal Tools|[cc-legal-tools-app][gh-app], [cc-legal-tools-data][gh-data]
-WordPress|`/` (default)|Vocabulary Theme|[vocabulary-theme][gh-vocab-theme]
-
-[gh-chooser]: https://github.com/creativecommons/chooser
-[gh-faq]: https://github.com/creativecommons/faq
-[gh-app]: https://github.com/creativecommons/cc-legal-tools-app
-[gh-data]: https://github.com/creativecommons/cc-legal-tools-data
-[gh-mp]: https://github.com/creativecommons/mp
-[gh-vocab-theme]: https://github.com/creativecommons/vocabulary-theme
 
 
 ## Dev configuration
@@ -200,10 +193,10 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 
-## Stage configuration
+## Stage and Prod configuration
 
-The staging server is configured via Salt managed in the in
-[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
+The staging server and production server are configured via Salt managed in the
+in [creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
 include the specifics (is non-exhaustive):
 - `pillars/`
   - [`3_HST/index/`][salt-hst-index]
@@ -219,10 +212,6 @@ include the specifics (is non-exhaustive):
 [salt-index-conf]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/apache2/files/index.conf
 [salt-index-composer]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/files/index-composer.json
 [salt-wordpress-index]: https://github.com/creativecommons/sre-salt-prime/blob/main/states/wordpress/index.sls
-
-## Prod configuration
-
-_TODO_
 
 
 ## Copying

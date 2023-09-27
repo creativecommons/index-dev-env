@@ -156,7 +156,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Name      | Version |
 | --------- | ------- |
-| WordPress | `6.3`   |
+| WordPress | `6.3.1`   |
 
 Also see [`.env.example`](.env.example).
 
@@ -165,23 +165,27 @@ Also see [`.env.example`](.env.example).
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
-| [Advanced Custom Fields][adv-custom-fields]              | `6.1.8`  |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.2.1`  |
 | [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
 | [Classic Editor][classic-editor]                         | `1.6.3`  |
+| [Monster Insights Google Analytics][monster-insights]    | `8.19`   |
 | [Redirection][redirection]                               | `5.3.10` |
-| [Tablepress][tablepress]                                 | `1.14`   |
-| [Wordfence][wordfence]                                   | `7.10.3` |
+| [Tablepress][tablepress]                                 | `2.1.7`  |
+| [Wordfence][wordfence]                                   | `7.10.4` |
 | [WordPress Importer][wp-importer]                        | `0.8.1`  |
+| [Yoast SEO][yoast-seo]                                   | `21.2`   |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 [adv-custom-fields]: https://wordpress.org/plugins/advanced-custom-fields/
 [acf-menu-chooser]: https://github.com/reyhoun/acf-menu-chooser
 [classic-editor]: https://wordpress.org/plugins/classic-editor/
+[monster-insights]: https://wordpress.org/plugins/google-analytics-for-wordpress/
 [redirection]: https://wordpress.org/plugins/redirection/
 [tablepress]: https://wordpress.org/plugins/tablepress/
 [wordfence]: https://wordpress.org/plugins/wordfence/
 [wp-importer]: https://wordpress.org/plugins/wordpress-importer/
+[yoast-seo]: https://wordpress.org/plugins/wordpress-seo/
 
 
 ### WordPress themes

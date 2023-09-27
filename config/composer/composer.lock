@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3295ea48c9f8f57c05a58ef1ea800e64",
+    "content-hash": "ff0e4ca0496cf64e878e81cab6b0a57d",
     "packages": [
         {
             "name": "composer/installers",
@@ -214,6 +214,24 @@
             "homepage": "https://wordpress.org/plugins/classic-editor/"
         },
         {
+            "name": "wpackagist-plugin/google-analytics-for-wordpress",
+            "version": "8.19",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/google-analytics-for-wordpress/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.zip?timestamp=1692805114"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/google-analytics-for-wordpress/"
+        },
+        {
             "name": "wpackagist-plugin/redirection",
             "version": "5.3.10",
             "source": {
@@ -233,15 +251,15 @@
         },
         {
             "name": "wpackagist-plugin/tablepress",
-            "version": "1.14",
+            "version": "2.1.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tablepress/",
-                "reference": "tags/1.14"
+                "reference": "tags/2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tablepress.1.14.zip"
+                "url": "https://downloads.wordpress.org/plugin/tablepress.2.1.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -251,15 +269,15 @@
         },
         {
             "name": "wpackagist-plugin/wordfence",
-            "version": "7.10.3",
+            "version": "7.10.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordfence/",
-                "reference": "tags/7.10.3"
+                "reference": "tags/7.10.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordfence.7.10.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordfence.7.10.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -284,6 +302,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-seo",
+            "version": "21.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
+                "reference": "tags/21.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.21.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordpress-seo/"
         },
         {
             "name": "wpackagist-theme/twentytwentythree",

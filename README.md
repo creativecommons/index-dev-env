@@ -192,7 +192,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |
-| [Vocabulary Theme][gh-vocab-theme] | `0.19.0` |
+| [Vocabulary Theme][gh-vocab-theme] | `1.0` |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 

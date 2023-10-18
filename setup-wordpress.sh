@@ -47,6 +47,14 @@ classic-editor
 redirection
 tablepress
 wordpress-importer
+wordpress-seo
+'
+# NOTE: wordfence does not play nice with Docker. Enabling it results in WP-CLI
+#       commands taking approximately 13 times longer (ex. 10.8 seconds
+#       instead of 0.8 seconds)
+PLUGINS_DEACTIVATE='
+google-analytics-for-wordpress
+wordfence
 '
 THEMES_ACTIVATE='
 vocabulary-theme
@@ -86,9 +94,6 @@ activate_plugins() {
             wpcli plugin activate "${_plugin}"
         fi
     done
-    wpcli plugin list --format=csv \
-        | column -s',' -t \
-        | format_list
     echo
 }
 
@@ -109,6 +114,24 @@ activate_themes() {
         | column -s',' -t \
         | format_list
     echo
+}
+
+
+check_requirements() {
+    # Ensure docker daemon is running
+    if [[ ! -S /var/run/docker.sock ]]
+    then
+        error_exit 'docker daemon is not running'
+    fi
+
+    # Ensure docker containers are running:
+    for _container in index-web index-wpcli index-wpdb
+    do
+        if ! docker compose exec "${_container}" true &>/dev/null
+        then
+            error_exit "docker container unavailable: ${_container}"
+        fi
+    done
 }
 
 
@@ -146,6 +169,22 @@ database_optimize() {
 database_update() {
     header 'Update database'
     wpcli core update-db
+    echo
+}
+
+
+deactivate_plugins() {
+    local _bold _plugin _reset
+    header 'Deactivate plugins'
+    for _plugin in ${PLUGINS_DEACTIVATE}
+    do
+        if wpcli --no-color --quiet plugin is-active "${_plugin}" &> /dev/null
+        then
+            wpcli plugin deactivate "${_plugin}"
+        else
+            no_op "${_plugin} is already inactive"
+        fi
+    done
     echo
 }
 
@@ -234,6 +273,13 @@ install_wordpress() {
     echo
 }
 
+list_plugins() {
+    header 'List plugins'
+    wpcli plugin list --format=csv \
+        | column -s',' -t \
+        | format_list
+    echo
+}
 
 no_op() {
     # Print no-op message"
@@ -337,12 +383,15 @@ wpcli() {
 
 #### MAIN #####################################################################
 
+check_requirements
 environment_info
 composer_install
 install_wordpress
 update_options
 remove_themes
+deactivate_plugins
 activate_plugins
+list_plugins
 activate_themes
 database_update
 database_optimize

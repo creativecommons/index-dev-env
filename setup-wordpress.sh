@@ -389,8 +389,8 @@ composer_install
 install_wordpress
 update_options
 remove_themes
-activate_plugins
 deactivate_plugins
+activate_plugins
 list_plugins
 activate_themes
 database_update

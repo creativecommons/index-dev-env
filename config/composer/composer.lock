@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb0eb72310301b4a8ed9f5760392cd13",
+    "content-hash": "f27524aac8a552fb3d3a2d9889bceb26",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,20 +153,20 @@
         },
         {
             "name": "creativecommons/vocabulary-theme",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativecommons/vocabulary-theme",
-                "reference": "1490f520dc03e42f90ee68b5373550c0d9a60bc3"
+                "reference": "087ee86be90fbb9c28b780a038c9457d8e995d95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/1490f520dc03e42f90ee68b5373550c0d9a60bc3",
-                "reference": "1490f520dc03e42f90ee68b5373550c0d9a60bc3",
+                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/087ee86be90fbb9c28b780a038c9457d8e995d95",
+                "reference": "087ee86be90fbb9c28b780a038c9457d8e995d95",
                 "shasum": ""
             },
             "type": "wordpress-theme",
-            "time": "2023-10-02T15:33:08+00:00"
+            "time": "2023-10-18T16:04:51+00:00"
         },
         {
             "name": "reyhoun/acf-menu-chooser",
@@ -215,15 +215,15 @@
         },
         {
             "name": "wpackagist-plugin/google-analytics-for-wordpress",
-            "version": "8.19",
+            "version": "8.19.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/google-analytics-for-wordpress/",
-                "reference": "trunk"
+                "reference": "tags/8.19.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.zip?timestamp=1692805114"
+                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.8.19.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

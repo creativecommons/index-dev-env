@@ -101,8 +101,17 @@ containers:
     ```shell
     ./setup-wordpress.sh
     ```
-7. Optionally: manually activate/configure `wordfence` in the GUI for now.
-    - **TODO:** automate in script
+7. _Optional (CC staff only):_ import production data
+   1. Ensure you have access to the production server and your local machine
+      is properly configured to access it
+   2. Pull production data
+        ```shell
+        ./staff_migrate.sh pull
+        ```
+   3. Import production data
+        ```shell
+        ./staff_migrate.sh import
+        ```
 
 
 ## Path URLs
@@ -156,7 +165,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Name      | Version |
 | --------- | ------- |
-| WordPress | `6.3.1`   |
+| WordPress | `6.3`   |
 
 Also see [`.env.example`](.env.example).
 
@@ -192,7 +201,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 | Name                                 | Version  |
 | ------------------------------------ | -------- |
-| [Vocabulary Theme][gh-vocab-theme] | `1.1` |
+| [Vocabulary Theme][gh-vocab-theme]   | `1.1`    |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 

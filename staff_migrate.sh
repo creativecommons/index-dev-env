@@ -451,6 +451,7 @@ script_setup() {
     esac
     CACHE_UPLOADS_DIR="${CACHE_DIR}/uploads"
     CACHE_SQL="${CACHE_DIR}/${PROD_WP_HOST}_export.sql"
+    test_wordpress_installed
     staff_only_notice
 }
 
@@ -508,6 +509,14 @@ test_ssh_to_prod() {
     else
         success 'connection verified'
         echo
+    fi
+}
+
+
+test_wordpress_installed() {
+    if ! wpcli --no-color --quiet core is-installed &> /dev/null
+    then
+        error_exit 'initial WordPress install has not been completed'
     fi
 }
 

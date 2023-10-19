@@ -56,6 +56,9 @@ PLUGINS_DEACTIVATE='
 google-analytics-for-wordpress
 wordfence
 '
+PLUGINS_UNINSTALL='
+hello
+'
 THEMES_ACTIVATE='
 vocabulary-theme
 '
@@ -314,6 +317,24 @@ remove_themes() {
 }
 
 
+uninstall_plugins() {
+    local _bold _plugin _reset
+    header 'Uninstall plugins'
+    for _plugin in ${PLUGINS_UNINSTALL}
+    do
+        if wpcli --no-color --quiet plugin is-installed "${_plugin}" \
+            &> /dev/null
+        then
+            wpcli plugin uninstall "${_plugin}"
+        else
+            no_op "${_plugin} is not installed"
+        fi
+    done
+    echo
+}
+
+
+
 update_options() {
     local _date_format _default_comment_status _noop _permalink_structure \
         _time_format
@@ -389,6 +410,7 @@ composer_install
 install_wordpress
 update_options
 remove_themes
+uninstall_plugins
 deactivate_plugins
 activate_plugins
 list_plugins

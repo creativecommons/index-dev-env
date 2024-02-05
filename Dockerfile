@@ -19,10 +19,6 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create the 'xfs' user and group
-RUN groupadd xfs && \
-    useradd -r -g xfs -s /bin/bash xfs
-
 
 # Enable Apache modules
 RUN a2enmod php8.2

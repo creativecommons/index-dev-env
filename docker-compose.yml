@@ -8,7 +8,7 @@ services:
     depends_on:
       - index-wpdb
     # https://hub.docker.com/_/composer
-    image: my-wordpress-site
+    image: shafiyaheena01/index-image:latest
     working_dir: /var/www/html/
     networks:
       - index-backend

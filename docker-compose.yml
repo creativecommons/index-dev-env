@@ -1,57 +1,25 @@
-# https://github.com/docker/compose/issues/4513#issuecomment-281478365
-# >> Are we just expected to stay on [Docker Compose file format version 2] if
-# >> we want to use docker-compose and not swarm mode?
-# >
-# > Yes.
-#
-# https://docs.docker.com/compose/compose-file/compose-file-v2/
 version: '2.4'
 
 services:
 
-  index-composer:
+  index-wordpress:
     command: 'true'
-    container_name: index-composer
+    container_name: index-wordpress
     depends_on:
       - index-wpdb
-      - index-web
     # https://hub.docker.com/_/composer
-    image: composer
-    user: xfs
-    volumes:
-      - ./config/composer/composer.json:/var/www/html/composer.json
-      - ./config/composer/composer.lock:/var/www/html/composer.lock
-      - index-wp-data:/var/www/html
+    image: my-wordpress-site
     working_dir: /var/www/html/
-
-  index-phpmyadmin:
-    container_name: index-phpmyadmin
-    depends_on:
-      - index-wpdb
+    networks:
+      - index-backend
     environment:
       MYSQL_ROOT_PASSWORD: root
       PMA_HOST: index-wpdb
       PMA_PORT: 3306
-    # https://hub.docker.com/_/phpmyadmin
-    image: phpmyadmin
-    networks:
-      - index-backend
-    ports:
-      - '8003:80'
-    volumes:
-      # Apache2 web server configuration
-      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
-
-  index-web:
-    container_name: index-web
-    depends_on:
-      - index-wpdb
-    environment:
       WORDPRESS_CONFIG_EXTRA: |
         # Use dispatch port by default
         if ('${CODESPACE_NAME:-}') {
           define('WP_HOME', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
-          define('WP_SITEURL', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
         } else {
           define('WP_HOME', 'http://localhost:8080');
           define('WP_SITEURL', 'http://localhost:8080');
@@ -61,12 +29,6 @@ services:
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_name: wordpress
       WORDPRESS_USER: root
-    # https://hub.docker.com/_/wordpress
-    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/remote/latest.md
-    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/local/latest.md
-    image: wordpress:${WP_VERSION:?err}
-    networks:
-      - index-backend
     ports:
       - '8080:80'
     restart: on-failure
@@ -94,31 +56,6 @@ services:
       # Migration cache
       - ./cache:/var/www/html/cache:ro
 
-  index-wpcli:
-    # continue running until shutdown (this allows docker compose exec which is
-    # much faster than docker compose run)
-    # Thank you: https://serverfault.com/a/1084975
-    command: sh -c 'trap "exit" TERM; while true; do sleep 1; done'
-    container_name: index-wpcli
-    depends_on:
-      - index-wpdb
-      - index-web
-    environment:
-      WORDPRESS_DB_HOST: index-wpdb:3306
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_PASSWORD: root
-      WORDPRESS_DB_USER: root
-      WORDPRESS_USER: root
-    # https://hub.docker.com/_/wordpress
-    image: wordpress:cli
-    networks:
-      - index-backend
-    user: xfs
-    volumes:
-      # WordPress
-      - index-wp-data:/var/www/html
-      # Migration cache
-      - ./cache:/var/www/html/cache:ro
 
   index-wpdb:
     container_name: index-wpdb
@@ -143,3 +80,4 @@ volumes:
 networks:
   index-backend:
     name: index-backend
+

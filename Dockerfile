@@ -65,10 +65,10 @@ RUN wp core download --allow-root
 
 
 # Initialize and start Apache service
-COPY startupservice.sh /startupservice.sh
+COPY config/startupservice.sh /startupservice.sh
 RUN chmod +x /startupservice.sh
 
 # Expose ports for Apache and MariaDB
 EXPOSE 80
 
-ENTRYPOINT ["/startupservice.sh"]
+CMD ["/startupservice.sh"]

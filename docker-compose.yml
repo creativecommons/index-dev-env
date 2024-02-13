@@ -3,13 +3,10 @@ version: '2.4'
 services:
 
   index-wordpress:
-    command: 'true'
     container_name: index-wordpress
     depends_on:
       - index-wpdb
-    # https://hub.docker.com/
-    image: shafiyaheena01/index-image:latest
-    working_dir: /var/www/html/
+    build: .
     networks:
       - index-backend
     environment:
@@ -52,9 +49,9 @@ services:
       #   this repository)
       - ../mp:/var/www/git/mp:ro
       # WordPress
-      - index-wp-data:/var/www/html
+      - index-wp-data:/var/www/index
       # Migration cache
-      - ./cache:/var/www/html/cache:ro
+      - ./cache:/var/www/index/cache:ro
 
 
   index-wpdb:

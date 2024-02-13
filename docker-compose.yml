@@ -33,6 +33,7 @@ services:
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_name: wordpress
       WORDPRESS_USER: root
+    init: true
     ports:
       - '8080:80'
     restart: on-failure

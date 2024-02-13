@@ -84,4 +84,3 @@ volumes:
 networks:
   index-backend:
     name: index-backend
-

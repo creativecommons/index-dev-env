@@ -8,9 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Configure apt to avoid installing recommended and suggested packages
 RUN apt-config dump \
-| grep -E '^APT::Install-(Recommends|Suggests)' \
-| sed -e's/1/0/' \
-| tee /etc/apt/apt.conf.d/99no-recommends-no-suggests
+    | grep -E '^APT::Install-(Recommends|Suggests)' \
+    | sed -e's/1/0/' \
+    | tee /etc/apt/apt.conf.d/99no-recommends-no-suggests
 
 # Resynchronize the package
 RUN apt-get update
@@ -28,12 +28,12 @@ RUN apt-get install -y \
     php8.2-mysql \
     php8.2-pdo \
     vim \
-    wget && \
-    update-ca-certificates
+    wget \
+    && update-ca-certificates
 
 # Clean up packages: Saves space by removing unnecessary package files
 # and lists
-RUN  apt-get clean
+RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
 
@@ -47,15 +47,17 @@ RUN mkdir /var/www/index
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \
-| php -- --install-dir=/usr/local/bin --filename=composer
+    | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY ./config/composer/composer.json /var/www/index/composer.json
 COPY ./config/composer/composer.lock /var/www/index/composer.lock
 
 # Install WordPress CLI
-RUN curl -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp-cli.phar \
- && chmod +x wp-cli.phar \
- && mv wp-cli.phar /usr/local/bin/wp
+RUN curl -L \
+    https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    -o wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
 
 # Set up WordPress
 WORKDIR /var/www/index

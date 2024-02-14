@@ -43,7 +43,7 @@ RUN a2enmod rewrite
 
 
 # create an index directory
-RUN mkdir /var/www/index
+RUN mkdir -p /var/www/index
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \

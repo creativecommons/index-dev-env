@@ -9,7 +9,7 @@
 #   The "2>/dev/null" below silences the messages from docker compose run.
 #   For example, the output like the following will not be visible:
 #       [+] Creating 2/0
-#        ✔ Container index-wpdb  Running                                  0.0s
+#        ✔ Container index-db  Running                                  0.0s
 #        ✔ Container index-web   Running                                  0.0s
 #
 set -o errexit
@@ -66,7 +66,7 @@ THEMES_REMOVE='
 twentytwentyone
 twentytwentytwo
 '
-WEB_WP_DIR=/var/www/html
+WEB_WP_DIR=/var/www/index
 WEB_WP_URL=http://localhost:8080
 
 
@@ -128,7 +128,7 @@ check_requirements() {
     fi
 
     # Ensure docker containers are running:
-    for _container in index-web index-wpcli index-wpdb
+    for _container in index-web index-db
     do
         if ! docker compose exec "${_container}" true &>/dev/null
         then
@@ -200,11 +200,11 @@ environment_info() {
     printf "${E1}%s${E0} - %s\n" \
         'index-composer' 'A Dependency Manager for PHP'
     print_key_val 'Composer version' \
-        "$(docker compose run --rm index-composer \
+        "$(docker compose run --rm index-web \
             --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
     echo
 
-    # index-web
+    
     printf "${E1}%s${E0} - %s\n" 'index-web' \
         'Web server (WordPress and static HTML components)'
     print_var WEB_WP_URL
@@ -215,9 +215,9 @@ environment_info() {
             | awk '/^PHP/ {print $2}')"
     echo
 
-    # index-wpcli
+    # index-web
     printf "${E1}%s${E0} - %s\n" \
-        'index-wpcli' 'The command line interface for WordPress'
+        'index-web' 'The command line interface for WordPress'
     IFS=$'\n'
     for _line in $(wpcli --info | sort)
     do
@@ -396,7 +396,7 @@ wpcli() {
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-        index-wpcli \
+        index-web \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
             "${@}"
 }

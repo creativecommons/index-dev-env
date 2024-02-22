@@ -52,6 +52,9 @@ RUN curl -sS https://getcomposer.org/installer \
 COPY ./config/composer/composer.json /var/www/index/composer.json
 COPY ./config/composer/composer.lock /var/www/index/composer.lock
 
+# set permissions
+RUN chown -R www-data:www-data /var/www/index
+
 # Install WordPress CLI
 RUN curl -L \
     https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -60,9 +63,12 @@ RUN curl -L \
     && mv wp-cli.phar /usr/local/bin/wp
 
 # Set up WordPress
+USER www-data
 WORKDIR /var/www/index
-RUN wp core download --allow-root
+RUN wp core download 
 
+# Switch to root
+USER root
 
 # Initialize and start Apache service
 COPY config/startupservice.sh /startupservice.sh

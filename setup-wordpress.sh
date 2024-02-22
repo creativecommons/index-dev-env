@@ -140,7 +140,7 @@ check_requirements() {
 
 composer_install() {
     header 'Composer install'
-    docker compose run --rm index-composer install --ansi 2>&1 \
+    docker compose run --rm index-web install --ansi 2>&1 \
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
@@ -196,9 +196,8 @@ environment_info() {
     local _key _val IFS
     header 'Container information'
 
-    # index-composer
     printf "${E1}%s${E0} - %s\n" \
-        'index-composer' 'A Dependency Manager for PHP'
+        'index-web' 'A Dependency Manager for PHP'
     print_key_val 'Composer version' \
         "$(docker compose run --rm index-web \
             --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"

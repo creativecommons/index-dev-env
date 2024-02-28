@@ -199,13 +199,14 @@ environment_info() {
     local _key _val IFS
     header 'Container information'
 
-    printf "${E1}%s${E0} - %s\n" \
-        'index-web' 'A Dependency Manager for PHP'
-    print_key_val 'Composer version' \
-    "$(docker compose run --rm index-web \
-    composer --version 2>/dev/null | sed 's/Composer version \([^ ]*\).*/\1/')"
+    # index-db
+    printf "${E1}%s${E0} - %s\n" 'index-db' \
+        'Database server for WordPress'
+    print_key_val 'MariaDB version' \
+        "$(echo; docker compose exec index-db mariadb --version)"
     echo
 
+    # index-web
     printf "${E1}%s${E0} - %s\n" 'index-web' \
         'Web server (WordPress and static HTML components)'
     print_var WEB_WP_URL
@@ -214,11 +215,10 @@ environment_info() {
     print_key_val 'PHP version' \
         "$(docker compose exec index-web php --version \
             | awk '/^PHP/ {print $2}')"
-    echo
-
-    # index-web
-    printf "${E1}%s${E0} - %s\n" \
-        'index-web' 'The command line interface for WordPress'
+    print_key_val 'Composer version' \
+        "$(docker compose run --rm index-web \
+            composer --version 2>/dev/null \
+            | sed 's/Composer version \([^ ]*\).*/\1/')"
     IFS=$'\n'
     for _line in $(wpcli --info | sort)
     do
@@ -229,8 +229,6 @@ environment_info() {
         [[ "${_key}" =~ ^WP-CLI ]] || continue
         print_key_val "${_key}" "${_val}"
     done
-    print_key_val 'PHP version' \
-        "$(wpcli cli info | awk '/^PHP version/ {print $3}')"
     echo
 }
 

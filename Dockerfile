@@ -29,6 +29,7 @@ RUN apt-get install -y \
     php8.2-mysql \
     php8.2-pdo \
     sudo \
+    unzip \
     vim \
     wget \
     && update-ca-certificates
@@ -64,7 +65,7 @@ RUN curl -L \
 # Set up WordPress
 USER www-data
 WORKDIR /var/www/index
-RUN wp core download 
+RUN wp core download
 
 # Switch to root
 USER root

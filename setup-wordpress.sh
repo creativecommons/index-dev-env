@@ -49,6 +49,9 @@ tablepress
 wordpress-importer
 wordpress-seo
 '
+
+WP_USER="www-data"
+
 # NOTE: wordfence does not play nice with Docker. Enabling it results in WP-CLI
 #       commands taking approximately 13 times longer (ex. 10.8 seconds
 #       instead of 0.8 seconds)
@@ -140,7 +143,7 @@ check_requirements() {
 
 composer_install() {
     header 'Composer install'
-    docker compose run --rm index-web install --ansi 2>&1 \
+    docker compose run --rm index-web composer install --ansi 2>&1 \
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
@@ -199,11 +202,10 @@ environment_info() {
     printf "${E1}%s${E0} - %s\n" \
         'index-web' 'A Dependency Manager for PHP'
     print_key_val 'Composer version' \
-        "$(docker compose run --rm index-web \
-            --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
+    "$(docker compose run --rm index-web \
+    composer --version 2>/dev/null | sed 's/Composer version \([^ ]*\).*/\1/')"
     echo
 
-    
     printf "${E1}%s${E0} - %s\n" 'index-web' \
         'Web server (WordPress and static HTML components)'
     print_var WEB_WP_URL
@@ -333,7 +335,6 @@ uninstall_plugins() {
 }
 
 
-
 update_options() {
     local _date_format _default_comment_status _noop _permalink_structure \
         _time_format
@@ -391,7 +392,7 @@ wordpress_status() {
 
 wpcli() {
     # Call WP-CLI with appropriate site arguments via Docker
-    docker compose exec \
+    docker compose exec -T --user "$WP_USER" \
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
@@ -400,10 +401,17 @@ wpcli() {
             "${@}"
 }
 
+check_user_permissions() {
+    if ! docker compose exec -T --user "$WP_USER" \
+        index-web test -w "$WEB_WP_DIR"; then \
+        error_exit "$WP_USER does not have write permissions on $WEB_WP_DIR"
+    fi
+}
 
 #### MAIN #####################################################################
 
 check_requirements
+check_user_permissions
 environment_info
 composer_install
 install_wordpress

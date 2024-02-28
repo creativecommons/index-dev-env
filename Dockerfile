@@ -3,6 +3,7 @@
 # https://hub.docker.com/_/debian
 FROM debian:bookworm-slim
 
+
 # Configure apt not to prompt during docker build
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -12,7 +13,7 @@ RUN apt-config dump \
     | sed -e's/1/0/' \
     | tee /etc/apt/apt.conf.d/99no-recommends-no-suggests
 
-# Resynchronize the package
+# Resynchronize the package index files from their sources
 RUN apt-get update
 
 # Install packages
@@ -44,21 +45,30 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN adduser www-data sudo
 COPY config/www-data_startupservice /etc/sudoers.d/www-data_startupservice
 
+# Initialize and start Apache service
+COPY config/startupservice.sh /startupservice.sh
+RUN chmod +x /startupservice.sh
+CMD ["sudo", "/startupservice.sh"]
+
+
+# Expose ports for Apache
+EXPOSE 80
+
 
 # Enable Apache modules
 RUN a2enmod php8.2
 RUN a2enmod rewrite
 
 
-# create an index directory
+# create an index directory and set permissions
 RUN mkdir -p /var/www/index
+RUN chown -R www-data:www-data /var/www/index
+
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer
 
-# set permissions
-RUN chown -R www-data:www-data /var/www/index
 
 # Install WordPress CLI
 RUN curl -L \
@@ -67,21 +77,8 @@ RUN curl -L \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+
 # Set up WordPress
 USER www-data
 WORKDIR /var/www/index
 RUN wp core download
-
-# Switch to root
-USER root
-
-# Initialize and start Apache service
-COPY config/startupservice.sh /startupservice.sh
-RUN chmod +x /startupservice.sh
-
-# Expose ports for Apache and MariaDB
-EXPOSE 80
-
-CMD ["sudo", "/startupservice.sh"]
-
-USER www-data

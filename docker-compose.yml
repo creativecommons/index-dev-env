@@ -60,6 +60,9 @@ services:
       - index-wp-data:/var/www/index
       # Migration cache
       - ./cache:/var/www/index/cache:ro
+      # Composer files
+      - ./config/composer/composer.json:/var/www/index/composer.json
+      - ./config/composer/composer.lock:/var/www/index/composer.lock
 
 
   index-db:

@@ -40,6 +40,11 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
 
+# Add Apache2's www-data user to sudo group
+RUN adduser www-data sudo
+COPY config/www-data_startupservice /etc/sudoers.d/www-data_startupservice
+
+
 # Enable Apache modules
 RUN a2enmod php8.2
 RUN a2enmod rewrite
@@ -77,4 +82,6 @@ RUN chmod +x /startupservice.sh
 # Expose ports for Apache and MariaDB
 EXPOSE 80
 
-CMD ["/startupservice.sh"]
+CMD ["sudo", "/startupservice.sh"]
+
+USER www-data

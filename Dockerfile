@@ -60,15 +60,14 @@ RUN a2enmod php8.2
 RUN a2enmod rewrite
 
 
-# Create the index directory and set permissions
-RUN mkdir -p /var/www/index
-RUN chown -R www-data:www-data /var/www/index
-
-
 # Install Composer
 # https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Create compose directory for www-data
+RUN mkdir /var/www/.composer
+RUN chown -R www-data:www-data /var/www/.composer
 
 
 # Install WordPress CLI (WP-CLI)
@@ -79,16 +78,32 @@ RUN curl -L \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# Create WP-CLI directory for www-data
+RUN mkdir /var/www/.wp-cli
+RUN chown -R www-data:www-data /var/www/.wp-cli
+
+
+# Create the index directory and set permissions
+RUN mkdir -p /var/www/index
+RUN chown -R www-data:www-data /var/www/index
+
 
 # Use WP-CLI to intall WordPress
 USER www-data
 WORKDIR /var/www/index
 RUN wp core download
 
-# copy  WP-CONFIG.PHP
-RUN curl -L "https://raw.githubusercontent.com/docker-library/wordpress/master\
-/latest/php8.2/apache/wp-config-docker.php" -o /var/www/index/wp-config.php
-
+# Add WordPress basic configuration
+# 1) Download wp-config-docker.php for use as wp-config.php. Friendly view at:
+# https://github.com/docker-library/wordpress/blob/master/latest/php8.2/apache/wp-config-docker.php
+RUN curl -L \
+    https://raw.githubusercontent.com/docker-library/wordpress/master/latest/php8.2/apache/wp-config-docker.php \
+    -o /var/www/index/wp-config.php
+# 2) Use awk to replace all instances of "put your unique phrase here" with a
+#    properly unique string (for AUTH_KEY and friends to have safe defaults if
+#    they aren't specified with environment variables)
+#    Based on:
+# https://github.com/docker-library/wordpress/blob/master/latest/php8.2/apache/docker-entrypoint.sh
 RUN awk ' \
     /put your unique phrase here/ { \
         cmd = "head -c1m /dev/urandom | sha1sum | cut -d\\  -f1"; \
@@ -97,6 +112,5 @@ RUN awk ' \
         gsub("put your unique phrase here", str); \
     } \
     { print } \
-    ' /var/www/index/wp-config.php > /var/www/index/wp-config.tmp && \
-    mv /var/www/index/wp-config.tmp /var/www/index/wp-config.php
-
+    ' /var/www/index/wp-config.php > /var/www/index/wp-config.tmp \
+    && mv /var/www/index/wp-config.tmp /var/www/index/wp-config.php

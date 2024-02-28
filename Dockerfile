@@ -22,11 +22,14 @@ RUN apt-get install -y \
     curl \
     libapache2-mod-php \
     git \
+    mariadb-server \
+    mariadb-client \
     php8.2-mbstring \
     php8.2-xml \
     php8.2 \
     php8.2-mysql \
     php8.2-pdo \
+    sudo \
     vim \
     wget \
     && update-ca-certificates
@@ -49,8 +52,12 @@ RUN mkdir -p /var/www/index
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY ./config/composer/composer.json /var/www/index/composer.json
-COPY ./config/composer/composer.lock /var/www/index/composer.lock
+# update composer
+RUN composer self-update
+
+# install dependencies
+RUN composer install --no-scripts --no-autoloader
+RUN composer dump-autoload --optimize
 
 # set permissions
 RUN chown -R www-data:www-data /var/www/index

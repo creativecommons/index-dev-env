@@ -15,7 +15,7 @@ trap '_es=${?};
     printf " exited with a status of ${_es}\n";
     exit ${_es}' ERR
 
-DOCKER_WP_DIR=/var/www/html
+DOCKER_WP_DIR=/var/www/index
 DOCKER_WP_URL=http://localhost:8080
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 E0="$(printf "\e[0m")"        # reset
@@ -348,7 +348,7 @@ script_setup() {
                 error_exit 'docker daemon is not running'
             fi
             # Ensure services are running
-            for _service in index-web index-wpdb
+            for _service in index-web index-db
             do
                 if ! docker compose exec "${_service}" true 2>/dev/null
                 then
@@ -525,7 +525,7 @@ wpcli() {
     case "${SCRIPT_ENV}" in
         'docker')
         # Call WP-CLI with appropriate site arguments via Docker
-            docker compose exec index-wpcli \
+            docker compose exec index-web \
                 /usr/local/bin/wp \
                     --path="${DOCKER_WP_DIR}" \
                     --url="${DOCKER_WP_URL}" \

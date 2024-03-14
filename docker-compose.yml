@@ -31,7 +31,7 @@ services:
       WORDPRESS_DB_HOST: index-db:3306
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
-      WORDPRESS_DB_name: wordpress
+      WORDPRESS_DB_NAME: wordpress
       WORDPRESS_USER: root
     init: true
     ports:
@@ -63,6 +63,7 @@ services:
       # Composer files
       - ./config/composer/composer.json:/var/www/index/composer.json
       - ./config/composer/composer.lock:/var/www/index/composer.lock
+
 
 
   index-db:

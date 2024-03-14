@@ -99,6 +99,7 @@ RUN wp core download
 RUN curl -L \
     https://raw.githubusercontent.com/docker-library/wordpress/master/latest/php8.2/apache/wp-config-docker.php \
     -o /var/www/index/wp-config.php
+
 # 2) Use awk to replace all instances of "put your unique phrase here" with a
 #    properly unique string (for AUTH_KEY and friends to have safe defaults if
 #    they aren't specified with environment variables)

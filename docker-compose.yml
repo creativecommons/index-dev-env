@@ -76,6 +76,8 @@ services:
     image: mariadb
     networks:
       - index-backend
+    ports:
+      - '3306:3306' 
     restart: on-failure
     volumes:
       - index-db-data:/var/lib/mysql

@@ -48,7 +48,7 @@ COPY config/www-data_startupservice /etc/sudoers.d/www-data_startupservice
 # Add Apache2 service startup script
 COPY config/startupservice.sh /startupservice.sh
 RUN chmod +x /startupservice.sh
-CMD ["sudo", "/startupservice.sh"]
+CMD ["sudo", "--preserve-env", "/startupservice.sh"]
 
 
 # Expose ports for Apache

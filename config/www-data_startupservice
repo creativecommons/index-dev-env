@@ -2,4 +2,4 @@
 #
 # This file MUST be edited with `/usr/sbin/visudo -sf FILENAME`.
 
-%sudo ALL = NOPASSWD: /startupservice.sh
+%sudo ALL = NOPASSWD:SETENV: /startupservice.sh

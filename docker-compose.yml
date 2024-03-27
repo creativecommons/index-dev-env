@@ -65,6 +65,24 @@ services:
       - ./config/composer/composer.lock:/var/www/index/composer.lock
 
 
+index-phpmyadmin:
+    container_name: index-phpmyadmin
+    depends_on:
+      - index-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: index-db
+      PMA_PORT: 3306
+    # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin
+    networks:
+      - index-backend
+    ports:
+      - '8003:80'
+    volumes:
+      # Apache2 web server configuration
+      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
+
 
   index-db:
     container_name: index-db

@@ -59,6 +59,8 @@ EXPOSE 80
 RUN a2enmod php8.2
 RUN a2enmod rewrite
 
+# Configure PHP
+COPY config/90-local.ini /etc/php/8.2/apache2/conf.d/
 
 # Install Composer
 # https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos

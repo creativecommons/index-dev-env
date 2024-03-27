@@ -180,7 +180,7 @@ import_uploads() {
         docker compose cp "${CACHE_UPLOADS_DIR}" \
             "index-web:${DOCKER_WP_UPLOADS_DIR}.temp" 2>/dev/null
         echo 'Set ownership of temp uploads dir to www-data:wwww-data'
-        docker compose exec index-web chown -R www-data:www-data \
+        docker compose exec --user root index-web chown -R www-data:www-data \
             "${DOCKER_WP_UPLOADS_TEMP_DIR}"
         echo 'Replace uploads dir with temp uploads dir'
         docker compose exec index-web mv "${DOCKER_WP_UPLOADS_DIR}" \

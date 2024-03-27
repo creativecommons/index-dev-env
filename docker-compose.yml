@@ -65,7 +65,7 @@ services:
       - ./config/composer/composer.lock:/var/www/index/composer.lock
 
 
-index-phpmyadmin:
+  index-phpmyadmin:
     container_name: index-phpmyadmin
     depends_on:
       - index-db

@@ -25,7 +25,7 @@ RUN apt-get install -y \
     less \
     libapache2-mod-php \
     mariadb-client \
-    php 8.2 \
+    php8.2 \
     php8.2-mbstring \
     php8.2-mysql \
     php8.2-pdo \

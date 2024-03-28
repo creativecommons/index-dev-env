@@ -173,7 +173,7 @@ Also see [`.env.example`](.env.example).
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | -------- |
-| [Advanced Custom Fields][adv-custom-fields]              | `6.2.7`  |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.2.1`  |
 | [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
 | [Classic Editor][classic-editor]                         | `1.6.3`  |
 | [Monster Insights Google Analytics][monster-insights]    | `8.19`   |

@@ -13,7 +13,10 @@ services:
     container_name: index-web
     depends_on:
       - index-db
-    build: .
+    build: 
+      args:
+        WP_VERSION: ${WP_VERSION}
+      context: .
     networks:
       - index-backend
     environment:

@@ -47,8 +47,7 @@ classic-editor
 redirection
 tablepress
 wordpress-importer
-wordpress-seo
-'
+wordpress-seo'
 
 WP_USER="www-data"
 

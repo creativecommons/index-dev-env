@@ -25,7 +25,7 @@ RUN apt-get install -y \
     less \
     libapache2-mod-php \
     mariadb-client \
-    php 8.2 \
+    php8.2 \
     php8.2-mbstring \
     php8.2-mysql \
     php8.2-pdo \
@@ -94,7 +94,8 @@ RUN chown -R www-data:www-data /var/www/index
 # Use WP-CLI to intall WordPress
 USER www-data
 WORKDIR /var/www/index
-RUN wp core download
+ARG WP_VERSION
+RUN wp core download --version=$WP_VERSION
 
 # Add WordPress basic configuration
 # 1) Download wp-config-docker.php for use as wp-config.php. Friendly view at:

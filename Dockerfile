@@ -21,14 +21,15 @@ RUN apt-get install -y \
     apache2 \
     ca-certificates \
     curl \
-    libapache2-mod-php \
     git \
+    less \
+    libapache2-mod-php \
     mariadb-client \
+    php 8.2 \
     php8.2-mbstring \
-    php8.2-xml \
-    php8.2 \
     php8.2-mysql \
     php8.2-pdo \
+    php8.2-xml \
     sudo \
     unzip \
     vim \

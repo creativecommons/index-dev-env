@@ -63,11 +63,11 @@ See [`CONTRIBUTING.md`][org-contrib].
 
 The [`docker-compose.yml`](docker-comose.yml) file defines the following
 containers:
-1. **index-web** - Web server (WordPress and static HTML components)
-   - **[localhost:8080](http://localhost:8080/)**
+1. **index-db** - Database server for WordPress
 2. **index-phpmyadmin** - Database administration
    - [localhost:8003](http://localhost:8003/)
-3. **index-db** - Database server for WordPress
+3. **index-web** - Web server (WordPress and static HTML components)
+   - **[localhost:8080](http://localhost:8080/)**
 
 
 ## Setup

@@ -94,7 +94,8 @@ RUN chown -R www-data:www-data /var/www/index
 # Use WP-CLI to intall WordPress
 USER www-data
 WORKDIR /var/www/index
-RUN wp core download
+ARG WP_VERSION
+RUN wp core download --version=$WP_VERSION
 
 # Add WordPress basic configuration
 # 1) Download wp-config-docker.php for use as wp-config.php. Friendly view at:

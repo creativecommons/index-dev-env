@@ -9,64 +9,34 @@ version: '2.4'
 
 services:
 
-  index-composer:
-    command: 'true'
-    container_name: index-composer
-    depends_on:
-      - index-wpdb
-      - index-web
-    # https://hub.docker.com/_/composer
-    image: composer
-    user: xfs
-    volumes:
-      - ./config/composer/composer.json:/var/www/html/composer.json
-      - ./config/composer/composer.lock:/var/www/html/composer.lock
-      - index-wp-data:/var/www/html
-    working_dir: /var/www/html/
-
-  index-phpmyadmin:
-    container_name: index-phpmyadmin
-    depends_on:
-      - index-wpdb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: index-wpdb
-      PMA_PORT: 3306
-    # https://hub.docker.com/_/phpmyadmin
-    image: phpmyadmin
-    networks:
-      - index-backend
-    ports:
-      - '8003:80'
-    volumes:
-      # Apache2 web server configuration
-      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
-
   index-web:
     container_name: index-web
     depends_on:
-      - index-wpdb
+      - index-db
+    build: 
+      args:
+        WP_VERSION: ${WP_VERSION}
+      context: .
+    networks:
+      - index-backend
     environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: index-db
+      PMA_PORT: 3306
       WORDPRESS_CONFIG_EXTRA: |
         # Use dispatch port by default
         if ('${CODESPACE_NAME:-}') {
           define('WP_HOME', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
-          define('WP_SITEURL', 'https://${CODESPACE_NAME:-}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}');
         } else {
           define('WP_HOME', 'http://localhost:8080');
           define('WP_SITEURL', 'http://localhost:8080');
         }
-      WORDPRESS_DB_HOST: index-wpdb:3306
+      WORDPRESS_DB_HOST: index-db:3306
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_USER: root
-      WORDPRESS_DB_name: wordpress
+      WORDPRESS_DB_NAME: wordpress
       WORDPRESS_USER: root
-    # https://hub.docker.com/_/wordpress
-    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/remote/latest.md
-    # https://github.com/docker-library/repo-info/blob/master/repos/wordpress/local/latest.md
-    image: wordpress:${WP_VERSION:?err}
-    networks:
-      - index-backend
+    init: true
     ports:
       - '8080:80'
     restart: on-failure
@@ -90,38 +60,35 @@ services:
       #   this repository)
       - ../mp:/var/www/git/mp:ro
       # WordPress
-      - index-wp-data:/var/www/html
+      - index-wp-data:/var/www/index
       # Migration cache
-      - ./cache:/var/www/html/cache:ro
+      - ./cache:/var/www/index/cache:ro
+      # Composer files
+      - ./config/composer/composer.json:/var/www/index/composer.json
+      - ./config/composer/composer.lock:/var/www/index/composer.lock
 
-  index-wpcli:
-    # continue running until shutdown (this allows docker compose exec which is
-    # much faster than docker compose run)
-    # Thank you: https://serverfault.com/a/1084975
-    command: sh -c 'trap "exit" TERM; while true; do sleep 1; done'
-    container_name: index-wpcli
+
+  index-phpmyadmin:
+    container_name: index-phpmyadmin
     depends_on:
-      - index-wpdb
-      - index-web
+      - index-db
     environment:
-      WORDPRESS_DB_HOST: index-wpdb:3306
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_PASSWORD: root
-      WORDPRESS_DB_USER: root
-      WORDPRESS_USER: root
-    # https://hub.docker.com/_/wordpress
-    image: wordpress:cli
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: index-db
+      PMA_PORT: 3306
+    # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin
     networks:
       - index-backend
-    user: xfs
+    ports:
+      - '8003:80'
     volumes:
-      # WordPress
-      - index-wp-data:/var/www/html
-      # Migration cache
-      - ./cache:/var/www/html/cache:ro
+      # Apache2 web server configuration
+      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
-  index-wpdb:
-    container_name: index-wpdb
+
+  index-db:
+    container_name: index-db
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: root

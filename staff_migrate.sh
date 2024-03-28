@@ -15,7 +15,7 @@ trap '_es=${?};
     printf " exited with a status of ${_es}\n";
     exit ${_es}' ERR
 
-DOCKER_WP_DIR=/var/www/html
+DOCKER_WP_DIR=/var/www/index
 DOCKER_WP_URL=http://localhost:8080
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 E0="$(printf "\e[0m")"        # reset
@@ -180,7 +180,7 @@ import_uploads() {
         docker compose cp "${CACHE_UPLOADS_DIR}" \
             "index-web:${DOCKER_WP_UPLOADS_DIR}.temp" 2>/dev/null
         echo 'Set ownership of temp uploads dir to www-data:wwww-data'
-        docker compose exec index-web chown -R www-data:www-data \
+        docker compose exec --user root index-web chown -R www-data:www-data \
             "${DOCKER_WP_UPLOADS_TEMP_DIR}"
         echo 'Replace uploads dir with temp uploads dir'
         docker compose exec index-web mv "${DOCKER_WP_UPLOADS_DIR}" \
@@ -348,7 +348,7 @@ script_setup() {
                 error_exit 'docker daemon is not running'
             fi
             # Ensure services are running
-            for _service in index-web index-wpdb
+            for _service in index-web index-db
             do
                 if ! docker compose exec "${_service}" true 2>/dev/null
                 then
@@ -525,7 +525,7 @@ wpcli() {
     case "${SCRIPT_ENV}" in
         'docker')
         # Call WP-CLI with appropriate site arguments via Docker
-            docker compose exec index-wpcli \
+            docker compose exec index-web \
                 /usr/local/bin/wp \
                     --path="${DOCKER_WP_DIR}" \
                     --url="${DOCKER_WP_URL}" \

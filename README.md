@@ -164,7 +164,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Name      | Version |
 | --------- | ------- |
-| WordPress | `6.4.3`   |
+| WordPress | `6.3.1`   |
 
 Also see [`.env.example`](.env.example).
 

@@ -9,7 +9,7 @@
 #   The "2>/dev/null" below silences the messages from docker compose run.
 #   For example, the output like the following will not be visible:
 #       [+] Creating 2/0
-#        ✔ Container index-wpdb  Running                                  0.0s
+#        ✔ Container index-db  Running                                  0.0s
 #        ✔ Container index-web   Running                                  0.0s
 #
 set -o errexit
@@ -47,8 +47,10 @@ classic-editor
 redirection
 tablepress
 wordpress-importer
-wordpress-seo
-'
+wordpress-seo'
+
+WP_USER="www-data"
+
 # NOTE: wordfence does not play nice with Docker. Enabling it results in WP-CLI
 #       commands taking approximately 13 times longer (ex. 10.8 seconds
 #       instead of 0.8 seconds)
@@ -66,7 +68,7 @@ THEMES_REMOVE='
 twentytwentyone
 twentytwentytwo
 '
-WEB_WP_DIR=/var/www/html
+WEB_WP_DIR=/var/www/index
 WEB_WP_URL=http://localhost:8080
 
 
@@ -128,7 +130,7 @@ check_requirements() {
     fi
 
     # Ensure docker containers are running:
-    for _container in index-web index-wpcli index-wpdb
+    for _container in index-web index-db
     do
         if ! docker compose exec "${_container}" true &>/dev/null
         then
@@ -140,7 +142,7 @@ check_requirements() {
 
 composer_install() {
     header 'Composer install'
-    docker compose run --rm index-composer install --ansi 2>&1 \
+    docker compose run --rm index-web composer install --ansi 2>&1 \
         | sed \
             -e'/Container.*Running$/d' \
             -e'/is looking for funding./d' \
@@ -196,12 +198,11 @@ environment_info() {
     local _key _val IFS
     header 'Container information'
 
-    # index-composer
-    printf "${E1}%s${E0} - %s\n" \
-        'index-composer' 'A Dependency Manager for PHP'
-    print_key_val 'Composer version' \
-        "$(docker compose run --rm index-composer \
-            --no-ansi --version 2>/dev/null | sed -e's/^Composer version //')"
+    # index-db
+    printf "${E1}%s${E0} - %s\n" 'index-db' \
+        'Database server for WordPress'
+    print_key_val 'MariaDB version' \
+        "$(echo; docker compose exec index-db mariadb --version)"
     echo
 
     # index-web
@@ -213,11 +214,10 @@ environment_info() {
     print_key_val 'PHP version' \
         "$(docker compose exec index-web php --version \
             | awk '/^PHP/ {print $2}')"
-    echo
-
-    # index-wpcli
-    printf "${E1}%s${E0} - %s\n" \
-        'index-wpcli' 'The command line interface for WordPress'
+    print_key_val 'Composer version' \
+        "$(docker compose run --rm index-web \
+            composer --version 2>/dev/null \
+            | sed 's/Composer version \([^ ]*\).*/\1/')"
     IFS=$'\n'
     for _line in $(wpcli --info | sort)
     do
@@ -228,8 +228,6 @@ environment_info() {
         [[ "${_key}" =~ ^WP-CLI ]] || continue
         print_key_val "${_key}" "${_val}"
     done
-    print_key_val 'PHP version' \
-        "$(wpcli cli info | awk '/^PHP version/ {print $3}')"
     echo
 }
 
@@ -334,7 +332,6 @@ uninstall_plugins() {
 }
 
 
-
 update_options() {
     local _date_format _default_comment_status _noop _permalink_structure \
         _time_format
@@ -392,19 +389,26 @@ wordpress_status() {
 
 wpcli() {
     # Call WP-CLI with appropriate site arguments via Docker
-    docker compose exec \
+    docker compose exec -T --user "$WP_USER" \
         --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
         --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
         --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-        index-wpcli \
+        index-web \
             /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" \
             "${@}"
 }
 
+check_user_permissions() {
+    if ! docker compose exec -T --user "$WP_USER" \
+        index-web test -w "$WEB_WP_DIR"; then \
+        error_exit "$WP_USER does not have write permissions on $WEB_WP_DIR"
+    fi
+}
 
 #### MAIN #####################################################################
 
 check_requirements
+check_user_permissions
 environment_info
 composer_install
 install_wordpress

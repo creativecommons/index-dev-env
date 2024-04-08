@@ -63,15 +63,11 @@ See [`CONTRIBUTING.md`][org-contrib].
 
 The [`docker-compose.yml`](docker-comose.yml) file defines the following
 containers:
-1. **index-composer** - A Dependency Manager for PHP
-   - This container does not have a persistent service. Expect the following
-     message when you start the services: `index-composer exited with code 0`
+1. **index-db** - Database server for WordPress
 2. **index-phpmyadmin** - Database administration
    - [localhost:8003](http://localhost:8003/)
-3. **index-wpcli** - The command line interface for WordPress
-4. **index-web** - Web server (WordPress and static HTML components)
+3. **index-web** - Web server (WordPress and static HTML components)
    - **[localhost:8080](http://localhost:8080/)**
-5. **index-wpdb** - Database server for WordPress
 
 
 ## Setup
@@ -168,7 +164,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Name      | Version |
 | --------- | ------- |
-| WordPress | `6.3`   |
+| WordPress | `6.3.1`   |
 
 Also see [`.env.example`](.env.example).
 
@@ -212,7 +208,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 ## Stage and Prod configuration
 
 The staging server and production server are configured via Salt managed in the
-in [creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
+[creativecommons/sre-salt-prime][sre-salt-prime] repository. The list below
 include the specifics (is non-exhaustive):
 - `pillars/`
   - [`3_HST/index/`][salt-hst-index]

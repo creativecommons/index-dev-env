@@ -11,7 +11,7 @@ trap '_es=${?};
 
 # shellcheck disable=SC1091
 source .env
-WEB_WP_DIR=/var/www/html
+WEB_WP_DIR=/var/www/index
 WEB_WP_URL=http://localhost:8080
 
 # Call WP-CLI with appropriate site arguments via Docker
@@ -19,7 +19,7 @@ docker compose exec \
     --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
     --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
     --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-    index-wpcli \
+    index-web \
         /usr/local/bin/wp \
             --path="${WEB_WP_DIR}" \
             --url="${WEB_WP_URL}" \

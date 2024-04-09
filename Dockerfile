@@ -88,14 +88,14 @@ RUN chown -R www-data:www-data /var/www/.wp-cli
 
 
 # Create the index directory and set permissions
-RUN mkdir -p /var/www/index
+RUN mkdir -p /var/www/index/wp-content/uploads
 RUN chown -R www-data:www-data /var/www/index
 
 
 # Use WP-CLI to intall WordPress
 USER www-data
 WORKDIR /var/www/index
-ARG WP_VERSION 
+ARG WP_VERSION
 RUN wp core download --version=$WP_VERSION
 
 # Add WordPress basic configuration

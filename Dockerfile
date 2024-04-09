@@ -88,7 +88,7 @@ RUN chown -R www-data:www-data /var/www/.wp-cli
 
 
 # Create the index directory and set permissions
-RUN mkdir -p /var/www/index
+RUN mkdir -p /var/www/index/wp-content/uploads
 RUN chown -R www-data:www-data /var/www/index
 
 

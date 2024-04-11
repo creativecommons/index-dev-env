@@ -61,7 +61,7 @@ See [`CONTRIBUTING.md`][org-contrib].
 
 ## Docker containers
 
-The [`docker-compose.yml`](docker-comose.yml) file defines the following
+The [`docker-compose.yml`](docker-compose.yml) file defines the following
 containers:
 1. **index-db** - Database server for WordPress
 2. **index-phpmyadmin** - Database administration

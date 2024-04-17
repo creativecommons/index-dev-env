@@ -60,6 +60,7 @@ EXPOSE 80
 # Enable Apache modules
 RUN a2enmod php8.2
 RUN a2enmod rewrite
+RUN a2enmod headers
 
 # Configure PHP
 COPY config/90-local.ini /etc/php/8.2/apache2/conf.d/

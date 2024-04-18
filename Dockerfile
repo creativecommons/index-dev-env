@@ -58,6 +58,7 @@ EXPOSE 80
 
 
 # Enable Apache modules
+RUN a2enmod headers
 RUN a2enmod php8.2
 RUN a2enmod rewrite
 

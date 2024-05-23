@@ -1,11 +1,4 @@
-# https://github.com/docker/compose/issues/4513#issuecomment-281478365
-# >> Are we just expected to stay on [Docker Compose file format version 2] if
-# >> we want to use docker-compose and not swarm mode?
-# >
-# > Yes.
-#
-# https://docs.docker.com/compose/compose-file/compose-file-v2/
-version: '2.4'
+# https://docs.docker.com/compose/compose-file/
 
 services:
 

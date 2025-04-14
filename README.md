@@ -204,6 +204,30 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
+<details>
+<summary> vocabulary-theme release testing QA checklist</summary>
+
+1. run setup-wp script (again to make sure WP is current version)
+2. be sure to clear/disable caches locally
+3. review any new context/template/page
+4. review pages:
+    - [home-page](http://localhost:8080/) 
+    - [sub-page](http://localhost:8080/about)
+    - [team-index](http://localhost:8080/mission/team)
+    - [search-index](http://localhost:8080/?s)
+    - [archive-page](http://localhost:8080/blog/archive)
+    - [blog-index](http://localhost:8080/blog)
+    - [blog-post](http://localhost:8080/2025/03/03/from-strategy-to-action-focus-areas-for-2025/)
+    - [faq](http://localhost:8080/faq)
+    - [mp](http://localhost:8080/platform/toolkit/)
+    - [licenses list](http://localhost:8080/licenses)
+    - [license deed | EN](http://localhost:8080/licenses/by/4.0/)
+    - [license legal code | EN](http://localhost:8080/licenses/by/4.0/legalcode.en)
+    - [license deed | AR](http://localhost:8080/licenses/by/4.0/deed.ar)
+    - [license legal code | AR](http://localhost:8080/licenses/by/4.0/legalcode.ar)
+
+</details>
+
 
 ## Stage and Prod configuration
 

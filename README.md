@@ -209,7 +209,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 1. run setup-wp script (again to make sure WP is current version)
 2. be sure to clear/disable caches locally
-3. review (any new context/template/page)
+3. review any new context/template/page
 4. review pages:
     - [home-page](http://localhost:8080/) 
     - [sub-page](http://localhost:8080/about)

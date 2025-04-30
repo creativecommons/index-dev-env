@@ -204,6 +204,7 @@ Also see [`config/composer/composer.json`](config/composer/composer.json).
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).
 
+### vocabulary-theme QA Checklist
 <details>
 <summary> vocabulary-theme release testing QA checklist</summary>
 

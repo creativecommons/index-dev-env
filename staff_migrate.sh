@@ -34,6 +34,7 @@ PROD_UPLOADS_DIR=/var/www/index/wp-content/uploads
 PROD_WP_DIR=/var/www/index/wp
 PROD_WP_HOST=creativecommons.org
 PROD_WP_URL="https://${PROD_WP_HOST}"
+declare -i RSYNC_PROT_VER_MIN=31
 # NOTE: wordfence does not play nice with Docker. Enabling it results in WP-CLI
 #       commands taking approximately 13 times longer (ex. 10.8 seconds
 #       instead of 0.8 seconds)
@@ -57,6 +58,8 @@ SERVER_WP_UPLOADS_DIR=''
 SERVER_WP_URL=''
 # The parse_command() function sets the following global variables:
 COMMAND=''
+# The rsync_version() function sets the following global variables:
+declare -i RSYNC_PROT_VER=0
 
 
 #### FUNCTIONS ################################################################
@@ -323,8 +326,10 @@ pull_uploads() {
 
 
 rsync_version() {
-    print_key_val 'rsync version' \
-        "$(rsync --version 2>&1 | awk '/version/ {print $3", "$4" "$5" "$6}')"
+    local _rsync_version="$(rsync --version 2>&1 \
+        | awk '/version/ {print $3", "$4" "$5" "$6}')"
+    RSYNC_PROT_VER=${_rsync_version##* }
+    print_key_val 'rsync version' "${_rsync_version}"
 }
 
 
@@ -378,13 +383,12 @@ script_setup() {
             fi
 
             # Check rsync version
-            _rsync_ver=$(rsync --version | grep --fixed-strings version)
-            if ! echo "${_rsync_ver}" \
-                | grep --quiet --fixed-strings 'protocol version 31'
+            if (( RSYNC_PROT_VER < 31 ))
             then
-                _err='older rsync version--please install via `brew install'
-                _err="${_err} rsync\` (you may need to open a new terminal"
-                _err="${_err} to see new the rsync)"
+                _err="rsync protocol version ${RSYNC_PROT_VER} is less than"
+                _err="${_err} ${RSYNC_PROT_VER_MIN}--please install via"
+                _err="${_err} \`brew install rsync\` (you may need to open a"
+                _err="${_err} new terminal to see new the rsync)"
                 error_exit "${_err}"
             fi
 

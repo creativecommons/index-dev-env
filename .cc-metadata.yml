@@ -6,5 +6,3 @@ english_name: creativecommons.org - environment
 technologies: HTML, CSS, Javascript, PHP, Docker, Bash
 # Whether this repository should be featured on the CC Open Source site's "Projects" page
 featured: false
-# Slack channel name (optional key)
-slack: ''

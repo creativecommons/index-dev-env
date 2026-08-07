@@ -2,22 +2,18 @@
 
 # https://hub.docker.com/_/debian
 FROM debian:bookworm-slim
+# NOTE: Occurrences of "NOTE: PHP version", below, where a specific PHP version
+#       is required (based on version supported by installed Debian version)
 
-
-# Configure apt not to prompt during docker build
-ARG DEBIAN_FRONTEND=noninteractive
-
-# Configure apt to avoid installing recommended and suggested packages
-RUN apt-config dump \
-    | grep -E '^APT::Install-(Recommends|Suggests)' \
-    | sed -e's/1/0/' \
-    | tee /etc/apt/apt.conf.d/99no-recommends-no-suggests
-
-# Resynchronize the package index files from their sources
-RUN apt-get update
-
-# Install packages
-RUN apt-get install -y \
+# https://docs.docker.com/build/building/best-practices/#apt-get
+# - Resynchronize the package index, update packages, install packages,
+#   clean-up, and update CA certificates
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+        --no-allow-insecure-repositories --quiet \
+    && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade \
+        --no-install-recommends --no-install-suggests --quiet --yes \
+    && DEBIAN_FRONTEND=noninteractive apt-get install \
+        --no-install-recommends --no-install-suggests --quiet --yes \
     apache2 \
     apache2-utils \
     ca-certificates \
@@ -26,21 +22,18 @@ RUN apt-get install -y \
     less \
     libapache2-mod-php \
     mariadb-client \
-    php8.2 \
-    php8.2-mbstring \
-    php8.2-mysql \
-    php8.2-pdo \
-    php8.2-xml \
+    php \
+    php-mbstring \
+    php-mysql \
+    php-pdo \
+    php-xml \
     sudo \
     unzip \
     vim \
     wget \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean --quiet \
+    && rm --recursive --force /var/lib/apt/lists/* \
     && update-ca-certificates
-
-# Clean up packages: Saves space by removing unnecessary package files
-# and lists
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
 
 
 # Add Apache2's www-data user to sudo group and enable passwordless startup
@@ -57,7 +50,7 @@ CMD ["sudo", "--preserve-env", "/startupservice.sh"]
 EXPOSE 80
 
 
-# Enable Apache modules
+# Enable Apache modules - NOTE: PHP version
 RUN a2enmod headers \
     && a2enmod php8.2 \
     && a2enmod proxy \
@@ -65,7 +58,7 @@ RUN a2enmod headers \
     && a2enmod rewrite \
     && a2enmod ssl
 
-# Configure PHP
+# Configure PHP - NOTE: PHP version
 COPY config/90-local.ini /etc/php/8.2/apache2/conf.d/
 
 # Install Composer

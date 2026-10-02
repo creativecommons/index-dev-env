@@ -13,7 +13,6 @@ trap '_es=${?};
 E0="$(printf "\e[0m")"        # reset
 E30="$(printf "\e[30m")"      # foreground: black
 E31="$(printf "\e[31m")"      # foreground: red
-E35="$(printf "\e[35m")"      # foreground: magenta
 E36="$(printf "\e[36m")"      # foreground: cyan
 E92="$(printf "\e[92m")"      # foreground: bright green
 E94="$(printf "\e[94m")"      # foreground: bright blue
@@ -168,9 +167,14 @@ COMPATIBILITY='
 /licenses/nc-nd/1.0/
 /licenses/mark/1.0/
 /licenses/by-nc-nd/1.0/
+/license/by/4.0/
 /license/
 /license
+/licences/by-nc/4.0/
+/licences/
 /licences
+/licence/by-nc-sa/4.0/
+/licence/
 /licence
 '
 

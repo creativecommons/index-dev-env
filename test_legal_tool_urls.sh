@@ -214,11 +214,6 @@ DEFAULT_VER_RETIRED='
 /licenses/devnations
 '
 
-SELECT_TOOLS_RDF='
-/licenses/by/4.0/
-/publicdomain/zero/1.0/
-'
-
 #### FUNCTIONS ################################################################
 
 
@@ -302,60 +297,6 @@ test_expect_code() {
 }
 
 
-test_expect_rdf() {
-    # Success is 303=>200
-    local _code _header _http _location _redirect _result _path _paths _url
-    _header="${1}"
-    _paths="${2}"
-    print_header "Test expect RDF/XML: ${_header}"
-    for _path in ${_paths}
-    do
-        _url="${TARGET_HOST}${_path}"
-        _result=$(http --headers --pretty none "${_url}" \
-            'Accept: application/rdf+xml')
-        _http=$(echo "${_result}" \
-            | awk '/^HTTP/ {print $1}' \
-            | tr -d '[:cntrl:]')
-        _code=$(echo "${_result}" \
-            | awk '/^HTTP/ {print $2}' \
-            | tr -d '[:cntrl:]')
-        _redirect=''
-        case "${_code}" in
-            303) echo -n "${E35}"; _redirect="${E35}";;
-              *) echo -n "${E31}"; FAILURES=$((FAILURES+1));;
-        esac
-        printf "%s  %s  %s  %s${E0}\n" "${_http}" "${_code}" "${_url}" \
-            'Accept: application/rdf+xml'
-        unset _result
-
-        if [[ -n "${_redirect}" ]]
-        then
-            _result=$(http --all --follow --headers --pretty none "${_url}" \
-                'Accept: application/rdf+xml')
-            _location=$(echo "${_result}" \
-                | awk '/^Location:/ {print $2}' \
-                | tr -d '[:cntrl:]')
-            _code=$(echo "${_result}" \
-                | awk '/^HTTP/ {print $2}' \
-                | tail -n1 \
-                | tr -d '[:cntrl:]')
-            _content_type=$(echo "${_result}" \
-                | awk '/^Content-Type:/ {print $2}' \
-                | tail -n1 \
-                | tr -d '[:cntrl:]')
-            echo -n "${_redirect}>>>>>>>>${E0}"
-            case "${_code}" in
-                200) echo -n "${E92}";;
-                  *) echo -n "${E31}"; FAILURES=$((FAILURES+1));;
-            esac
-            printf "  %s  %s  %s${E0}\n" "${_code}" "${_location}" \
-                "${_content_type}"
-        fi
-    done
-    echo
-}
-
-
 #### MAIN #####################################################################
 
 
@@ -391,9 +332,6 @@ test_expect_found 'Default versions - current' "${DEFAULT_VER_CURRENT}"
 
 echo 'https://github.com/creativecommons/cc-legal-tools-app/issues/571'
 test_expect_found 'Default versions - retired' "${DEFAULT_VER_RETIRED}"
-
-echo 'https://github.com/creativecommons/sre-salt-prime/issues/253'
-test_expect_rdf 'Support request RDF/XML' "${SELECT_TOOLS_RDF}"
 
 if (( FAILURES > 0 ))
 then

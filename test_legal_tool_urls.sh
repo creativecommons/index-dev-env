@@ -168,9 +168,14 @@ COMPATIBILITY='
 /licenses/nc-nd/1.0/
 /licenses/mark/1.0/
 /licenses/by-nc-nd/1.0/
+/license/by/4.0/
 /license/
 /license
+/licences/by-nc/4.0/
+/licences/
 /licences
+/licence/by-nc-sa/4.0/
+/licence/
 /licence
 '
 

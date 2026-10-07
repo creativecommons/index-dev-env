@@ -45,10 +45,11 @@ COPY config/startupservice.sh /startupservice.sh
 RUN chmod +x /startupservice.sh
 CMD ["sudo", "--preserve-env", "/startupservice.sh"]
 
+# Reduce version infomration
+RUN echo 'ServerTokens Minor' >> /etc/apache2/apache2.conf
 
 # Expose ports for Apache
 EXPOSE 80
-
 
 # Enable Apache modules - NOTE: PHP version
 RUN a2enmod headers \
@@ -57,6 +58,7 @@ RUN a2enmod headers \
     && a2enmod proxy_http \
     && a2enmod rewrite \
     && a2enmod ssl
+
 
 # Configure PHP - NOTE: PHP version
 COPY config/90-local.ini /etc/php/8.2/apache2/conf.d/
@@ -67,8 +69,8 @@ RUN curl --silent --show-error https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Create compose directory for www-data
-RUN mkdir /var/www/.composer
-RUN chown -R www-data:www-data /var/www/.composer
+RUN mkdir /var/www/.composer \
+    && chown -R www-data:www-data /var/www/.composer
 
 
 # Install WordPress CLI (WP-CLI)
@@ -80,13 +82,17 @@ RUN curl --silent --show-error --location \
     && mv wp-cli.phar /usr/local/bin/wp
 
 # Create WP-CLI directory for www-data
-RUN mkdir /var/www/.wp-cli
-RUN chown -R www-data:www-data /var/www/.wp-cli
+RUN mkdir /var/www/.wp-cli \
+    && chown -R www-data:www-data /var/www/.wp-cli
 
 
 # Create the index directory and set permissions
-RUN mkdir -p /var/www/index/wp-content/uploads
-RUN chown -R www-data:www-data /var/www/index
+RUN mkdir -p /var/www/index/wp-content/uploads \
+    && chown -R www-data:www-data /var/www/index \
+    && mkdir -p /var/www/index/error
+
+# Copy Apache2 error documents
+COPY config/error/* /usr/local/share/apache2/error/
 
 
 # Use WP-CLI to intall WordPress

@@ -35,7 +35,7 @@ services:
     restart: on-failure
     volumes:
       # Apache2 web server configuration
-      - ./config/web-sites-available:/etc/apache2/sites-available:ro
+      - ./config/00default.conf:/etc/apache2/sites-available/000-default.conf:ro
       # CC Legal Tools
       # - (assumes the cc-legal-tools-data repository has been cloned next to
       #   this repository)
@@ -59,25 +59,6 @@ services:
       # Composer files
       - ./config/composer/composer.json:/var/www/index/composer.json
       - ./config/composer/composer.lock:/var/www/index/composer.lock
-
-
-  index-phpmyadmin:
-    container_name: index-phpmyadmin
-    depends_on:
-      - index-db
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: index-db
-      PMA_PORT: 3306
-    # https://hub.docker.com/_/phpmyadmin
-    image: phpmyadmin
-    networks:
-      - index-backend
-    ports:
-      - '8003:80'
-    volumes:
-      # Apache2 web server configuration
-      - ./config/phpmyadmin-sites-available:/etc/apache2/sites-available:ro
 
 
   index-db:

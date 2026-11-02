@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f896f012d5e6792f2114fdd0c53616c5",
+    "content-hash": "1a8ff7f4f7fb852aec29cebdcf372ac9",
     "packages": [
         {
             "name": "composer/installers",
@@ -150,24 +150,25 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-24T20:46:46+00:00"
+            "time": "2024-06-24T20:46:46+00:00",
+            "published-time": "2024-06-24T21:01:36+00:00"
         },
         {
             "name": "creativecommons/vocabulary-theme",
-            "version": "v2.11",
+            "version": "v2.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativecommons/vocabulary-theme",
-                "reference": "7f0ad574aa4fc4fc06a785111da1784027f3c748"
+                "reference": "51fe425fdd612554a24d14718547bbb8b0a56665"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/7f0ad574aa4fc4fc06a785111da1784027f3c748",
-                "reference": "7f0ad574aa4fc4fc06a785111da1784027f3c748",
+                "url": "https://api.github.com/repos/creativecommons/vocabulary-theme/zipball/51fe425fdd612554a24d14718547bbb8b0a56665",
+                "reference": "51fe425fdd612554a24d14718547bbb8b0a56665",
                 "shasum": ""
             },
             "type": "wordpress-theme",
-            "time": "2026-10-06T19:19:15+00:00"
+            "time": "2026-11-02T13:03:30+00:00"
         },
         {
             "name": "reyhoun/acf-menu-chooser",
@@ -349,5 +350,5 @@
     "prefer-lowest": false,
     "platform": {},
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.11.0"
 }

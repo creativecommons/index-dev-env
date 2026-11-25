@@ -211,7 +211,7 @@ See [`config/web-sites-available/000-default.conf`][dev-webconfig].
 
 | Name      | Version |
 | --------- | :-----: |
-| WordPress | `6.3.1` |
+| WordPress | `6.8.13` |
 
 Also see [`.env.example`](.env.example).
 
@@ -220,14 +220,14 @@ Also see [`.env.example`](.env.example).
 
 | Name                                                     | Version  |
 | -------------------------------------------------------- | :------: |
-| [Advanced Custom Fields][adv-custom-fields]              | `6.2.1`  |
+| [Advanced Custom Fields][adv-custom-fields]              | `6.8.11`  |
 | [Advanced Custom Fields: Menu Chooser][acf-menu-chooser] | `1.1.0`  |
-| [Classic Editor][classic-editor]                         | `1.6.3`  |
-| [Monster Insights Google Analytics][monster-insights]    | `8.19`   |
-| [Redirection][redirection]                               | `5.3.10` |
-| [Tablepress][tablepress]                                 | `2.1.7`  |
-| [Wordfence][wordfence]                                   | `7.10.4` |
-| [WordPress Importer][wp-importer]                        | `0.8.1`  |
+| [Classic Editor][classic-editor]                         | `1.7.0`  |
+| [Monster Insights Google Analytics][monster-insights]    | `11.3.0`   |
+| [Redirection][redirection]                               | `5.10.1` |
+| [Tablepress][tablepress]                                 | `3.5`  |
+| [Wordfence][wordfence]                                   | `9.1.1` |
+| [WordPress Importer][wp-importer]                        | `0.9.7`  |
 | [Yoast SEO][yoast-seo]                                   | `21.2`   |
 
 Also see [`config/composer/composer.json`](config/composer/composer.json).

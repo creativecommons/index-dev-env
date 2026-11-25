@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49815d8f01174630d6d0828aaf6d7ecb",
+    "content-hash": "104ce5751db29954bbf28f627667f798",
     "packages": [
         {
             "name": "composer/installers",
@@ -181,15 +181,15 @@
         },
         {
             "name": "wpackagist-plugin/advanced-custom-fields",
-            "version": "6.1.8",
+            "version": "6.8.11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/advanced-custom-fields/",
-                "reference": "tags/6.1.8"
+                "reference": "tags/6.8.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.1.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.8.11.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -199,15 +199,15 @@
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "1.6.3",
+            "version": "1.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/1.6.3"
+                "reference": "tags/1.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -217,15 +217,15 @@
         },
         {
             "name": "wpackagist-plugin/google-analytics-for-wordpress",
-            "version": "8.19.0",
+            "version": "11.3.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/google-analytics-for-wordpress/",
-                "reference": "tags/8.19.0"
+                "reference": "tags/11.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.8.19.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.11.3.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -235,15 +235,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "5.3.10",
+            "version": "5.10.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/5.3.10"
+                "reference": "tags/5.10.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.5.3.10.zip"
+                "url": "https://downloads.wordpress.org/plugin/redirection.5.10.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -253,15 +253,15 @@
         },
         {
             "name": "wpackagist-plugin/tablepress",
-            "version": "2.1.7",
+            "version": "3.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tablepress/",
-                "reference": "tags/2.1.7"
+                "reference": "tags/3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tablepress.2.1.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/tablepress.3.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -271,15 +271,15 @@
         },
         {
             "name": "wpackagist-plugin/wordfence",
-            "version": "7.10.4",
+            "version": "9.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordfence/",
-                "reference": "tags/7.10.4"
+                "reference": "tags/9.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordfence.7.10.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordfence.9.1.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -289,15 +289,15 @@
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",
-            "version": "0.8.1",
+            "version": "0.9.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.8.1"
+                "reference": "tags/0.9.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
